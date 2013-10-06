@@ -1,4 +1,4 @@
 wmgc
 ====
 
-Western Mass Go Club Websit
+Western Mass Go Club Web-site
