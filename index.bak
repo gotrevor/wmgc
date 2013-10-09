@@ -18,8 +18,7 @@ div#contact { clear: left; padding: 5px 4em 5px 2em; background: #ffffcc; }
 div#problem { float: left; margin-right: 25px;  }
 .biglink { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
 h2 { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
-h3 { color: #000000; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
-
+  
 p.sponsors a { font-weight: bold; margin: 5px;}
 </STYLE>
 </HEAD>
@@ -35,7 +34,7 @@ p.sponsors a { font-weight: bold; margin: 5px;}
         <A
           href="http://maps.google.com/maps?f=d&source=s_d&saddr=&daddr=17+Kellogg+Ave,+MA+01002&hl=en&geocode=&mra=ls&sll=42.377235,-72.519647&sspn=0.004494,0.007178&ie=UTF8&ll=42.377315,-72.520366&spn=0.004494,0.007178&t=h&z=17"
           target='new'
-        >(behind the Unitarian church and Bart's)</A><BR>
+        >(behind the Unitarian church and Bart's)</A><BR> 
         Amherst, MA<BR>
       </P>
     </div>
@@ -49,11 +48,11 @@ p.sponsors a { font-weight: bold; margin: 5px;}
           href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=Northampton+Brewery+Bar-Grille,+Northampton,+MA&sll=42.318222,-72.631657&sspn=0.02034,0.032787&ie=UTF8&hq=Northampton+Brewery+Bar-Grille,&hnear=Northampton,+Hampshire,+Massachusetts&ll=42.317939,-72.630272&spn=0.019547,0.032787&t=h&z=15&iwloc=A"
           target='new'
         >Downtown
-        </A><BR>
+        </A><BR> 
         Northampton, MA<BR>
       </P>
     </DIV>
-
+    
       <DIV ID="links">
           <P><A class="biglink" href="players.php">Players</a></P>
 
@@ -74,29 +73,6 @@ p.sponsors a { font-weight: bold; margin: 5px;}
     </DIV>
 
     <H2 align="center">News</H2>
-    <table>
-   <tr><td><h3>2012 Fall Tournament</h3></td></tr>
-   <tr><td>
-    <B>Event Date/Time:</B><br>
-		Sunday Nov. 11<br>
-		9:00a.m. registration.<br>
-		9:45a.m. arrivals after this time may not make round 1.<br>
-		10:00a.m. round 1 starts.<br>
-		6:00p.m. end<br><br>
-
-	<b>Location:</b><br>
-		Worlds Apart Games<Br>
-		48 North Pleasant Street #B2<br>
-		Amherst, MA 01002<br><br>
-
-	<B>Entry fee:</b><br>
-		$25 everyone
-		$15 students
-		AGA membership required<br>
-		($15/yr for new members)<br>
-		($10 day fee for non-AGA members)<br>
-		($10 for under age 23)<br></td></tr>
-</table>
 
      <DIV ID="mlist">
 
@@ -105,11 +81,11 @@ p.sponsors a { font-weight: bold; margin: 5px;}
        <P>
        To receive announcements about our meetings and tournaments,
        join <A HREF="http://games.groups.yahoo.com/group/westernmassgo/">our
-       mailing list</A> at Yahoo! Groups and <A HREF="http://www.facebook.com/groups/WesternMassGo">our Facebook Group.</A>
+       mailing list</A> at Yahoo! Groups.
        </P>
-
+       
      </DIV>
-
+     
      <DIV ID="contact">
         <H2>Contact</H2>
          <P>

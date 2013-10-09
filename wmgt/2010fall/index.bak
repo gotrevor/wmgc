@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<TITLE>Spring 2006 Tournament -- Western Mass Go Club</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" TYPE="text/css" HREF="../../wmgc.css">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+   <DIV ID="title" align="center"><IMG src="../../westernmass.gif" width="417" height="18" alt="Western Massachusetts Go Club"></DIV>
+<p>We had a good turnout with 21 players participating. The tournament included players from as far away as Boston and
+Hanover NH. Below are a list of participants and the round by round matchups. The prize winners and game
+results are coming soon.</p>
+<!--
+<h1>Players</h1>
+  <table>
+    <tr><th>Name</th><th>Rank</tr>
+    <tr><td>Micah Feldman</td><td>4d</td></tr>
+    <tr><td>Richard Chalmers</td><td>2d</td></tr>
+    <tr><td>John Myers</td><td>2d</td></tr>
+    <tr><td>Eric Osman</td><td>2d</td></tr>
+    <tr><td>William Arrand</td><td>1d</td></tr>
+    <tr><td>Wayne Nelson</td><td>1d</td></tr>
+    <tr><td>Matt Noonan</td><td>1d</td></tr>
+    <tr><td>Rebecca Torrey</td><td>1d</td></tr>
+    <tr><td>Alexander Henzel</td><td>4k</td></tr>
+    <tr><td>Evan Rowland</td><td>4k</td></tr>
+    <tr><td>Richard Buckman</td><td>5k</td></tr>
+    <tr><td>Jason McGibbon</td><td>5k</td></tr>
+    <tr><td>Douwe Vanderveen</td><td>5k</td></tr>
+    <tr><td>Teddy Feldman</td><td>10k</td></tr>
+    <tr><td>Todd Cesere</td><td>12k</td></tr>
+    <tr><td>Scott Magnoni</td><td>13k</td></tr>
+    <tr><td>Ralph St. Louis</td><td>15k</td></tr>
+    <tr><td>Laura Wu</td><td>15k</td></tr>
+    <tr><td>Bryan Denly</td><td>16k</td></tr>
+    <tr><td>Marjorie Hey</td><td>19k</td></tr>
+    <tr><td>Damian Muriel</td><td>19k</td></tr>
+  </table>
+  
+<h1>Matchups</h1>
+  <h2>ROUND 1:</h2>
+  <table>
+  <tr><th>Playing White</th><th>Playing Black</th><th>Handicap</th><th>Komi</th></tr>
+  <tr><td>Eric Osman</td><td>John Myers</td><td>0</td><td>7</td></tr>
+  <tr><td>Richard Chalmers</td><td>Matt Noonan</td><td>0</td><td>0</td></tr>
+  <tr><td>Rebecca Torrey</td><td>Wayne Nelson</td><td>0</td><td>7</td></tr>
+  <tr><td>William Arrand</td><td>Evan Rowland</td><td>4</td><td>0</td></tr>
+  <tr><td>Douwe Vanderveen</td><td>Alexander Henzel</td><td>0</td><td>0</td></tr>
+  <tr><td>Richard Buckman</td><td>Jason McGibbon</td><td>0</td><td>7</td></tr>
+  <tr><td>Todd Cesere</td><td>Scott Magnoni</td><td>0</td><td>0</td></tr>
+  <tr><td>Laura Wu</td><td>Ralph St. Louis</td><td>0</td><td>7</td></tr>
+  <tr><td>Marjorie Hey</td><td>Bryan Denly</td><td>3</td><td>0</td></tr>
+  </table>
+  
+  <h2>ROUND 2:</h2>
+  <table>
+  <tr><th>Playing White</th><th>Playing Black</th><th>Handicap</th><th>Komi</th></tr>
+  <tr><td>Eric Osman</td><td>Richard Chalmers</td><td>0</td><td>7</td></tr>
+  <tr><td>Micah Feldman</td><td>John Myers</td><td>2</td><td>0</td></tr>
+  <tr><td>Matt Noonan</td><td>Wayne Nelson</td><td>0</td><td>7</td></tr>
+  <tr><td>William Arrand</td><td>Rebecca Torrey</td><td>0</td><td>7</td></tr>
+  <tr><td>Alexander Henzel</td><td>Evan Rowland</td><td>0</td><td>7</td></tr>
+  <tr><td>Jason McGibbon</td><td>Douwe Vanderveen</td><td>0</td><td>7</td></tr>
+  <tr><td>Richard Buckman</td><td>Teddy Feldman</td><td>5</td><td>0</td></tr>
+  <tr><td>Bryan Denly</td><td>Todd Cesere</td><td>4</td><td>0</td></tr>
+  <tr><td>Scott Magnoni</td><td>Ralph St. Louis</td><td>2</td><td>0</td></tr>
+  <tr><td>Damian Muriel</td><td>Laura Wu</td><td>4</td><td>0</td></tr>
+  </table>
+  
+  <h2>ROUND 3:</h2>
+  <table>
+  <tr><th>Playing White</th><th>Playing Black</th><th>Handicap</th><th>Komi</th></tr>
+  <tr><td>Richard Chalmers</td><td>Micah Feldman</td><td>2</td><td>0</td></tr>
+  <tr><td>William Arrand</td><td>Eric Osman</td><td>0</td><td>0</td></tr>
+  <tr><td>Wayne Nelson</td><td>John Myers</td><td>0</td><td>0</td></tr>
+  <tr><td>Rebecca Torrey</td><td>Evan Rowland</td><td>4</td><td>0</td></tr>
+  <tr><td>Alexander Henzel</td><td>Jason McGibbon</td><td>0</td><td>0</td></tr>
+  <tr><td>Teddy Feldman</td><td>Douwe Vanderveen</td><td>5</td><td>0</td></tr>
+  <tr><td>Scott Magnoni</td><td>Richard Buckman</td><td>8</td><td>0</td></tr>
+  <tr><td>Laura Wu</td><td>Todd Cesere</td><td>2</td><td>0</td></tr>
+  <tr><td>Marjorie Hey</td><td>Ralph St. Louis</td><td>4</td><td>0</td></tr>
+  <tr><td>Damian Muriel</td><td>Bryan Denly</td><td>3</td><td>0</td></tr>
+  </table>
+  
+  <h2>ROUND 4:</h2>
+  <table>
+  <tr><th>Playing White</th><th>Playing Black</th><th>Handicap</th><th>Komi</th></tr>
+  <tr><td>Micah Feldman</td><td>Matt Noonan</td><td>3</td><td>0</td></tr>
+  <tr><td>Eric Osman</td><td>Jason McGibbon</td><td>6</td><td>0</td></tr>
+  <tr><td>Richard Chalmers</td><td>Rebecca Torrey</td><td>0</td><td>0</td></tr>
+  <tr><td>Wayne Nelson</td><td>Evan Rowland</td><td>4</td><td>0</td></tr>
+  <tr><td>Alexander Henzel</td><td>William Arrand</td><td>4</td><td>0</td></tr>
+  <tr><td>Douwe Vanderveen</td><td>Alexander Henzel</td><td>0</td><td>7</td></tr>
+  <tr><td>Teddy Feldman</td><td>Todd Cesere</td><td>3</td><td>0</td></tr>
+  <tr><td>Bryan Denly</td><td>Scott Magnoni</td><td>3</td><td>0</td></tr>
+  <tr><td>Marjorie Hey</td><td>Laura Wu</td><td>4</td><td>0</td></tr>
+  <tr><td>Damian Muriel</td><td>Ralph St. Louis</td><td>4</td><td>0</td></tr>
+  </table>-->
+
+  <h1>Original Announcement</h1>
+<H1>Fall 2010 Tournament</H1>
+   
+      <P><B>Format:</B> AGA-sanctioned handicapped tournament, 4 rounds.</P>
+<P><B>When:</B> Saturday, November 13, 2010.  Registration starts at 9 AM.  First round starts at 10 AM.</P>
+<P><B>Location:</B>16th Floor Lederle Graduate Research Tower, UMass Amherst</P>
+<P><B>Maps:</B> Here's a <a href="http://www.umass.edu/visitorsctr/downloads/campusmap.pdf">map of UMass</a>.  The building is at C2 on the map, to the left of Northeast Residential Area.</P>
+
+   <P><B>Directions:</B> First follow these <A HREF="http://www.umass.edu/visitorsctr/Directions_to_Campus/">directions to UMass</A>.  </P>
+   
+      <P><B>Entry fee:</B> $20 / $10 for students and minors. Lunch will be delivered (pizza/salad) for $5 extra. AGA membership is required, but you can register on-site, or pay a $10 rating fee.</P>
+<!--<P><B>Why you should come:</B> (a) You love go! (b) Refreshments will be provided (coffee/donuts/etc).
+(c) Plenty of prizes!  We'll have three sections for prizes (number of entrants permitting), so that weaker players
+will have a chance at prizes, too.
+<P><B>Also:</B> For those coming a long way, overnight accomodations are available (contact organizers).</P>-->
+<P><B>Contact:</B><br />
+Trevor Morris: gotrevor@gmail.com 301-704-8483 - C<br /> Scott Magnoni: smagnoni@yahoo.com 339-225-0537 - C</P>
+
+      </DIV>
+
+</BODY>
+</HTML>

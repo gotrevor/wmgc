@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>Western Massachusetts Go Club test</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META name="keywords" content="Western Massachusetts Go Club">
+
+<STYLE type="text/css">
+body { margin: 15px 15% 0px 15%; }
+
+div#title { margin-bottom: 25px; }
+div#addr_left { align: left; float: left; }
+div#links { margin-top: 5px; align: right; text-align: right; }
+
+div#mlist { text-align: center; }
+div#contact { clear: left; padding: 5px 4em 5px 2em; background: #ffffcc; }
+div#problem { float: left; margin-right: 25px;  }
+.biglink { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+h2 { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+</STYLE>
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+   <DIV ID="title" align="center"><IMG src="westernmass.gif" width="417" height="18" alt="Western Massachusetts Go Club"></DIV>
+   
+   <DIV ID="addr_left" align="left">
+
+        <P><B>Mondays, 7 PM-closing</B><BR>
+          Amherst Coffee
+          <BR>Downtown (across from Jones Library)<BR> 
+          Amherst, MA<BR>
+        </P>
+        
+    </DIV>
+    
+      <DIV ID="links">
+          <P><A class="biglink" href="players.html">Players</a></P>
+
+          <P><A class="biglink" href="wmgt.html">Tournaments</a></P>
+          <P><A class="biglink" href="resources.html">Go Resources</a></P>
+          <P><A class="biglink" href="resources.html">Directions</a></P>
+      </DIV>
+
+  <HR noshade>
+
+  <DIV ID="problem">
+
+      <P align="left">Seasonal problem<BR>
+        from the <A href="http://www.g0ertz.de/uligo/qjzm-a.zip">Gokyo Shumyo</A></P>
+      <P align="left"><IMG src="gokyo29.jpg" width="178" height="267" border="1"></P>
+      <P align="left"> Black to play and live.</P>
+    </DIV>
+
+    <DIV ID="news">
+
+      <H2 align="center">News</H2>
+      <H4 align="center">&#149; May 3rd, 2008 &#149;</H4>
+      <P align="center"> We are officially announcing the <B>2008 Spring Western Massachusetts Go Tournament</B>.
+<P align="left">Location: The 16th floor on the Graduate Tower at UMass, Amherst
+<BR>Four rounds
+<BR>Registration starts at 9 AM
+<BR>Registration fee $20. Students and minors, $10.
+<BR>Coffee, bagels & donuts. Lunch available.
+<BR>For more information, contact
+<BR>Micah Feldman:
+<BR>myfeldman@yahoo.com 413.587.3728
+<BR>Scott magnoni
+<BR>smagnoni@mac.com 339.225.0537
+</P>
+      </DIV>
+
+     <DIV ID="mlist">
+
+       <H2>Mailing List</H2>
+
+       <P>
+       To receive announcements about our meetings and tournaments,
+       join <A HREF="http://games.groups.yahoo.com/group/westernmassgo/">our
+       mailing list</A> at Yahoo! Groups.
+       </P>
+       
+     </DIV>
+     
+     <DIV ID="contact">
+        <H2>Contact</H2>
+
+         <P>
+         Our contact person and president is Micah Feldman.
+         He can be reached at (413) 587-3728 and (413) 580-8040.
+
+          You can also contact the webmaster, Charles Sutton, at <a
+          href="mailto:casutton@cs.umass.edu">casutton@cs.umass.edu</a>.
+         </P>
+
+     </DIV>
+</BODY>
+</HTML>
