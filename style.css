@@ -1,0 +1,44 @@
+body { margin: 20px 15% 0px 15%;
+	background-color: #FFFFFF;}
+
+
+h1 {text-align:center;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 2em;
+	color:#993300;}
+
+h2 { text-align:center; color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+h3 { color: #000000; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+
+	
+
+div#title { margin-bottom: 25px;}
+
+div#addr_left { text-align: left; float: left; padding-right: 15px; }
+
+div#links { margin-top: 5px; align: right; text-align: right; }
+.biglink { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+
+
+div#container {overflow: auto;}
+
+div#problem { float: left; margin-right: 25px; }
+div#news {}
+div#mlist { text-align: center; }
+div#contact { clear: left; padding: 5px 4em 5px 2em; background: #ffffcc; }
+
+div#navbar { text-align: center; margin-top: 25px;}
+
+p.sponsors a { font-weight: bold; margin: 5px;}
+
+
+
+
+.rTable { display: Table; width: 75%; margin-bottom: 25px; margin: 0 auto} 
+.rTableRow { display: table-row; } 
+.rTableHeading { display: table-header-group; background-color: #ddd; } 
+.rTableCell, .rTableHead { display: table-cell; padding: 3px 10px; border: none} 
+	'.rTableCell, .rTableHead { display: table-cell; padding: 3px 10px; border: 1px solid #999999; text-align: center;} 
+.rTableFoot {  display: table-footer-group; font-weight: bold; background-color: #ddd; }
+.rTableBody {  display: table-row-group; } 
+
