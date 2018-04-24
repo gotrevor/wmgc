@@ -1,0 +1,121 @@
+
+<HTML>
+<HEAD>
+<TITLE>Western Massachusetts Go Club</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META name="keywords" content="Western Massachusetts Go Club Amherst MA Northampton Hadley">
+<meta name="verify-v1" content="Kh7KXOgsfYzNxEmZhwJMjm1e6BzPR0Dw+1Qos2XiHEw=" />
+
+<STYLE type="text/css">
+body { margin: 15px 15% 0px 15%; }
+
+div#title { margin-bottom: 25px; }
+div#addr_left { text-align: left; float: left; padding-right: 15px; }
+div#links { margin-top: 5px; align: right; text-align: right; }
+
+div#mlist { text-align: center; }
+div#contact { clear: left; padding: 5px 4em 5px 2em; background: #ffffcc; }
+div#problem { float: left; margin-right: 25px;  }
+.biglink { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+h2 { color: #993300; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+h3 { color: #000000; font-family: Andale Mono,Arial,Helvetica,sans-serif; }
+
+p.sponsors a { font-weight: bold; margin: 5px;}
+</STYLE>
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+  <DIV ID="title" align="center"><IMG src="westernmass.gif" width="417" height="18" alt="Western Massachusetts Go Club"></DIV>
+    <DIV ID="addr_left">
+      <P>
+        <B>Thursdays, 7 PM-closing</B><BR>
+        Rao's Coffee<BR>
+        Downtown<br />
+        <A
+          href="http://maps.google.com/maps?f=d&source=s_d&saddr=&daddr=17+Kellogg+Ave,+MA+01002&hl=en&geocode=&mra=ls&sll=42.377235,-72.519647&sspn=0.004494,0.007178&ie=UTF8&ll=42.377315,-72.520366&spn=0.004494,0.007178&t=h&z=17"
+          target='new'
+        >(behind the Unitarian church and Bart's)</A><BR>
+        Amherst, MA<BR>
+      </P>
+    </div>
+    <div style='float: left'>
+      <P>
+        </br>
+        </br>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+      </P>
+    </DIV>
+
+      <DIV ID="links">
+          <P><A class="biglink" href="players.php">Players</a></P>
+
+          <P><A class="biglink" href="wmgt.html">Tournaments</a></P>
+          <P><A class="biglink" href="resources.html">Go Resources</a></P>
+          <P><A class="biglink" href="directions.html">Directions</a></P>
+      </DIV>
+
+  <HR noshade>
+
+  <DIV ID="problem">
+    <!--
+      <P align="left">Seasonal problem<BR>
+      from the <A href="http://www.g0ertz.de/uligo/qjzm-a.zip">Gokyo Shumyo</A></P>
+    -->
+    <P align="left"><IMG src="gokyo29.jpg" width="178" height="267" border="1"></P>
+    <P align="left"> Black to play and live.</P>
+    </DIV>
+
+    <H2 align="center">News</H2>
+    <table>
+   <tr><td><h3>2012 Fall Tournament</h3></td></tr>
+   <tr><td>
+    <B>Event Date/Time:</B><br>
+		Sunday Nov. 11<br>
+		9:00a.m. registration.<br>
+		9:45a.m. arrivals after this time may not make round 1.<br>
+		10:00a.m. round 1 starts.<br>
+		6:00p.m. end<br><br>
+
+	<b>Location:</b><br>
+		Worlds Apart Games<Br>
+		48 North Pleasant Street #B2<br>
+		Amherst, MA 01002<br><br>
+
+	<B>Entry fee:</b><br>
+		$25 everyone
+		$15 students
+		AGA membership required<br>
+		($15/yr for new members)<br>
+		($10 day fee for non-AGA members)<br>
+		($10 for under age 23)<br></td></tr>
+</table>
+
+     <DIV ID="mlist">
+
+       <H2>Mailing List</H2>
+
+       <P>
+       To receive announcements about our meetings and tournaments,
+       join <A HREF="http://games.groups.yahoo.com/group/westernmassgo/">our
+       mailing list</A> at Yahoo! Groups and <A HREF="http://www.facebook.com/groups/WesternMassGo">our Facebook Group.</A>
+       </P>
+
+     </DIV>
+
+     <DIV ID="contact">
+        <H2>Contact</H2>
+         <P>
+           Our contact person and president is Trevor Morris.
+           He can be reached at <a
+           href="mailto:gotrevor@gmail.com">gotrevor@gmail.com</a> or 413-548-6256.
+
+           You can also contact the webmaster, Todd Cesere, at <a
+           href="mailto:toddcesere@gmail.com">toddcesere@gmail.com</a> or 413-570-0413.
+         </P>
+     </DIV>
+   </BODY>
+</HTML>
