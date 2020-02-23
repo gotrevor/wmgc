@@ -1,4 +1,5 @@
 connect
+*.zip
 
 *.rbc
 *.sassc
