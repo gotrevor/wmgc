@@ -1,128 +1,110 @@
 # WMGC Website Migration Guide
 
 ## Overview
-The wmgc directory contains the Western Mass Go Club website. All website files are committed to the `site` branch in git. The only file requiring manual setup is the FTP credentials file (excluded from git for security).
+
+The wmgc directory contains the Western Mass Go Club website. Website files are committed to the `site` branch in git. FTP credentials are stored separately in `~/.secrets/wmgc/`.
+
+## FTP Server Details
+
+- **Host**: `wmgc.massgo.org`
+- **Username**: `wmgcadmin`
+- **Password**: Stored in `~/.secrets/wmgc/ftp-password`
+- **Remote path**: `/wmgc.massgo.org` (not `/public_html`)
 
 ## Migration Steps
 
 ### 1. Clone Repository
+
 ```bash
-cd ~/personal
+cd ~/src
 git clone -b site git@github.com:gotrevor/wmgc.git
 cd wmgc
 ```
 
-### 2. Create FTP Credentials File
-
-**Instructions for Claude Code:**
-
-When performing this migration, create the `connect` file and prompt Trevor for the FTP password. Use this template:
+### 2. Set Up FTP Password
 
 ```bash
-# Ask Trevor for the FTP password first using AskUserQuestion
-# Then create the file:
-
-cat > ~/personal/wmgc/connect << 'EOF'
-#!/usr/bin/env bash
-
-ftp ftp://wmgcadmin:[PASSWORD]@wmgc.massgo.org
-EOF
-
-chmod +x ~/personal/wmgc/connect
+mkdir -p ~/.secrets/wmgc && chmod 700 ~/.secrets/wmgc
+echo "YOUR_PASSWORD" > ~/.secrets/wmgc/ftp-password
+chmod 600 ~/.secrets/wmgc/ftp-password
 ```
 
-**File Details:**
-- **Filename**: `connect`
-- **Purpose**: FTP connection script for uploading website updates
-- **Format**: Bash script with embedded FTP credentials
-- **Connection**: `ftp://wmgcadmin:[PASSWORD]@wmgc.massgo.org`
-- **Username**: `wmgcadmin`
-- **Password**: Ask Trevor (not stored in git)
-- **Permissions**: Must be executable (`chmod +x`)
+### 3. Test Connection
 
-**Security Note**: This file is in `.gitignore` to prevent credential leakage. Never commit it to the repository.
+```bash
+./bin/connect
+```
 
-## Repository Info
-- **Remote**: git@github.com:gotrevor/wmgc.git
-- **Branch**: `site` (contains all website files)
-- **Contents**: HTML files, tournament results, images, CSS
+This opens an interactive lftp session. The script uses a nix-shell shebang - lftp is fetched automatically via nix.
 
-## Future Improvement: Automated Deployment Tool
+## Tools
 
-**Current State**: The `connect` script launches an interactive FTP session requiring manual file selection and upload commands. This is tedious for regular updates (tournament results, images, etc.).
+### `bin/connect` - Interactive FTP
 
-**Goal**: Replace with a CLI utility for automated, selective deployment.
+Opens an interactive lftp session for manual exploration/uploads.
 
-### Suggested Features
+```bash
+./bin/connect
+# Then: ls, cd, put, get, etc.
+```
 
-**Core Functionality:**
+### `bin/deploy` - Automated Uploads
+
+Upload specific files or directories to the site.
+
 ```bash
 # Upload specific files
-./deploy index.html ne-open-2025.html
+./bin/deploy index.html ne-open-2025.html
 
-# Upload specific directory
-./deploy ne-open-2025/
+# Upload a directory
+./bin/deploy ne-open-2025/
 
-# Upload everything (full sync)
-./deploy --all
-
-# Dry run (show what would be uploaded)
-./deploy --dry-run index.html
-
-# Upload to specific remote path
-./deploy --remote-path /public_html/tournaments/ ma-2025/
+# Dry run (preview what would upload)
+./bin/deploy --dry-run index.html
 ```
 
-**Nice-to-Have:**
-- Only upload changed files (compare timestamps or checksums)
-- Batch upload multiple files efficiently
-- Progress indicators for large files
-- Verify uploads completed successfully
-- Support both individual files and directory recursion
+### `bin/pull` - Sync from Remote
 
-### Implementation Options
+Download files from the FTP server that are newer or missing locally.
 
-**Option 1: lftp (recommended)**
-- Modern FTP client with scripting support
-- Built-in mirror/sync capabilities
-- Can compare timestamps to skip unchanged files
-- Handles batching efficiently
-
-**Option 2: curl**
-- Available on all systems
-- Simple for single-file uploads
-- Would need custom logic for directory sync
-
-**Option 3: ncftp**
-- Good batch operations
-- Less common, may need installation
-
-### Script Structure
 ```bash
-#!/usr/bin/env bash
-# deploy - Upload files to wmgc.massgo.org
+# Preview what would download
+./bin/pull --dry-run
 
-FTP_USER="wmgcadmin"
-FTP_PASS="[from environment or keychain]"
-FTP_HOST="wmgc.massgo.org"
-FTP_BASE="/public_html"
-
-# Parse arguments, handle --all, --dry-run, etc.
-# Use lftp or curl to perform uploads
-# Show progress and confirm success
+# Download
+./bin/pull
 ```
 
-### Instructions for Future Claude Code
+### `bin/diff` - Compare Local vs Remote
 
-When Trevor asks to build this tool:
-1. Check if `lftp` is installed (`which lftp`), offer to use it if available
-2. Fall back to `curl` if lftp not available
-3. Support the command patterns shown above
-4. Keep FTP credentials secure (environment variable, macOS keychain, or prompt)
-5. Test with the OGS image upload use case first
-6. Make it robust enough for regular tournament result uploads
+Show what files differ between local and remote.
 
-## After Migration
-1. Test FTP connection: `./connect`
-2. Verify tournament pages load correctly in a browser
-3. Consider building the automated deployment tool (see above)
+```bash
+./bin/diff
+```
+
+Output shows:
+- 📤 Files that would be uploaded (local newer)
+- 📥 Files that would be downloaded (remote newer)
+
+## Images
+
+Most images are gitignored to avoid repo bloat. Small essential images (favicon, logos, Go stones) are whitelisted in `.gitignore`.
+
+To get images from the server:
+```bash
+./bin/pull
+```
+
+Large images stay local-only (not committed to git).
+
+## Repository Info
+
+- **Remote**: git@github.com:gotrevor/wmgc.git
+- **Branch**: `site` (contains all website files)
+- **Contents**: HTML files, tournament results, CSS
+- **Images**: On FTP server, gitignored locally
+
+## Known Issues
+
+- Stray `ne-open-2025.html` in FTP root (should be in `/wmgc.massgo.org/`)

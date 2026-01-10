@@ -1,0 +1,40 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p lftp
+
+# Sync files from wmgc.massgo.org to local
+
+set -e
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: pull [--dry-run]"
+    echo ""
+    echo "Download files from wmgc.massgo.org that are newer or missing locally."
+    echo ""
+    echo "Options:"
+    echo "  --dry-run    Show what would be downloaded without downloading"
+    echo "  --help, -h   Show this help"
+    exit 0
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+FTP_HOST="wmgc.massgo.org"
+FTP_USER="wmgcadmin"
+FTP_PASS=$(cat ~/.secrets/wmgc/ftp-password)
+REMOTE_PATH="/wmgc.massgo.org"
+
+DRY_RUN=""
+if [[ "$1" == "--dry-run" ]]; then
+    DRY_RUN="--dry-run"
+    echo "🔍 Dry run - showing what would be downloaded"
+    shift
+fi
+
+echo "📥 Syncing from $FTP_HOST:$REMOTE_PATH → $REPO_DIR"
+
+lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g"
+mirror $DRY_RUN --only-newer --verbose=1 "$REMOTE_PATH" "$REPO_DIR"
+quit
+EOF
+
+echo "✅ Sync complete"

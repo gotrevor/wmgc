@@ -1,0 +1,22 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p lftp
+
+# Interactive FTP session to wmgc.massgo.org
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: connect"
+    echo ""
+    echo "Open an interactive lftp session to wmgc.massgo.org"
+    echo ""
+    echo "Useful commands once connected:"
+    echo "  ls           List files"
+    echo "  cd <dir>     Change directory"
+    echo "  get <file>   Download file"
+    echo "  put <file>   Upload file"
+    echo "  mirror       Sync directories"
+    echo "  quit         Exit"
+    exit 0
+fi
+
+FTP_PASS=$(cat ~/.secrets/wmgc/ftp-password)
+lftp -u wmgcadmin,"$FTP_PASS" wmgc.massgo.org

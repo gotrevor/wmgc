@@ -1,5 +1,25 @@
-connect
+# Legacy connect script with embedded credentials (root level only)
+/connect
 *.zip
+
+# Images - ignore by default, whitelist essentials
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.PNG
+*.JPG
+*.JPEG
+*.GIF
+
+# Keep these small/essential images in git
+!favicon.gif
+!westernmass.gif
+!lgrt.gif
+!gokyo29.jpg
+!**/blackstone.png
+!**/whitestone.png
 
 *.rbc
 *.sassc
