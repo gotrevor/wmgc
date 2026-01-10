@@ -1,0 +1,52 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p lftp
+
+# Compare local files vs remote FTP server
+# Shows files that differ (would be uploaded or downloaded)
+
+set -e
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: diff"
+    echo ""
+    echo "Compare local files vs remote FTP server."
+    echo ""
+    echo "Output shows:"
+    echo "  📤 Files that would be uploaded (local newer than remote)"
+    echo "  📥 Files that would be downloaded (remote newer than local)"
+    echo ""
+    echo "Note: Comparison is based on file timestamps."
+    exit 0
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+FTP_HOST="wmgc.massgo.org"
+FTP_USER="wmgcadmin"
+FTP_PASS=$(cat ~/.secrets/wmgc/ftp-password)
+REMOTE_PATH="/wmgc.massgo.org"
+
+echo "🔍 Comparing local vs remote..."
+echo ""
+
+# Excludes for upload (don't sync these to server)
+EXCLUDES="--exclude=.git/ --exclude=bin/ --exclude=.gitignore --exclude=MIGRATION.md --exclude=README.md --exclude=LICENSE"
+
+# Check what would be uploaded (local newer than remote)
+echo "📤 Would UPLOAD (local → remote):"
+echo "---"
+lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g" | grep -E "^(Transferring|Making|Removing)" || echo "  (nothing)"
+mirror --dry-run --reverse --only-newer $EXCLUDES "$REPO_DIR" "$REMOTE_PATH"
+quit
+EOF
+
+echo ""
+echo "📥 Would DOWNLOAD (remote → local):"
+echo "---"
+lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g" | grep -E "^(Transferring|Making|Removing)" || echo "  (nothing)"
+mirror --dry-run --only-newer "$REMOTE_PATH" "$REPO_DIR"
+quit
+EOF
+
+echo ""
+echo "✅ Diff complete"
