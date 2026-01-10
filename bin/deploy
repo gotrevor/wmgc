@@ -12,6 +12,7 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo ""
     echo "Options:"
     echo "  --dry-run    Show what would be uploaded (for directories)"
+    echo "  --all        Sync entire site (NOT YET IMPLEMENTED)"
     echo "  --help, -h   Show this help"
     echo ""
     echo "Examples:"
@@ -22,6 +23,20 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "Note: Files are uploaded unconditionally. Use 'bin/diff' first"
     echo "      to see what actually differs from remote."
     exit 0
+fi
+
+if [[ "$1" == "--all" ]]; then
+    echo "❌ --all is not yet implemented"
+    echo ""
+    echo "This would sync the entire local site to remote, which is dangerous."
+    echo "Before implementing, we need:"
+    echo "  1. Exclude patterns for bin/, .git/, .gitignore, etc."
+    echo "  2. A --dry-run preview showing exactly what would change"
+    echo "  3. Confirmation prompt before proceeding"
+    echo "  4. Thorough testing"
+    echo ""
+    echo "For now, deploy specific files or directories instead."
+    exit 1
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
