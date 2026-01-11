@@ -2,6 +2,9 @@
 /connect
 *.zip
 
+# Historical tournament archives (large, pulled from FTP)
+wmgt/
+
 # Images - ignore by default, whitelist essentials
 *.png
 *.jpg
