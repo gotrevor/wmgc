@@ -5,6 +5,9 @@
 # Historical tournament archives (large, pulled from FTP)
 wmgt/
 
+# Orphaned standings file (not linked, may be indexed)
+NEOpen2022_StandingsR5.html
+
 # Images - ignore by default, whitelist essentials
 *.png
 *.jpg
