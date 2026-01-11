@@ -43,7 +43,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 FTP_HOST="wmgc.massgo.org"
 FTP_USER="wmgcadmin"
-FTP_PASS=$(cat ~/.secrets/wmgc/ftp-password)
+FTP_PASS=$("$SCRIPT_DIR/wmgc-secret" get)
 REMOTE_PATH="/wmgc.massgo.org"
 
 DRY_RUN=""

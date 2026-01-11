@@ -18,5 +18,6 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     exit 0
 fi
 
-FTP_PASS=$(cat ~/.secrets/wmgc/ftp-password)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+FTP_PASS=$("$SCRIPT_DIR/wmgc-secret" get)
 lftp -u wmgcadmin,"$FTP_PASS" wmgc.massgo.org
