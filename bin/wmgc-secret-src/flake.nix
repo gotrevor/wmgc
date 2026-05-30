@@ -15,9 +15,9 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.go
-          ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin (with pkgs.apple-sdk.frameworks; [
-            Security
-          ]);
+          ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+            pkgs.apple-sdk_15
+          ];
         };
       }
     );

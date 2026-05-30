@@ -10,12 +10,14 @@ import (
 	"github.com/keybase/go-keychain"
 )
 
-// Allowed callers - scripts that may request the secret
+// Allowed callers - matched against process cmdline (substring match)
+// These run via nix-shell shebang which strips absolute paths,
+// so we match on the relative form that appears in `ps` output.
 var allowedScripts = []string{
-	"/Users/gotrevor/src/wmgc/bin/connect",
-	"/Users/gotrevor/src/wmgc/bin/deploy",
-	"/Users/gotrevor/src/wmgc/bin/diff",
-	"/Users/gotrevor/src/wmgc/bin/pull",
+	"bin/deploy",
+	"bin/connect",
+	"bin/diff",
+	"bin/pull",
 }
 
 func main() {
@@ -29,18 +31,25 @@ func main() {
 	switch cmd {
 	case "get":
 		if !isCallerAllowed() {
-			os.Exit(1) // Silent rejection
+			fmt.Fprintln(os.Stderr, "❌ Caller not in allowed list")
+			fmt.Fprintln(os.Stderr, "Process tree:")
+			dumpProcessTree(os.Stderr)
+			fmt.Fprintf(os.Stderr, "Allowed scripts: %v\n", allowedScripts)
+			os.Exit(1)
 		}
 		secret, err := getSecret()
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "keychain error:", err)
+			fmt.Fprintln(os.Stderr, "❌ Keychain error:", err)
 			os.Exit(1)
 		}
 		fmt.Print(secret) // No newline - for shell substitution
 
 	case "check":
 		if !isCallerAllowed() {
-			fmt.Println("❌ Caller not in allowed list")
+			fmt.Fprintln(os.Stderr, "❌ Caller not in allowed list")
+			fmt.Fprintln(os.Stderr, "Process tree:")
+			dumpProcessTree(os.Stderr)
+			fmt.Fprintf(os.Stderr, "Allowed scripts: %v\n", allowedScripts)
 			os.Exit(1)
 		}
 		_, err := getSecret()
@@ -53,6 +62,19 @@ func main() {
 	default:
 		fmt.Fprintln(os.Stderr, "Unknown command:", cmd)
 		os.Exit(1)
+	}
+}
+
+// dumpProcessTree prints the process tree to the given writer for debugging
+func dumpProcessTree(w *os.File) {
+	pid := os.Getppid()
+	for i := 0; i < 10 && pid > 1; i++ {
+		cmdline := getProcessCmdline(pid)
+		if cmdline == "" {
+			break
+		}
+		fmt.Fprintf(w, "  PID %d: %s\n", pid, cmdline)
+		pid = getParentPID(pid)
 	}
 }
 

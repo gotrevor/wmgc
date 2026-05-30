@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Build wmgc-secret binary
+set -e
+cd "$(dirname "$0")"
+nix develop -c go build -o ../wmgc-secret .
+echo "✅ Built ../wmgc-secret"

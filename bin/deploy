@@ -1,103 +1,432 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p lftp
+#!/usr/bin/env python3
+"""Deploy files to an FTP server using lftp.
 
-# Deploy files to wmgc.massgo.org
+Reads connection config from .ftpdeploy in the current directory.
+Uses lftp for actual FTP operations (mirror, put -O).
 
-set -e
+Markdown support: .md files are auto-compiled to .html before deploy.
+  - Uses pandoc for conversion (brew install pandoc)
+  - Only rebuilds when .md is newer than .html (or .html doesn't exist)
+  - Looks for _template.html in the same directory (pandoc template format)
+  - You can also edit the .html directly; it won't be overwritten
+    unless the .md is updated
 
-if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-    echo "Usage: deploy [--dry-run] <file1> [file2] [dir/] ..."
-    echo ""
-    echo "Upload files to wmgc.massgo.org"
-    echo ""
-    echo "Options:"
-    echo "  --dry-run    Show what would be uploaded (for directories)"
-    echo "  --all        Sync entire site (NOT YET IMPLEMENTED)"
-    echo "  --help, -h   Show this help"
-    echo ""
-    echo "Examples:"
-    echo "  ./bin/deploy index.html"
-    echo "  ./bin/deploy ne-open-2025/"
-    echo "  ./bin/deploy --dry-run ne-open-2025/"
-    echo ""
-    echo "Note: Files are uploaded unconditionally. Use 'bin/diff' first"
-    echo "      to see what actually differs from remote."
-    exit 0
-fi
+Usage:
+    deploy [--dry-run] <file1> [file2] [dir/] ...
+    deploy --clean [path] [--dry-run] [--yes]
 
-if [[ "$1" == "--all" ]]; then
-    echo "❌ --all is not yet implemented"
-    echo ""
-    echo "This would sync the entire local site to remote, which is dangerous."
-    echo "Before implementing, we need:"
-    echo "  1. Exclude patterns for bin/, .git/, .gitignore, etc."
-    echo "  2. A --dry-run preview showing exactly what would change"
-    echo "  3. Confirmation prompt before proceeding"
-    echo "  4. Thorough testing"
-    echo ""
-    echo "For now, deploy specific files or directories instead."
-    exit 1
-fi
+Config file (.ftpdeploy):
+    [ftp]
+    host = example.com
+    user = myuser
+    remote = /remote/root
+    password_cmd = some-command get    # optional: command that prints password
+"""
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_DIR="$(dirname "$SCRIPT_DIR")"
-FTP_HOST="wmgc.massgo.org"
-FTP_USER="wmgcadmin"
-FTP_PASS=$("$SCRIPT_DIR/wmgc-secret" get)
-REMOTE_PATH="/wmgc.massgo.org"
+import argparse
+import configparser
+import getpass
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 
-DRY_RUN=""
-if [[ "$1" == "--dry-run" ]]; then
-    DRY_RUN="--dry-run"
-    echo "🔍 Dry run mode"
-    shift
-fi
 
-if [[ $# -eq 0 ]]; then
-    echo "Usage: deploy [--dry-run] <file1> [file2] [dir/] ..."
-    echo ""
-    echo "Examples:"
-    echo "  ./bin/deploy index.html"
-    echo "  ./bin/deploy ne-open-2025/"
-    echo "  ./bin/deploy --dry-run index.html ne-open-2025.html"
-    exit 1
-fi
+# --- Exclude patterns for mirror operations ---
+# Must stay in sync with bin/diff's EXCLUDES
+# lftp --exclude uses regex; use --exclude-glob for globs
+MIRROR_EXCLUDES = [
+    "--exclude=.git/",
+    "--exclude=bin/",
+    "--exclude=.gitignore",
+    "--exclude=LICENSE",
+    "--exclude=.ftpdeploy",
+    "--exclude-glob=*.md",       # catches all .md files (README, MIGRATION, etc.)
+    "--exclude=_template.html",
+]
 
-cd "$REPO_DIR"
 
-# Build lftp commands
-LFTP_CMDS="cd $REMOTE_PATH"$'\n'
+# --- Markdown to HTML (via pandoc) ---
 
-for item in "$@"; do
-    if [[ -d "$item" ]]; then
-        # Directory - use mirror to upload
-        dir="${item%/}"  # remove trailing slash
-        echo "📁 Directory: $dir/"
-        LFTP_CMDS+="mirror $DRY_RUN --reverse --verbose \"$dir\" \"$dir\""$'\n'
-    elif [[ -f "$item" ]]; then
-        # File - use put
-        echo "📄 File: $item"
-        LFTP_CMDS+="put \"$item\""$'\n'
-    else
-        echo "⚠️  Not found: $item"
-    fi
-done
+DEFAULT_TEMPLATE = """\
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>$title$</title>
+<style>
+  body { max-width: 800px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, sans-serif; line-height: 1.6; color: #333; }
+  img { max-width: 100%; border-radius: 4px; }
+  table { border-collapse: collapse; margin: 1em 0; }
+  td, th { padding: 8px 12px; text-align: left; border: 1px solid #ddd; }
+  th { background: #f4f4f4; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; }
+  code { font-family: monospace; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2em 0; }
+  a { color: #0066cc; }
+</style>
+</head>
+<body>
+$body$
+</body>
+</html>
+"""
 
-LFTP_CMDS+="quit"$'\n'
 
-if [[ -z "$DRY_RUN" ]]; then
-    echo ""
-    echo "🚀 Uploading to $FTP_HOST:$REMOTE_PATH"
-    lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<< "$LFTP_CMDS" 2>&1 | sed "s/$FTP_PASS/****/g"
-    echo "✅ Deploy complete"
-elif [[ "$LFTP_CMDS" == *"mirror"* ]]; then
-    # Dry run with directories - mirror can show what would transfer
-    echo ""
-    echo "🔍 Checking what would transfer..."
-    lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<< "$LFTP_CMDS" 2>&1 | sed "s/$FTP_PASS/****/g"
-else
-    # Dry run with only files - just show what was listed
-    echo ""
-    echo "ℹ️  Run without --dry-run to upload these files."
-    echo "   (Use 'bin/diff' to compare with remote first.)"
-fi
+def needs_rebuild(md_path, html_path):
+    """Check if .html needs regenerating from .md."""
+    if not os.path.exists(html_path):
+        return True
+    return os.path.getmtime(md_path) > os.path.getmtime(html_path)
+
+
+def build_html(md_path, html_path):
+    """Convert .md to .html using pandoc."""
+    template_dir = os.path.dirname(md_path) or '.'
+    template_path = os.path.join(template_dir, '_template.html')
+
+    # Extract title from first h1 heading
+    with open(md_path) as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith('# '):
+                title = line[2:].strip()
+                break
+        else:
+            title = os.path.basename(md_path)
+
+    cmd = ['pandoc', '--from', 'gfm', '--metadata', f'title={title}',
+           '-o', html_path, md_path]
+
+    tmp = None
+    if os.path.exists(template_path):
+        cmd.extend(['--template', template_path])
+    else:
+        tmp = tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False)
+        tmp.write(DEFAULT_TEMPLATE)
+        tmp.close()
+        cmd.extend(['--template', tmp.name])
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"error: pandoc failed: {result.stderr.strip()}", file=sys.stderr)
+            sys.exit(1)
+    finally:
+        if tmp:
+            os.unlink(tmp.name)
+
+
+# --- FTP deploy ---
+
+def find_config():
+    """Find .ftpdeploy by walking up from cwd."""
+    d = os.getcwd()
+    while True:
+        candidate = os.path.join(d, ".ftpdeploy")
+        if os.path.isfile(candidate):
+            return candidate
+        parent = os.path.dirname(d)
+        if parent == d:
+            return None
+        d = parent
+
+
+def load_config(path):
+    """Load FTP config from .ftpdeploy file."""
+    config = configparser.ConfigParser()
+    config.read(path)
+
+    if "ftp" not in config:
+        print(f"error: {path} missing [ftp] section", file=sys.stderr)
+        sys.exit(1)
+
+    ftp = config["ftp"]
+    missing = [k for k in ("host", "user", "remote") if k not in ftp]
+    if missing:
+        print(f"error: {path} missing keys: {', '.join(missing)}", file=sys.stderr)
+        sys.exit(1)
+
+    return ftp
+
+
+def get_password(config, config_dir):
+    """Get password from: password_cmd, FTP_PASSWORD env, or interactive prompt."""
+    if "password_cmd" in config:
+        cmd = config["password_cmd"]
+        try:
+            result = subprocess.run(
+                cmd, shell=True, capture_output=True, text=True, check=True,
+                cwd=config_dir,
+            )
+            return result.stdout.strip()
+        except subprocess.CalledProcessError as e:
+            print(f"error: password_cmd failed: {e.stderr.strip()}", file=sys.stderr)
+            sys.exit(1)
+
+    env_pass = os.environ.get("FTP_PASSWORD")
+    if env_pass:
+        return env_pass
+
+    return getpass.getpass(f"Password for {config['user']}@{config['host']}: ")
+
+
+def run_lftp(host, user, password, commands):
+    """Run lftp with the given commands. Returns (success, output)."""
+    script = "\n".join(commands) + "\nquit\n"
+
+    result = subprocess.run(
+        ["lftp", "-u", f"{user},{password}", host],
+        input=script, capture_output=True, text=True,
+    )
+
+    # Scrub password from any output
+    stdout = result.stdout.replace(password, "****")
+    stderr = result.stderr.replace(password, "****")
+
+    if stdout:
+        print(stdout, end="")
+    if stderr:
+        print(stderr, end="", file=sys.stderr)
+
+    return result.returncode == 0
+
+
+def clean_orphans(args):
+    """Find and remove remote files that don't exist locally."""
+    if not shutil.which("lftp"):
+        print("error: lftp not found. Install with: brew install lftp", file=sys.stderr)
+        sys.exit(1)
+
+    config_path = find_config()
+    if not config_path:
+        print("error: no .ftpdeploy found", file=sys.stderr)
+        sys.exit(1)
+
+    config_dir = os.path.dirname(config_path)
+    config = load_config(config_path)
+    host = config["host"]
+    user = config["user"]
+    remote = config["remote"]
+
+    # Scope filter: optional path argument
+    scope = args.targets[0].rstrip("/") + "/" if args.targets else None
+
+    password = get_password(config, config_dir)
+
+    # Detect orphans via mirror --dry-run --reverse --delete
+    excludes = " ".join(MIRROR_EXCLUDES)
+    detect_cmd = f'mirror --dry-run --reverse --delete {excludes} "{config_dir}" "{remote}"'
+
+    print("🔍 Scanning for remote orphans...")
+    result = subprocess.run(
+        ["lftp", "-u", f"{user},{password}", host],
+        input=detect_cmd + "\nquit\n",
+        capture_output=True, text=True,
+    )
+
+    output = result.stdout + result.stderr
+    output = output.replace(password, "****")
+
+    # Parse rm lines - lftp outputs full FTP URLs:
+    #   rm ftp://user:pass@host/remote/relative-path
+    #   rm -r ftp://user:pass@host/remote/relative-dir
+    # We need to extract just the relative path after the remote root.
+    url_prefix = f"{host}{remote}/"
+    orphans = []
+    for line in output.splitlines():
+        if not line.startswith("rm "):
+            continue
+        rest = line[3:].strip()
+        is_dir = rest.startswith("-r ")
+        if is_dir:
+            rest = rest[3:].strip()
+        # Find relative path: everything after host/remote/ in the URL
+        idx = rest.find(url_prefix)
+        if idx >= 0:
+            path = rest[idx + len(url_prefix):]
+        else:
+            # Fallback: try stripping remote prefix directly
+            path = rest
+            if path.startswith(remote):
+                path = path[len(remote):].lstrip("/")
+        orphans.append({"path": path, "is_dir": is_dir})
+
+    # Filter by scope
+    if scope:
+        orphans = [o for o in orphans if o["path"].startswith(scope)]
+
+    if not orphans:
+        scope_msg = f" in {scope}" if scope else ""
+        print(f"✅ No orphans found{scope_msg}")
+        return
+
+    print(f"\n🗑️  Found {len(orphans)} orphan(s):")
+    for o in orphans:
+        suffix = "/" if o["is_dir"] else ""
+        print(f"  {o['path']}{suffix}")
+
+    if args.dry_run:
+        print(f"\nℹ️  Run without --dry-run to delete.")
+        return
+
+    # Confirm unless --yes
+    if not args.yes and sys.stdin.isatty():
+        print()
+        answer = input("Delete these files? [y/N] ").strip().lower()
+        if answer not in ("y", "yes"):
+            print("Cancelled.")
+            return
+
+    # Execute deletions
+    rm_cmds = [f"cd {remote}"]
+    for o in orphans:
+        flag = "-r " if o["is_dir"] else ""
+        rm_cmds.append(f'rm {flag}"{o["path"]}"')
+
+    print(f"\n🧹 Deleting {len(orphans)} file(s)...")
+    success = run_lftp(host, user, password, rm_cmds)
+
+    if success:
+        print(f"✅ Cleaned {len(orphans)} orphan(s)")
+    else:
+        print("❌ Clean failed", file=sys.stderr)
+        sys.exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Deploy files to an FTP server.",
+        epilog="Reads connection config from .ftpdeploy in the current directory. "
+               ".md files are auto-compiled to .html before upload (requires pandoc).",
+    )
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Show what would be uploaded/deleted without acting")
+    parser.add_argument("--clean", action="store_true",
+                        help="Remove remote orphans (files not present locally)")
+    parser.add_argument("--yes", "-y", action="store_true",
+                        help="Skip confirmation prompt (for --clean)")
+    parser.add_argument("targets", nargs="*", metavar="FILE_OR_DIR",
+                        help="Files/dirs to upload, or path scope for --clean")
+
+    args = parser.parse_args()
+
+    if args.clean:
+        return clean_orphans(args)
+
+    if not args.targets:
+        parser.print_help()
+        sys.exit(1)
+
+    # Check required tools
+    if not shutil.which("lftp"):
+        print("error: lftp not found. Install with: brew install lftp", file=sys.stderr)
+        sys.exit(1)
+
+    has_md = any(t.endswith('.md') for t in args.targets if os.path.isfile(t))
+    if has_md and not shutil.which("pandoc"):
+        print("error: pandoc not found (needed for .md files). Install with: brew install pandoc", file=sys.stderr)
+        sys.exit(1)
+
+    # Find and load config
+    config_path = find_config()
+    if not config_path:
+        print("error: no .ftpdeploy found (searched from cwd to /)", file=sys.stderr)
+        print("Create one with:", file=sys.stderr)
+        print("  [ftp]", file=sys.stderr)
+        print("  host = example.com", file=sys.stderr)
+        print("  user = myuser", file=sys.stderr)
+        print("  remote = /remote/root", file=sys.stderr)
+        sys.exit(1)
+
+    config_dir = os.path.dirname(config_path)
+    config = load_config(config_path)
+    host = config["host"]
+    user = config["user"]
+    remote = config["remote"]
+
+    # Auto-build .md -> .html
+    for i, target in enumerate(args.targets):
+        if target.endswith('.md') and os.path.isfile(target):
+            html_target = target[:-3] + '.html'
+            if needs_rebuild(target, html_target):
+                build_html(target, html_target)
+                print(f"🔄 Built {html_target} from {target}")
+            else:
+                print(f"✅ {html_target} is up to date")
+            args.targets[i] = html_target
+
+    # Validate targets
+    errors = [t for t in args.targets if not os.path.exists(t)]
+    if errors:
+        for e in errors:
+            print(f"⚠️  not found: {e}")
+        sys.exit(1)
+
+    if args.dry_run:
+        print("🔍 Dry run mode")
+
+    # Build lftp commands
+    lftp_cmds = [f"cd {remote}"]
+
+    for target in args.targets:
+        if os.path.isdir(target):
+            dirname = target.rstrip("/")
+            print(f"📁 Directory: {dirname}/")
+            # Auto-build .md -> .html for all markdown files in the directory
+            for root, _dirs, files in os.walk(dirname):
+                for fname in files:
+                    if fname.endswith('.md'):
+                        md_path = os.path.join(root, fname)
+                        html_path = md_path[:-3] + '.html'
+                        if needs_rebuild(md_path, html_path):
+                            build_html(md_path, html_path)
+                            print(f"🔄 Built {html_path} from {md_path}")
+            excludes = " ".join(MIRROR_EXCLUDES)
+            dry = "--dry-run " if args.dry_run else ""
+            lftp_cmds.append(
+                f'mirror {dry}--reverse --verbose {excludes} "{dirname}" "{dirname}"'
+            )
+        else:
+            print(f"📄 File: {target}")
+            remote_dir = os.path.dirname(target)
+            if args.dry_run:
+                print(f"  would upload: {target} -> {remote}/{target}")
+                continue
+            if remote_dir:
+                # put -O ensures file lands in the right subdirectory
+                # mkdir -f suppresses "already exists" errors
+                lftp_cmds.append(f'mkdir -f -p "{remote_dir}"')
+                lftp_cmds.append(f'put -O "{remote_dir}" "{target}"')
+            else:
+                lftp_cmds.append(f'put "{target}"')
+
+    # For dry-run with only files, no need to connect
+    has_dirs = any(os.path.isdir(t) for t in args.targets)
+    if args.dry_run and not has_dirs:
+        print()
+        print("ℹ️  Run without --dry-run to upload.")
+        return
+
+    # Connect and run
+    password = get_password(config, config_dir)
+
+    print()
+    if not args.dry_run:
+        print(f"🚀 Uploading to {host}:{remote}")
+
+    success = run_lftp(host, user, password, lftp_cmds)
+
+    if args.dry_run:
+        print("ℹ️  Run without --dry-run to upload.")
+    elif success:
+        print("✅ Deploy complete")
+    else:
+        print("❌ Deploy failed", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
