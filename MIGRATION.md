@@ -2,13 +2,13 @@
 
 ## Overview
 
-The wmgc directory contains the Western Mass Go Club website. Website files are committed to the `site` branch in git. FTP credentials are stored separately in `~/.secrets/wmgc/`.
+The wmgc directory contains the Western Mass Go Club website. Website files are committed to the `site` branch in git. FTP credentials are stored in macOS Keychain, accessed via `bin/wmgc-secret`.
 
 ## FTP Server Details
 
 - **Host**: `wmgc.massgo.org`
 - **Username**: `wmgcadmin`
-- **Password**: Stored in `~/.secrets/wmgc/ftp-password`
+- **Password**: macOS Keychain (service: `wmgc.massgo.org`, account: `wmgcadmin`)
 - **Remote path**: `/wmgc.massgo.org` (not `/public_html`)
 
 ## Migration Steps
@@ -23,10 +23,10 @@ cd wmgc
 
 ### 2. Set Up FTP Password
 
+Password is stored in macOS Keychain (not filesystem):
+
 ```bash
-mkdir -p ~/.secrets/wmgc && chmod 700 ~/.secrets/wmgc
-echo "YOUR_PASSWORD" > ~/.secrets/wmgc/ftp-password
-chmod 600 ~/.secrets/wmgc/ftp-password
+security add-generic-password -s "wmgc.massgo.org" -a "wmgcadmin" -w "YOUR_PASSWORD"
 ```
 
 ### 3. Test Connection

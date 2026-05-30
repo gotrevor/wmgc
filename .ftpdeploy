@@ -1,0 +1,5 @@
+[ftp]
+host = wmgc.massgo.org
+user = wmgcadmin
+remote = /wmgc.massgo.org
+password_cmd = bin/wmgc-secret get

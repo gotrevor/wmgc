@@ -2,7 +2,7 @@
 #! nix-shell -i bash -p lftp
 
 # Compare local files vs remote FTP server
-# Shows files that differ (would be uploaded or downloaded)
+# Shows files that differ, including orphans (drift)
 
 set -e
 
@@ -12,10 +12,11 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "Compare local files vs remote FTP server."
     echo ""
     echo "Output shows:"
-    echo "  📤 Files that would be uploaded (local newer than remote)"
-    echo "  📥 Files that would be downloaded (remote newer than local)"
+    echo "  📤 Would upload (new or newer locally)"
+    echo "  🗑️  Remote-only (orphaned on server, not in local repo)"
+    echo "  📥 Would download (newer on remote)"
     echo ""
-    echo "Note: Comparison is based on file timestamps."
+    echo "Comparison uses file timestamps."
     exit 0
 fi
 
@@ -29,21 +30,37 @@ REMOTE_PATH="/wmgc.massgo.org"
 echo "🔍 Comparing local vs remote..."
 echo ""
 
-# Excludes for upload (don't sync these to server)
-EXCLUDES="--exclude=.git/ --exclude=bin/ --exclude=.gitignore --exclude=MIGRATION.md --exclude=README.md --exclude=LICENSE"
+# Excludes: files that should never be synced to server
+EXCLUDES="--exclude=.git/ --exclude=bin/ --exclude=.gitignore --exclude=LICENSE --exclude=.ftpdeploy --exclude-glob=*.md --exclude=_template.html"
 
-# Check what would be uploaded (local newer than remote)
-echo "📤 Would UPLOAD (local → remote):"
-echo "---"
-lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g" | grep -E "^(Transferring|Making|Removing)" || echo "  (nothing)"
-mirror --dry-run --reverse --only-newer $EXCLUDES "$REPO_DIR" "$REMOTE_PATH"
+# Full sync check: local → remote (upload + delete orphans)
+UPLOAD_OUTPUT=$(lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g"
+mirror --dry-run --reverse --delete $EXCLUDES "$REPO_DIR" "$REMOTE_PATH"
 quit
 EOF
+)
+
+if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
+    echo "Raw mirror output:"
+    echo "---"
+    echo "$UPLOAD_OUTPUT"
+    echo "---"
+    echo ""
+fi
+
+echo "📤 Would UPLOAD (local → remote):"
+echo "---"
+echo "$UPLOAD_OUTPUT" | grep -E "^(get |mkdir )" | grep -v "^chmod" || echo "  (nothing)"
 
 echo ""
-echo "📥 Would DOWNLOAD (remote → local):"
+echo "🗑️  Remote-only (drift):"
 echo "---"
-lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g" | grep -E "^(Transferring|Making|Removing)" || echo "  (nothing)"
+echo "$UPLOAD_OUTPUT" | grep -E "^rm " || echo "  (nothing)"
+
+echo ""
+echo "📥 Would DOWNLOAD (remote newer):"
+echo "---"
+lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF 2>&1 | sed "s/$FTP_PASS/****/g" | grep -E "^(get |mkdir )" | grep -v "^chmod" || echo "  (nothing)"
 mirror --dry-run --only-newer "$REMOTE_PATH" "$REPO_DIR"
 quit
 EOF

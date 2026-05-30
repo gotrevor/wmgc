@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vibing My Way Through Day 1 - MA State 2026</title>
+<link rel="stylesheet" type="text/css" href="../style.css">
+<meta charset="utf-8">
+<style>
+  body { max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
+  h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+  h2 { color: #444; margin-top: 2em; }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+  .subtitle { color: #666; font-style: italic; margin-bottom: 2em; }
+  .byline { color: #666; font-size: 0.9em; margin-top: 3em; padding-top: 1em; border-top: 1px solid #ddd; }
+  ul { margin-left: 0; padding-left: 1.5em; }
+  li { margin-bottom: 0.5em; }
+</style>
+</head>
+<body>
+
+<p><a href="../index.html">&larr; Back to WMGC</a></p>
+
+<h1>Vibing My Way Through Day 1 of MA State 2026</h1>
+<p class="subtitle">Tournament directing with Claude Code as copilot</p>
+
+<p>I co-directed the 2026 Massachusetts State Go Championship this weekend. I've done this before - the tournament logistics aren't new. What was new: I built custom tooling on the fly, in real-time, as problems emerged.</p>
+
+<p>Not planned. Not spec'd. Vibed.</p>
+
+<h2>The Setup</h2>
+
+<p>MA State is a two-day AGA-rated tournament. ~30 players, multiple sections, Swiss pairing. We use Leago for pairings and a Google Sheet for registration (via RegFox). The gaps between these systems are where the friction lives.</p>
+
+<h2>Yesterday: Sign-In Sheets</h2>
+
+<p>Day before the tournament. Need sign-in sheets for check-in. The data lives in Leago. The format I need: printable PDF with player names, sections, check boxes.</p>
+
+<p>Old me: Export to Excel, massage data, format manually, print.</p>
+
+<p>New me: "Hey Claude, I need sign-in sheets from the Leago data."</p>
+
+<p>Twenty minutes later: a Python script that pulls player data, groups by section, generates clean HTML, converts to PDF.</p>
+
+<p>Was this faster than Excel? Honestly, not by much for a one-off. I've done the Excel dance many times. But now I have a reusable script. Next tournament: instant. The trade-off is less fine-grained control than a spreadsheet - but speed wins when you're doing this repeatedly.</p>
+
+<h2>Today: Crosstab Standings</h2>
+
+<p>Round 3 ends. Players want to know where they stand. Leago shows pairings but the standings display is... minimal. I want a proper crosstab - the grid showing who played whom and results.</p>
+
+<p>"Can you pull the Leago data and generate a crosstab?"</p>
+
+<p>Leago's API isn't documented, but the web interface makes API calls. We sniffed the endpoints, figured out the data structure, built a script that generates tournament standings with:</p>
+<ul>
+  <li>Player names and current scores</li>
+  <li>Full game results grid</li>
+  <li>McMahon scores (upper section)</li>
+  <li>Tiebreakers</li>
+</ul>
+
+<p>Printed it. Posted it on the wall. Players gathered around. Tournament feels more <em>real</em> when you can see the whole picture.</p>
+
+<h2>Today: Prize CSV</h2>
+
+<p>Tournament ends. Need to submit results to AGA and distribute prizes. Different prize pools for different sections. Need to verify AGA IDs against the official TDList.</p>
+
+<p>"Generate a prize CSV from final standings."</p>
+
+<p>Script pulls final results, cross-references AGA IDs, calculates prize distribution, outputs in the format needed for the prize coordinator. Caught two players with mismatched IDs before submission.</p>
+
+<h2>The Meta-Observation</h2>
+
+<p>This was hard. Different-hard than programming, but fully engaging. I wasn't passively prompting - I was thinking through problems, recognizing patterns, steering toward solutions. The AI handled the syntax; I handled the semantics.</p>
+
+<p>Karpathy called it "vibing" - the sense that you're collaborating with something that gets what you mean. That's real. But vibing doesn't mean passive. It means your expertise operates at a different level: knowing what to ask for, recognizing when the answer is wrong, sensing when the solution is overcomplicated.</p>
+
+<h2>The Tools</h2>
+
+<p>All living in my personal toolkit now:</p>
+<ul>
+  <li><strong>Sign-in sheet generator</strong> - Leago &rarr; printable PDF</li>
+  <li><strong>Crosstab standings</strong> - Leago &rarr; full tournament grid</li>
+  <li><strong>Prize CSV</strong> - Final standings &rarr; AGA submission format</li>
+  <li><strong>AGA ID validator</strong> - Cross-reference against TDList</li>
+</ul>
+
+<p>Each one: ~30 minutes from "I need this" to "it works." Each one: reusable next tournament.</p>
+
+<h2>The Point</h2>
+
+<p>Tournament directors don't need to be programmers. But tournament directors who <em>can</em> program - or who can vibe effectively with AI that programs - can eliminate friction that's plagued the community for years.</p>
+
+<p>The gap between "what the existing tools do" and "what I actually need" has always been filled by manual labor. Now it's filled by conversation.</p>
+
+<p>That's the shift.</p>
+
+<p class="byline">Trevor Morris co-directed the 2026 MA State Championship with Nick Bonner. He serves on the AGA Board of Directors and is co-directing the 2026 US Go Congress in Boston.</p>
+
+</body>
+</html>

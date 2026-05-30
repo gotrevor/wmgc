@@ -1,0 +1,103 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p lftp
+
+# Deploy files to wmgc.massgo.org
+
+set -e
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: deploy [--dry-run] <file1> [file2] [dir/] ..."
+    echo ""
+    echo "Upload files to wmgc.massgo.org"
+    echo ""
+    echo "Options:"
+    echo "  --dry-run    Show what would be uploaded (for directories)"
+    echo "  --all        Sync entire site (NOT YET IMPLEMENTED)"
+    echo "  --help, -h   Show this help"
+    echo ""
+    echo "Examples:"
+    echo "  ./bin/deploy index.html"
+    echo "  ./bin/deploy ne-open-2025/"
+    echo "  ./bin/deploy --dry-run ne-open-2025/"
+    echo ""
+    echo "Note: Files are uploaded unconditionally. Use 'bin/diff' first"
+    echo "      to see what actually differs from remote."
+    exit 0
+fi
+
+if [[ "$1" == "--all" ]]; then
+    echo "❌ --all is not yet implemented"
+    echo ""
+    echo "This would sync the entire local site to remote, which is dangerous."
+    echo "Before implementing, we need:"
+    echo "  1. Exclude patterns for bin/, .git/, .gitignore, etc."
+    echo "  2. A --dry-run preview showing exactly what would change"
+    echo "  3. Confirmation prompt before proceeding"
+    echo "  4. Thorough testing"
+    echo ""
+    echo "For now, deploy specific files or directories instead."
+    exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+FTP_HOST="wmgc.massgo.org"
+FTP_USER="wmgcadmin"
+FTP_PASS=$("$SCRIPT_DIR/wmgc-secret" get)
+REMOTE_PATH="/wmgc.massgo.org"
+
+DRY_RUN=""
+if [[ "$1" == "--dry-run" ]]; then
+    DRY_RUN="--dry-run"
+    echo "🔍 Dry run mode"
+    shift
+fi
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: deploy [--dry-run] <file1> [file2] [dir/] ..."
+    echo ""
+    echo "Examples:"
+    echo "  ./bin/deploy index.html"
+    echo "  ./bin/deploy ne-open-2025/"
+    echo "  ./bin/deploy --dry-run index.html ne-open-2025.html"
+    exit 1
+fi
+
+cd "$REPO_DIR"
+
+# Build lftp commands
+LFTP_CMDS="cd $REMOTE_PATH"$'\n'
+
+for item in "$@"; do
+    if [[ -d "$item" ]]; then
+        # Directory - use mirror to upload
+        dir="${item%/}"  # remove trailing slash
+        echo "📁 Directory: $dir/"
+        LFTP_CMDS+="mirror $DRY_RUN --reverse --verbose \"$dir\" \"$dir\""$'\n'
+    elif [[ -f "$item" ]]; then
+        # File - use put
+        echo "📄 File: $item"
+        LFTP_CMDS+="put \"$item\""$'\n'
+    else
+        echo "⚠️  Not found: $item"
+    fi
+done
+
+LFTP_CMDS+="quit"$'\n'
+
+if [[ -z "$DRY_RUN" ]]; then
+    echo ""
+    echo "🚀 Uploading to $FTP_HOST:$REMOTE_PATH"
+    lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<< "$LFTP_CMDS" 2>&1 | sed "s/$FTP_PASS/****/g"
+    echo "✅ Deploy complete"
+elif [[ "$LFTP_CMDS" == *"mirror"* ]]; then
+    # Dry run with directories - mirror can show what would transfer
+    echo ""
+    echo "🔍 Checking what would transfer..."
+    lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<< "$LFTP_CMDS" 2>&1 | sed "s/$FTP_PASS/****/g"
+else
+    # Dry run with only files - just show what was listed
+    echo ""
+    echo "ℹ️  Run without --dry-run to upload these files."
+    echo "   (Use 'bin/diff' to compare with remote first.)"
+fi
