@@ -22,6 +22,12 @@ This is New England's premier annual Go tournament - a 5-round AGA-rated event o
 
 ## Schedule
 
+**Registration deadlines**
+
+- **August 2** - last day for the 20% Congress discount
+- **August 21** - last day for standard registration; a 20% late fee applies after this
+- **September 2** - registration closes
+
 **Friday, September 4**
 
 - 5:00pm - Site opens
