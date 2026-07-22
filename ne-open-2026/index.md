@@ -56,7 +56,7 @@ Pre-registration is required.
 
 **[Register online here](https://forms.gle/fM5yhhs6V3oEz6LQ9)** (registration and payment info)
 
-🏆 **Congress Special: 20% off.**  Register *and* pay by **August 2, 2026** (the last day of the US Go Congress) and take 20% off your entry fee.
+🏆 **Congress Special: 20% off.**  Register *and* pay by **August 2, 2026** (the day after the US Go Congress wraps up) and take 20% off your entry fee.
 
 **Deadlines**
 
