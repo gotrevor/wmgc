@@ -52,6 +52,14 @@ Pre-registration is required.
 
 🏆 **Congress Special: 20% off.**  Register *and* pay by **August 2, 2026** (the last day of the US Go Congress) and take 20% off your entry fee.
 
+**Deadlines**
+
+- **August 2** - last day for the 20% Congress discount
+- **August 21** - last day for standard registration; a 20% late fee applies after this
+- **September 2** - registration closes
+
+Entry fees and payment details are on the registration form.
+
 ## Past Results
 
 - [2025 Results](../ne-open-2025/NEOpen2025_StandingsR5.html) (77 players)
