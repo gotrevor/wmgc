@@ -90,6 +90,7 @@ Entry fees and payment details are on the registration form.
 .neopen-players th:nth-child(5) { background: #eceff1; }
 .neopen-players td.entry { font-weight: bold; background: #f2f5f7; }
 .neopen-players td.entry.changed { background: #e6f4ea; color: #1e6b34; }
+.neopen-players td.entry.playup { background: #efe6fa; color: #5b3a86; }
 .neopen-players td.superseded { color: #999; text-decoration: line-through; }
 .neopen-players td.unpaid { color: #a10000; font-weight: bold; }
 .neopen-players .muted { color: #999; }
@@ -103,17 +104,17 @@ Entry fees and payment details are on the registration form.
 <thead><tr><th>Name</th><th>AGA Id</th><th>Club</th><th>Requested rank</th><th>Entry rank</th><th>unpaid?</th><th>AGA rating</th><th>OGS rating</th><th>AGA membership expires</th></tr></thead>
 <tbody>
 <tr><td>Yuxiao Wang</td><td class="num">26051</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>5d</td><td class="entry">5d</td><td></td><td class="num">5.57 (5d)</td><td></td><td class="num">8/22/2027</td></tr>
-<tr><td>Ke Lu</td><td class="num">11746</td><td>MGA</td><td>4d</td><td class="entry">4d</td><td></td><td class="num">2.76 (2d)</td><td></td><td class="num">6/24/2027</td></tr>
 <tr><td>Mingxuan Wang</td><td class="num">32252</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>4d</td><td class="entry">4d</td><td></td><td class="num">4.77 (4d)</td><td></td><td class="num">12/13/2026</td></tr>
 <tr><td>Yuhang Liu</td><td class="num">31962</td><td>MGA</td><td>4d</td><td class="entry">4d</td><td></td><td class="num">4.55 (4d)</td><td></td><td class="num">8/2/2027</td></tr>
 <tr><td>Joaquin Perkins</td><td class="num">30377</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>3d</td><td class="entry">3d</td><td></td><td class="num">3.15 (3d)</td><td class="num">1775 (1.8k)</td><td class="num">7/21/2027</td></tr>
 <tr><td>Benjamin Gunby-Mann</td><td class="num">24023</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>2d</td><td class="entry">2d</td><td class="unpaid">Yes</td><td class="num">2.64 (2d)</td><td class="num">1939 (1.2d)</td><td class="num">12/1/2026</td></tr>
+<tr><td>Ke Lu</td><td class="num">11746</td><td>MGA</td><td class="superseded" title="Entry rank set by the tournament director">4d</td><td class="entry changed" title="Entry rank set by the tournament director">2d</td><td></td><td class="num">2.76 (2d)</td><td></td><td class="num">6/24/2027</td></tr>
 <tr><td>Howard wong</td><td class="num">14893</td><td>GOTH</td><td>1d</td><td class="entry">1d</td><td></td><td class="num">1.30 (1d)</td><td></td><td class="num">7/18/2028</td></tr>
 <tr><td>John Kerpan</td><td class="num">20253</td><td>MGA</td><td>1d</td><td class="entry">1d</td><td></td><td class="num">1.99 (1d)</td><td class="num">2125 (3.4d)</td><td class="num">9/1/2064</td></tr>
 <tr><td>Lysander Christakis</td><td class="num">30927</td><td>MGA</td><td>1d</td><td class="entry">1d</td><td class="unpaid">Yes</td><td class="num">1.36 (1d)</td><td class="num">1855 (0.8k)</td><td class="num">4/15/2027</td></tr>
 <tr><td>Nicholas Song</td><td class="num">32082</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>1d</td><td class="entry">1d</td><td></td><td class="num">1.32 (1d)</td><td></td><td class="num">9/28/2026</td></tr>
 <tr><td>wei chen</td><td class="num">26043</td><td>MGA</td><td class="superseded" title="requested 2d, corrected to 1d (single-stone self-promotion is not allowed)">2d</td><td class="entry changed" title="requested 2d, corrected to 1d (single-stone self-promotion is not allowed)">1d</td><td></td><td class="num">1.74 (1d)</td><td></td><td class="num flag-expired" title="Membership lapses on or before the last day of the tournament">8/19/2026</td></tr>
-<tr><td>Andrew Lee</td><td class="num">31649</td><td>MGA</td><td>1k</td><td class="entry">1k</td><td></td><td class="num">-3.39 (3k)</td><td></td><td class="num">3/23/2027</td></tr>
+<tr><td>Andrew Lee</td><td class="num">31649</td><td>MGA</td><td title="playing up 2 stones by request: AGA 3k, entered at 1k">1k</td><td class="entry playup" title="playing up 2 stones by request: AGA 3k, entered at 1k">1k &uarr;</td><td></td><td class="num">-3.39 (3k)</td><td></td><td class="num">3/23/2027</td></tr>
 <tr><td>Jonathan Green</td><td class="num">22833</td><td>MEGO</td><td>2k</td><td class="entry">2k</td><td></td><td class="num">-2.85 (2k)</td><td class="num">1626 (3.8k)</td><td class="num">7/25/2027</td></tr>
 <tr><td>Harvy Chengxi Yu</td><td class="num">31008</td><td>MGA</td><td class="superseded" title="requested 4k, corrected to 3k (1 stone below their AGA rating)">4k</td><td class="entry changed" title="requested 4k, corrected to 3k (1 stone below their AGA rating)">3k</td><td></td><td class="num">-3.78 (3k)</td><td></td><td class="num">5/23/2027</td></tr>
 <tr><td>Jason Qi</td><td class="num">26330</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td class="superseded" title="requested 2k, corrected to 3k (single-stone self-promotion is not allowed)">2k</td><td class="entry changed" title="requested 2k, corrected to 3k (single-stone self-promotion is not allowed)">3k</td><td></td><td class="num">-3.92 (3k)</td><td></td><td class="num">1/19/2027</td></tr>
@@ -145,9 +146,10 @@ Entry fees and payment details are on the registration form.
 <li><strong style="color:#a10000">Red expiry date</strong> = AGA membership lapses on or before the last day of the tournament. Please renew before you play - the event is AGA-rated.</li>
 <li><strong>You play at your Entry rank</strong> - that is the column the pairings use. It matches what you requested unless the request conflicted with your AGA rating.</li>
 <li><strong style="color:#1e6b34">A changed entry rank</strong> (struck-through request) means the request was set back to your AGA rank. You may play <em>up</em> by two stones or more, but single-stone self-promotion is not accepted, and playing down by one or two stones is set back to your rating. If your AGA rating looks wrong, reply to the organizer rather than re-requesting.</li>
+<li><strong style="color:#5b3a86">An entry rank marked &uarr;</strong> is a player who asked to play up two or more stones above their AGA rank. That is allowed, and it is shown so everyone can see it.</li>
 <li><strong style="color:#1a4d80">Club &ldquo;none&rdquo;</strong> = no AGA chapter on file. If that&rsquo;s you, please pick one! It costs nothing, it helps your local club, and you can set it in your <a href="https://www.usgo.org/">AGA member profile</a>.</li>
 <li>&dagger; = provisional OGS rating (few recent games, so OGS is still unsure of it).</li>
-<li>34 registered. Updated August 6, 2026 at 2:54 PM.</li>
+<li>34 registered. Updated August 6, 2026 at 3:05 PM.</li>
 </ul>
 <!-- PLAYERS:END -->
 
