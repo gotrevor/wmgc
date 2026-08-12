@@ -32,7 +32,8 @@ This is New England's premier annual Go tournament - a 5-round AGA-rated event o
 
 - 5:00pm - Site opens
 - Evening - Special event (last year: Michael Chen lecture)
-- 12:00am - Site closes
+- 11:00pm - Wrap-up and reset for tomorrow
+- 11:59pm - Site closes
 
 **Saturday, September 5**
 
@@ -42,6 +43,8 @@ This is New England's premier annual Go tournament - a 5-round AGA-rated event o
 - 1:15pm - Round 2
 - 4:15pm - Round 3
 - 6:00pm - Pizza + evening event
+- 11:00pm - Wrap-up and reset for tomorrow
+- 11:59pm - Site closes
 
 **Sunday, September 6**
 
@@ -125,6 +128,7 @@ Entry fees and payment details are on the registration form.
 <tr><td>Micah Steinberg</td><td class="num">30588</td><td>GOTH</td><td class="superseded" title="requested 3k, corrected to 4k (single-stone self-promotion is not allowed)">3k</td><td class="entry changed" title="requested 3k, corrected to 4k (single-stone self-promotion is not allowed)">4k</td><td></td><td class="num">-4.13 (4k)</td><td class="num">1647 (3.5k)</td><td class="num">3/14/2027</td></tr>
 <tr><td>Chi-Hse Teng</td><td class="num">11754</td><td>MGA</td><td>6k</td><td class="entry">6k</td><td></td><td class="num">-6.03 (6k)</td><td></td><td class="num">3/25/2027</td></tr>
 <tr><td>Eva Casey</td><td class="num">1144</td><td>MGA</td><td>6k</td><td class="entry">6k</td><td></td><td class="num">-6.75 (6k)</td><td class="num">1461 (6.3k)</td><td class="num">4/11/2027</td></tr>
+<tr><td>Amanda Miller</td><td class="num">14594</td><td>PVD</td><td>7k</td><td class="entry">7k</td><td></td><td class="num">-7.79 (7k)</td><td></td><td class="num">6/29/2027</td></tr>
 <tr><td>Aris</td><td class="num">32435</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>7k</td><td class="entry">7k</td><td></td><td class="num">-7.73 (7k)</td><td></td><td class="num">3/22/2027</td></tr>
 <tr><td>Wilson Qi</td><td class="num">30066</td><td>GOTH</td><td class="superseded" title="requested 6k, corrected to 7k (single-stone self-promotion is not allowed)">6k</td><td class="entry changed" title="requested 6k, corrected to 7k (single-stone self-promotion is not allowed)">7k</td><td></td><td class="num">-7.91 (7k)</td><td></td><td class="num">3/25/2027</td></tr>
 <tr><td>Aidan Kenoyer</td><td class="num">32546</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>8k</td><td class="entry">8k</td><td class="unpaid">Yes</td><td class="num">-8.54 (8k)</td><td class="num">998 (15.1k)</td><td class="num">4/30/2027</td></tr>
@@ -142,8 +146,9 @@ Entry fees and payment details are on the registration form.
 <tr><td>Jacqueline Hood</td><td class="num">31741</td><td>WMGC</td><td>16k</td><td class="entry">16k</td><td></td><td class="num">-16.91 (16k)</td><td class="num">987 (15.4k)</td><td class="num">4/26/2027</td></tr>
 <tr><td>Andrew Perry</td><td class="num">24642</td><td>WMGC</td><td>17k</td><td class="entry">17k</td><td></td><td class="num">-17.38 (17k)</td><td class="num">865 (18.4k)</td><td class="num">12/8/2067</td></tr>
 <tr><td>Robert Muschner</td><td class="num">32049</td><td>MEGO</td><td class="superseded" title="requested 16k, corrected to 17k (single-stone self-promotion is not allowed)">16k</td><td class="entry changed" title="requested 16k, corrected to 17k (single-stone self-promotion is not allowed)">17k</td><td></td><td class="num">-17.72 (17k)</td><td class="num">983 (15.5k)</td><td class="num">9/14/2026</td></tr>
-<tr><td>Glenn Wallace</td><td class="num">32723</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>19k</td><td class="entry">19k</td><td class="unpaid">Yes</td><td class="muted">unrated</td><td></td><td class="num">7/24/2027</td></tr>
+<tr><td>Glenn Wallace</td><td class="num">32723</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>19k</td><td class="entry">19k</td><td></td><td class="muted">unrated</td><td></td><td class="num">7/24/2027</td></tr>
 <tr><td>Brendan L Stratton</td><td class="num">31960</td><td>MEGO</td><td>24k</td><td class="entry">24k</td><td></td><td class="num">-24.48 (24k)</td><td class="num">647 (25.0k)</td><td class="num">8/1/2027</td></tr>
+<tr><td>Kendra Elliston</td><td class="num">30347</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>24k</td><td class="entry">24k</td><td></td><td class="num">-24.72 (24k)</td><td></td><td class="num flag-expired" title="Membership lapses on or before the last day of the tournament">8/30/2026</td></tr>
 </tbody>
 </table>
 </div>
@@ -156,7 +161,7 @@ Entry fees and payment details are on the registration form.
 <li><strong style="color:#5b3a86">An entry rank marked &uarr;</strong> is a player who asked to play up two or more stones above their AGA rank. That is allowed, and it is shown so everyone can see it.</li>
 <li><strong style="color:#1a4d80">Club &ldquo;none&rdquo;</strong> = no AGA chapter on file. If that&rsquo;s you, please pick one! It costs nothing, it helps your local club, and you can set it in your <a href="https://www.usgo.org/">AGA member profile</a>.</li>
 <li>&dagger; = provisional OGS rating (few recent games, so OGS is still unsure of it).</li>
-<li>41 registered. Updated August 10, 2026 at 6:51 PM.</li>
+<li>43 registered. Updated August 11, 2026 at 4:21 PM.</li>
 </ul>
 <!-- PLAYERS:END -->
 
