@@ -4,6 +4,10 @@
 <p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Pairings:</strong> <a href="pairings-r1.html">Round 1</a></p>
 <!-- PAIRINGS:END -->
 
+<!-- STANDINGS:BEGIN -->
+<p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Standings:</strong> <a href="standings-r1.html">Round 1</a></p>
+<!-- STANDINGS:END -->
+
 ## Save the Date: September 4-6, 2026
 
 ---
