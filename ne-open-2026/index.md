@@ -1,7 +1,7 @@
 # 5th New England Go Open 2026
 
 <!-- PAIRINGS:BEGIN -->
-<p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Pairings:</strong> <a href="pairings-r1.html">Round 1</a> &middot; <a href="pairings-r2.html">Round 2</a> &middot; <a href="pairings-r3.html">Round 3</a> &middot; <a href="pairings-r4.html">Round 4</a></p>
+<p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Pairings:</strong> <a href="pairings-r1.html">Round 1</a> &middot; <a href="pairings-r2.html">Round 2</a> &middot; <a href="pairings-r3.html">Round 3</a> &middot; <a href="pairings-r4.html">Round 4</a> &middot; <a href="pairings-r5.html">Round 5</a></p>
 <!-- PAIRINGS:END -->
 
 <!-- CROSSTAB:BEGIN -->
