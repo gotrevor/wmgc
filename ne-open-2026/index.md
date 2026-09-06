@@ -5,7 +5,7 @@
 <!-- PAIRINGS:END -->
 
 <!-- CROSSTAB:BEGIN -->
-<p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Standings (cross-tab):</strong> <a href="crosstab-r1.html">Round 1</a> &middot; <a href="crosstab-r2.html">Round 2</a> &middot; <a href="crosstab-r3.html">Round 3</a> &middot; <a href="crosstab-r4.html">Round 4</a></p>
+<p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Standings (cross-tab):</strong> <a href="crosstab-r1.html">Round 1</a> &middot; <a href="crosstab-r2.html">Round 2</a> &middot; <a href="crosstab-r3.html">Round 3</a> &middot; <a href="crosstab-r4.html">Round 4</a> &middot; <a href="crosstab-r5.html">Round 5</a></p>
 <!-- CROSSTAB:END -->
 
 ## Save the Date: September 4-6, 2026
