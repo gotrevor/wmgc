@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NE Open 2026 - Round 4 Cross-tab</title>
+<style>
+  body { max-width: 1000px; margin: 24px auto; padding: 0 16px; color: #333;
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; }
+  h1 { font-size: 1.5em; margin: 0 0 .15em; }
+  a { color: #0066cc; }
+  .sub { color: #555; margin: 0 0 1em; font-size: .95em; }
+  .rounds { margin: 0 0 1em; font-size: .95em; }
+  .rounds a, .rounds span { display: inline-block; padding: 4px 10px; margin: 2px 4px 2px 0;
+         border: 1px solid #bbb; border-radius: 4px; text-decoration: none; }
+  .rounds .now { background: #1a4d80; border-color: #1a4d80; color: #fff; font-weight: bold; }
+  #q { width: 100%; box-sizing: border-box; padding: 9px 11px; font-size: 1em;
+        border: 1px solid #bbb; border-radius: 4px; margin-bottom: 12px; }
+  .wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 6px 8px; border: 1px solid #ddd; text-align: left; white-space: nowrap;
+           font-variant-numeric: tabular-nums; }
+  th { background: #1a4d80; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafafa; }
+  td.n { text-align: right; }
+  td.g { text-align: center; }
+  td.g b { color: #1e6b34; }
+  td.pr { color: #1a4d80; }
+  td.pc { color: #888; font-size: .88em; }
+  td.pn { font-weight: 600; white-space: normal; }
+  .pend { color: #aaa; }
+  .bd { color: #a10000; font-size: .8em; }
+  .note { font-size: .9em; color: #555; }
+  th.so { cursor: pointer; user-select: none; }
+  th.so:hover { background: #235f9c; }
+  th.so:focus-visible { outline: 2px solid #ffd24d; outline-offset: -2px; }
+  th .ord { font-size: .78em; font-weight: 400; margin-left: 3px; white-space: nowrap; }
+  .sorthint { font-size: .9em; color: #555; margin: -6px 0 10px; }
+  .sorthint b { color: #1a4d80; }
+  .sorthint button { font: inherit; color: #0066cc; background: none; border: 0;
+                      padding: 0; cursor: pointer; text-decoration: underline; }
+  @media (max-width: 640px) {
+    body { margin: 12px auto; font-size: .93em; }
+    th, td { padding: 5px 6px; }
+    td.pc, th.pc { display: none; }
+    td.s, th.s { display: none; }
+  }
+</style>
+</head>
+<body>
+<h1>Round 4 Cross-tab</h1>
+<p class="sub">5th New England Go Open &middot; Hopkinton Center for the Arts &middot;
+77 players &middot; posted Sunday 10:05 AM &middot; <strong>0 of 38</strong> round-4 results in &middot;
+<a href="./">tournament page</a></p>
+<p class="rounds"><a href="crosstab-r1.html">Round 1</a> <a href="crosstab-r2.html">Round 2</a> <a href="crosstab-r3.html">Round 3</a> <span class="now">Round 4</span></p>
+<input id="q" type="search" placeholder="Filter by name, club, rank, player number - or an exact score"
+       autocomplete="off" aria-label="Filter the cross-tab">
+<p class="sorthint">Click a column to sort by it; <b>shift-click</b> a second column to
+break ties with it - click <b>NbW</b>, then shift-click <b>MMS</b>, to rank by wins.
+<button type="button" id="reset">Back to placing order</button></p>
+<div class="wrap">
+<table id="x">
+<thead><tr><th class="so" data-c="0" data-d="asc">Num</th>
+<th class="so" data-c="1" data-d="asc">Pl</th>
+<th class="so" data-c="2" data-d="asc">Name</th>
+<th class="so" data-c="3" data-d="desc">Rank</th>
+<th class="so pc" data-c="4" data-d="asc">Club</th>
+<th class="so" data-c="5" data-d="desc">NbW</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th>
+<th class="so" data-c="10" data-d="desc">MMS</th>
+<th class="so s" data-c="11" data-d="desc">SOS</th>
+<th class="so s" data-c="12" data-d="desc">SOSOS</th></tr></thead>
+<tbody>
+<tr data-q="wu alisa 7d nocb" data-x="1 1 3 37 143 570 3 4 6 2"><td class='n'>1</td><td class='n' data-v='1'>1</td><td class='pn'>Wu Alisa</td><td class='pr' data-v='36'>7D</td><td class='pc'>NoCb</td><td class='n'>3</td><td class='g'><b>3+/w0</b></td><td class='g'><b>4+/b0</b></td><td class='g'><b>6+/w0</b></td><td class='g'><span class='pend'>2?/w0</span></td><td class='n'>37</td><td class='n s'>143</td><td class='n s'>570</td></tr>
+<tr data-q="chiu jeremy 8d peng" data-x="2 2 2 36 144 568 5 6 3 1"><td class='n'>2</td><td class='n' data-v='2'>2</td><td class='pn'>Chiu Jeremy</td><td class='pr' data-v='37'>8D</td><td class='pc'>PENG</td><td class='n'>2</td><td class='g'><b>5+/w0</b></td><td class='g'><b>6+/w0</b></td><td class='g'>3-/b0</td><td class='g'><span class='pend'>1?/b0</span></td><td class='n'>36</td><td class='n s'>144</td><td class='n s'>568</td></tr>
+<tr data-q="huang andrew 5d prin" data-x="3 3 2 36 142 568 1 11 2 7"><td class='n'>3</td><td class='n' data-v='3'>3</td><td class='pn'>Huang Andrew</td><td class='pr' data-v='34'>5D</td><td class='pc'>PRIN</td><td class='n'>2</td><td class='g'>1-/b0</td><td class='g'><b>11+/w0</b></td><td class='g'><b>2+/w0</b></td><td class='g'><span class='pend'>7?/b0</span></td><td class='n'>36</td><td class='n s'>142</td><td class='n s'>568</td></tr>
+<tr data-q="song forest 6d fygs" data-x="4 4 2 36 142 562 7 1 12 5"><td class='n'>4</td><td class='n' data-v='4'>4</td><td class='pn'>Song Forest</td><td class='pr' data-v='35'>6D</td><td class='pc'>FYGS</td><td class='n'>2</td><td class='g'><b>7+/w0</b></td><td class='g'>1-/w0</td><td class='g'><b>12+/b0</b></td><td class='g'><span class='pend'>5?/b0</span></td><td class='n'>36</td><td class='n s'>142</td><td class='n s'>562</td></tr>
+<tr data-q="wang yuxiao 5d nyga" data-x="5 5 2 36 141 567 2 10 7 4"><td class='n'>5</td><td class='n' data-v='5'>5</td><td class='pn'>Wang Yuxiao</td><td class='pr' data-v='34'>5D</td><td class='pc'>NYGA</td><td class='n'>2</td><td class='g'>2-/b0</td><td class='g'><b>10+/w0</b></td><td class='g'><b>7+/b0</b></td><td class='g'><span class='pend'>4?/w0</span></td><td class='n'>36</td><td class='n s'>141</td><td class='n s'>567</td></tr>
+<tr data-q="jiang ruichen 5d aust" data-x="6 6 1 35 142 563 9 2 1 10"><td class='n'>6</td><td class='n' data-v='6'>6</td><td class='pn'>Jiang Ruichen</td><td class='pr' data-v='34'>5D</td><td class='pc'>AUST</td><td class='n'>1</td><td class='g'><b>9+/w0</b></td><td class='g'>2-/b0</td><td class='g'>1-/b0</td><td class='g'><span class='pend'>10?/b0</span></td><td class='n'>35</td><td class='n s'>142</td><td class='n s'>563</td></tr>
+<tr data-q="dong ming 5d nocb" data-x="7 7 1 35 141 560 4 14 5 3"><td class='n'>7</td><td class='n' data-v='7'>7</td><td class='pn'>Dong Ming</td><td class='pr' data-v='34'>5D</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>4-/b0</td><td class='g'><b>14+/w0</b></td><td class='g'>5-/w0</td><td class='g'><span class='pend'>3?/w0</span></td><td class='n'>35</td><td class='n s'>141</td><td class='n s'>560</td></tr>
+<tr data-q="qian yingzhi 4d goth" data-x="8 8 2 35 137 550 11 13 10 9"><td class='n'>8</td><td class='n' data-v='8'>8</td><td class='pn'>Qian Yingzhi</td><td class='pr' data-v='33'>4D</td><td class='pc'>GOTH</td><td class='n'>2</td><td class='g'>11-/w0</td><td class='g'><b>13+/b0</b></td><td class='g'><b>10+/b0</b></td><td class='g'><span class='pend'>9?/b0</span></td><td class='n'>35</td><td class='n s'>137</td><td class='n s'>550</td></tr>
+<tr data-q="wang mingxuan 4d mga" data-x="9 9 2 35 136 550 6 18 11 8"><td class='n'>9</td><td class='n' data-v='9'>9</td><td class='pn'>Wang Mingxuan</td><td class='pr' data-v='33'>4D</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'>6-/b0</td><td class='g'><b>18+/b0</b></td><td class='g'><b>11+/w0</b></td><td class='g'><span class='pend'>8?/w0</span></td><td class='n'>35</td><td class='n s'>136</td><td class='n s'>550</td></tr>
+<tr data-q="lewis v 4d mga" data-x="10 10 1 34 140 557 12 5 8 6"><td class='n'>10</td><td class='n' data-v='10'>10</td><td class='pn'>Lewis V</td><td class='pr' data-v='33'>4D</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'><b>12+/b0</b></td><td class='g'>5-/b0</td><td class='g'>8-/w0</td><td class='g'><span class='pend'>6?/w0</span></td><td class='n'>34</td><td class='n s'>140</td><td class='n s'>557</td></tr>
+<tr data-q="fang david zixin 4d fygs" data-x="11 11 1 34 140 552 8 3 9 12"><td class='n'>11</td><td class='n' data-v='11'>11</td><td class='pn'>Fang David Zixin</td><td class='pr' data-v='33'>4D</td><td class='pc'>FYGS</td><td class='n'>1</td><td class='g'><b>8+/b0</b></td><td class='g'>3-/b0</td><td class='g'>9-/b0</td><td class='g'><span class='pend'>12?/w0</span></td><td class='n'>34</td><td class='n s'>140</td><td class='n s'>552</td></tr>
+<tr data-q="zhang tianyang 4d nocb" data-x="12 12 1 34 137 556 10 15 4 11"><td class='n'>12</td><td class='n' data-v='12'>12</td><td class='pn'>Zhang Tianyang</td><td class='pr' data-v='33'>4D</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>10-/w0</td><td class='g'><b>15+/b0</b></td><td class='g'>4-/w0</td><td class='g'><span class='pend'>11?/b0</span></td><td class='n'>34</td><td class='n s'>137</td><td class='n s'>556</td></tr>
+<tr data-q="perkins joaquin 3d mga" data-x="13 13 2 34 134 538 16 8 14 15"><td class='n'>13</td><td class='n' data-v='13'>13</td><td class='pn'>Perkins Joaquin</td><td class='pr' data-v='32'>3D</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>16+/b0</b></td><td class='g'>8-/w0</td><td class='g'><b>14+/b0</b></td><td class='g'><span class='pend'>15?/w0</span></td><td class='n'>34</td><td class='n s'>134</td><td class='n s'>538</td></tr>
+<tr data-q="siegel paul 3d mga" data-x="14 14 1 33 135 535 17 7 13 16"><td class='n'>14</td><td class='n' data-v='14'>14</td><td class='pn'>Siegel Paul</td><td class='pr' data-v='32'>3D</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'><b>17+/w0</b></td><td class='g'>7-/b0</td><td class='g'>13-/w0</td><td class='g'><span class='pend'>16?/w0</span></td><td class='n'>33</td><td class='n s'>135</td><td class='n s'>535</td></tr>
+<tr data-q="liu yuhang 4d mga" data-x="15 15 0 33 134 535 12 16 13"><td class='n'>15</td><td class='n' data-v='15'>15</td><td class='pn'>Liu Yuhang</td><td class='pr' data-v='33'>4D</td><td class='pc'>MGA</td><td class='n'>0</td><td class='g'>&ndash;</td><td class='g'>12-/w0</td><td class='g'>16-/b0</td><td class='g'><span class='pend'>13?/b0</span></td><td class='n'>33</td><td class='n s'>134</td><td class='n s'>535</td></tr>
+<tr data-q="kim jake 3d sdgc" data-x="16 16 1 33 132 532 13 19 15 14"><td class='n'>16</td><td class='n' data-v='16'>16</td><td class='pn'>Kim Jake</td><td class='pr' data-v='32'>3D</td><td class='pc'>SDGC</td><td class='n'>1</td><td class='g'>13-/w0</td><td class='g'>19-/b0</td><td class='g'><b>15+/w0</b></td><td class='g'><span class='pend'>14?/b0</span></td><td class='n'>33</td><td class='n s'>132</td><td class='n s'>532</td></tr>
+<tr data-q="gunby-mann benjamin 2d nocb" data-x="17 17 2 33 128 515 14 23 19 21"><td class='n'>17</td><td class='n' data-v='17'>17</td><td class='pn'>Gunby-Mann Benjamin</td><td class='pr' data-v='31'>2D</td><td class='pc'>NoCb</td><td class='n'>2</td><td class='g'>14-/b0</td><td class='g'><b>23+/w0</b></td><td class='g'><b>19+/w0</b></td><td class='g'><span class='pend'>21?/b0</span></td><td class='n'>33</td><td class='n s'>128</td><td class='n s'>515</td></tr>
+<tr data-q="feldman micah 2d nocb" data-x="18 18 1 32 131 518 20 9 19"><td class='n'>18</td><td class='n' data-v='18'>18</td><td class='pn'>Feldman Micah</td><td class='pr' data-v='31'>2D</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'><b>20+/b0</b></td><td class='g'>9-/w0</td><td class='g'>&ndash;</td><td class='g'><span class='pend'>19?/w0</span></td><td class='n'>32</td><td class='n s'>131</td><td class='n s'>518</td></tr>
+<tr data-q="kerpan john 1d mga" data-x="19 19 2 32 129 516 24 16 17 18"><td class='n'>19</td><td class='n' data-v='19'>19</td><td class='pn'>Kerpan John</td><td class='pr' data-v='30'>1D</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>24+/w0</b></td><td class='g'><b>16+/w0</b></td><td class='g'>17-/b0</td><td class='g'><span class='pend'>18?/b0</span></td><td class='n'>32</td><td class='n s'>129</td><td class='n s'>516</td></tr>
+<tr data-q="xu dawei 1d nocb" data-x="20 20 2 32 125 499 18 26 27 22"><td class='n'>20</td><td class='n' data-v='20'>20</td><td class='pn'>Xu Dawei</td><td class='pr' data-v='30'>1D</td><td class='pc'>NoCb</td><td class='n'>2</td><td class='g'>18-/w0</td><td class='g'><b>26+/b0</b></td><td class='g'><b>27+/b0</b></td><td class='g'><span class='pend'>22?/w0</span></td><td class='n'>32</td><td class='n s'>125</td><td class='n s'>499</td></tr>
+<tr data-q="robinson austin 1d goth" data-x="21 21 2 32 124 501 28 27 23 17"><td class='n'>21</td><td class='n' data-v='21'>21</td><td class='pn'>Robinson Austin</td><td class='pr' data-v='30'>1D</td><td class='pc'>GOTH</td><td class='n'>2</td><td class='g'>28-/w0</td><td class='g'><b>27+/b0</b></td><td class='g'><b>23+/b0</b></td><td class='g'><span class='pend'>17?/w0</span></td><td class='n'>32</td><td class='n s'>124</td><td class='n s'>501</td></tr>
+<tr data-q="velikonja mateo 1k nocb" data-x="22 22 3 32 123 495 33 25 24 20"><td class='n'>22</td><td class='n' data-v='22'>22</td><td class='pn'>Velikonja Mateo</td><td class='pr' data-v='29'>1K</td><td class='pc'>NoCb</td><td class='n'>3</td><td class='g'><b>33+/w0</b></td><td class='g'><b>25+/b0</b></td><td class='g'><b>24+/w0</b></td><td class='g'><span class='pend'>20?/b0</span></td><td class='n'>32</td><td class='n s'>123</td><td class='n s'>495</td></tr>
+<tr data-q="christakis lysander 1d mga" data-x="23 23 1 31 127 498 25 17 21 26"><td class='n'>23</td><td class='n' data-v='23'>23</td><td class='pn'>Christakis Lysander</td><td class='pr' data-v='30'>1D</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'><b>25+/w0</b></td><td class='g'>17-/b0</td><td class='g'>21-/w0</td><td class='g'><span class='pend'>26?/b0</span></td><td class='n'>31</td><td class='n s'>127</td><td class='n s'>498</td></tr>
+<tr data-q="wong howard 1d goth" data-x="24 24 1 31 125 499 19 28 22 25"><td class='n'>24</td><td class='n' data-v='24'>24</td><td class='pn'>Wong Howard</td><td class='pr' data-v='30'>1D</td><td class='pc'>GOTH</td><td class='n'>1</td><td class='g'>19-/b0</td><td class='g'><b>28+/w0</b></td><td class='g'>22-/b0</td><td class='g'><span class='pend'>25?/b0</span></td><td class='n'>31</td><td class='n s'>125</td><td class='n s'>499</td></tr>
+<tr data-q="chen wei 1d mga" data-x="25 25 1 31 124 496 23 22 29 24"><td class='n'>25</td><td class='n' data-v='25'>25</td><td class='pn'>Chen Wei</td><td class='pr' data-v='30'>1D</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>23-/b0</td><td class='g'>22-/w0</td><td class='g'><b>29+/b0</b></td><td class='g'><span class='pend'>24?/w0</span></td><td class='n'>31</td><td class='n s'>124</td><td class='n s'>496</td></tr>
+<tr data-q="garcia anthony 1k wmgc" data-x="26 26 2 31 122 490 38 20 28 23"><td class='n'>26</td><td class='n' data-v='26'>26</td><td class='pn'>Garcia Anthony</td><td class='pr' data-v='29'>1K</td><td class='pc'>WMGC</td><td class='n'>2</td><td class='g'><b>38+/w1</b></td><td class='g'>20-/w0</td><td class='g'><b>28+/b0</b></td><td class='g'><span class='pend'>23?/w0</span></td><td class='n'>31</td><td class='n s'>122</td><td class='n s'>490</td></tr>
+<tr data-q="chen rudi 1k goth" data-x="27 27 1 30 123 488 29 21 20 34"><td class='n'>27</td><td class='n' data-v='27'>27</td><td class='pn'>Chen Rudi</td><td class='pr' data-v='29'>1K</td><td class='pc'>GOTH</td><td class='n'>1</td><td class='g'><b>29+/b0</b></td><td class='g'>21-/w0</td><td class='g'>20-/w0</td><td class='g'><span class='pend'>34?/b0</span></td><td class='n'>30</td><td class='n s'>123</td><td class='n s'>488</td></tr>
+<tr data-q="corsiglia alex 1k nyga" data-x="28 28 1 30 123 487 21 24 26 37"><td class='n'>28</td><td class='n' data-v='28'>28</td><td class='pn'>Corsiglia Alex</td><td class='pr' data-v='29'>1K</td><td class='pc'>NYGA</td><td class='n'>1</td><td class='g'><b>21+/b0</b></td><td class='g'>24-/b0</td><td class='g'>26-/w0</td><td class='g'><span class='pend'>37?/w1</span></td><td class='n'>30</td><td class='n s'>123</td><td class='n s'>487</td></tr>
+<tr data-q="heck gus 1k mga" data-x="29 29 1 30 121 477 27 30 25 32"><td class='n'>29</td><td class='n' data-v='29'>29</td><td class='pn'>Heck Gus</td><td class='pr' data-v='29'>1K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>27-/w0</td><td class='g'><b>30+/b0</b></td><td class='g'>25-/w0</td><td class='g'><span class='pend'>32?/w0</span></td><td class='n'>30</td><td class='n s'>121</td><td class='n s'>477</td></tr>
+<tr data-q="blank-edelman elijah 2k nocb" data-x="30 30 2 30 116 469 39 29 34 38"><td class='n'>30</td><td class='n' data-v='30'>30</td><td class='pn'>Blank-Edelman Elijah</td><td class='pr' data-v='28'>2K</td><td class='pc'>NoCb</td><td class='n'>2</td><td class='g'><b>39+/b0</b></td><td class='g'>29-/w0</td><td class='g'><b>34+/b0</b></td><td class='g'><span class='pend'>38?/w1</span></td><td class='n'>30</td><td class='n s'>116</td><td class='n s'>469</td></tr>
+<tr data-q="scudder michael 2k ccon" data-x="31 31 2 30 114 472 37 34 36 33"><td class='n'>31</td><td class='n' data-v='31'>31</td><td class='pn'>Scudder Michael</td><td class='pr' data-v='28'>2K</td><td class='pc'>CCON</td><td class='n'>2</td><td class='g'><b>37+/b0</b></td><td class='g'>34-/w0</td><td class='g'><b>36+/b0</b></td><td class='g'><span class='pend'>33?/w0</span></td><td class='n'>30</td><td class='n s'>114</td><td class='n s'>472</td></tr>
+<tr data-q="qi jason 3k goth" data-x="32 32 3 30 114 467 42 36 33 29"><td class='n'>32</td><td class='n' data-v='32'>32</td><td class='pn'>Qi Jason</td><td class='pr' data-v='27'>3K</td><td class='pc'>GOTH</td><td class='n'>3</td><td class='g'><b>42+/b0</b></td><td class='g'><b>36+/w0</b></td><td class='g'><b>33+/w0</b></td><td class='g'><span class='pend'>29?/b0</span></td><td class='n'>30</td><td class='n s'>114</td><td class='n s'>467</td></tr>
+<tr data-q="lee andrew 2k mga" data-x="33 33 1 29 121 464 22 35 32 31"><td class='n'>33</td><td class='n' data-v='33'>33</td><td class='pn'>Lee Andrew</td><td class='pr' data-v='28'>2K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>22-/b0</td><td class='g'><b>35+/w0</b></td><td class='g'>32-/b0</td><td class='g'><span class='pend'>31?/b0</span></td><td class='n'>29</td><td class='n s'>121</td><td class='n s'>464</td></tr>
+<tr data-q="yu harvey 3k mga" data-x="34 34 2 29 118 465 40 31 30 27"><td class='n'>34</td><td class='n' data-v='34'>34</td><td class='pn'>Yu Harvey</td><td class='pr' data-v='27'>3K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>40+/b0</b></td><td class='g'><b>31+/b0</b></td><td class='g'>30-/w0</td><td class='g'><span class='pend'>27?/w0</span></td><td class='n'>29</td><td class='n s'>118</td><td class='n s'>465</td></tr>
+<tr data-q="green jonathan 2k mego" data-x="35 35 1 29 113 469 36 33 37 39"><td class='n'>35</td><td class='n' data-v='35'>35</td><td class='pn'>Green Jonathan</td><td class='pr' data-v='28'>2K</td><td class='pc'>MEGO</td><td class='n'>1</td><td class='g'>36-/w0</td><td class='g'>33-/b0</td><td class='g'><b>37+/w0</b></td><td class='g'><span class='pend'>39?/w0</span></td><td class='n'>29</td><td class='n s'>113</td><td class='n s'>469</td></tr>
+<tr data-q="tao maisie 3k mga" data-x="36 36 1 28 117 451 35 32 31 41"><td class='n'>36</td><td class='n' data-v='36'>36</td><td class='pn'>Tao Maisie</td><td class='pr' data-v='27'>3K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'><b>35+/b0</b></td><td class='g'>32-/b0</td><td class='g'>31-/w0</td><td class='g'><span class='pend'>41?/w0</span></td><td class='n'>28</td><td class='n s'>117</td><td class='n s'>451</td></tr>
+<tr data-q="wang johnny 3k mga" data-x="37 37 1 28 116 460 31 41 35 28"><td class='n'>37</td><td class='n' data-v='37'>37</td><td class='pn'>Wang Johnny</td><td class='pr' data-v='27'>3K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>31-/w0</td><td class='g'><b>41+/b0</b></td><td class='g'>35-/b0</td><td class='g'><span class='pend'>28?/b1</span></td><td class='n'>28</td><td class='n s'>116</td><td class='n s'>460</td></tr>
+<tr data-q="aspinall john 3k mga" data-x="38 38 1 28 115 460 26 40 41 30"><td class='n'>38</td><td class='n' data-v='38'>38</td><td class='pn'>Aspinall John</td><td class='pr' data-v='27'>3K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>26-/b1</td><td class='g'><b>40+/w0</b></td><td class='g'>41-/b0</td><td class='g'><span class='pend'>30?/b1</span></td><td class='n'>28</td><td class='n s'>115</td><td class='n s'>460</td></tr>
+<tr data-q="bove luca 3k mga" data-x="39 39 0 28 115 453 30 35"><td class='n'>39</td><td class='n' data-v='39'>39</td><td class='pn'>Bove Luca</td><td class='pr' data-v='27'>3K</td><td class='pc'>MGA</td><td class='n'>0</td><td class='g'>30-/w0</td><td class='g'>&ndash;</td><td class='g'>&ndash;</td><td class='g'><span class='pend'>35?/b0</span></td><td class='n'>28</td><td class='n s'>115</td><td class='n s'>453</td></tr>
+<tr data-q="putnam james 3k nocb" data-x="40 40 1 28 112 451 34 38 43"><td class='n'>40</td><td class='n' data-v='40'>40</td><td class='pn'>Putnam James</td><td class='pr' data-v='27'>3K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>34-/w0</td><td class='g'>38-/b0</td><td class='g'><b>43+/w0</b></td><td class='g'>&ndash;</td><td class='n'>28</td><td class='n s'>112</td><td class='n s'>451</td></tr>
+<tr data-q="steinberg micah 4k goth" data-x="41 41 2 28 110 451 45 37 38 36"><td class='n'>41</td><td class='n' data-v='41'>41</td><td class='pn'>Steinberg Micah</td><td class='pr' data-v='26'>4K</td><td class='pc'>GOTH</td><td class='n'>2</td><td class='g'><b>45+/b0</b></td><td class='g'>37-/w0</td><td class='g'><b>38+/w0</b></td><td class='g'><span class='pend'>36?/b0</span></td><td class='n'>28</td><td class='n s'>110</td><td class='n s'>451</td></tr>
+<tr data-q="chan chia 4k mga" data-x="42 42 1 27 108 424 32 43 48 44"><td class='n'>42</td><td class='n' data-v='42'>42</td><td class='pn'>Chan Chia</td><td class='pr' data-v='26'>4K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>32-/w0</td><td class='g'>43-/b0</td><td class='g'><b>48+/w1</b></td><td class='g'><span class='pend'>44?/b0</span></td><td class='n'>27</td><td class='n s'>108</td><td class='n s'>424</td></tr>
+<tr data-q="horner ryan 5k mga" data-x="43 43 2 27 106 419 48 42 40 49"><td class='n'>43</td><td class='n' data-v='43'>43</td><td class='pn'>Horner Ryan</td><td class='pr' data-v='25'>5K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>48+/w1</b></td><td class='g'><b>42+/w0</b></td><td class='g'>40-/b0</td><td class='g'><span class='pend'>49?/w2</span></td><td class='n'>27</td><td class='n s'>106</td><td class='n s'>419</td></tr>
+<tr data-q="tian aris 7k nocb" data-x="44 44 3 26 104 410 47 45 46 42"><td class='n'>44</td><td class='n' data-v='44'>44</td><td class='pn'>Tian Aris</td><td class='pr' data-v='23'>7K</td><td class='pc'>NoCb</td><td class='n'>3</td><td class='g'><b>47+/b0</b></td><td class='g'><b>45+/w0</b></td><td class='g'><b>46+/b0</b></td><td class='g'><span class='pend'>42?/w0</span></td><td class='n'>26</td><td class='n s'>104</td><td class='n s'>410</td></tr>
+<tr data-q="goff matthew 5k mga" data-x="45 45 1 26 103 399 41 44 54 51"><td class='n'>45</td><td class='n' data-v='45'>45</td><td class='pn'>Goff Matthew</td><td class='pr' data-v='25'>5K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>41-/w0</td><td class='g'>44-/b0</td><td class='g'><b>54+/w1</b></td><td class='g'><span class='pend'>51?/w1</span></td><td class='n'>26</td><td class='n s'>103</td><td class='n s'>399</td></tr>
+<tr data-q="teng chi-hse 6k mga" data-x="46 46 2 26 100 398 49 50 44 48"><td class='n'>46</td><td class='n' data-v='46'>46</td><td class='pn'>Teng Chi-Hse</td><td class='pr' data-v='24'>6K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>49+/b0</b></td><td class='g'><b>50+/w1</b></td><td class='g'>44-/w0</td><td class='g'><span class='pend'>48?/w1</span></td><td class='n'>26</td><td class='n s'>100</td><td class='n s'>398</td></tr>
+<tr data-q="casey eva 6k mga" data-x="47 47 1 25 99 391 44 49 51 50"><td class='n'>47</td><td class='n' data-v='47'>47</td><td class='pn'>Casey Eva</td><td class='pr' data-v='24'>6K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>44-/w0</td><td class='g'><b>49+/w0</b></td><td class='g'>51-/w1</td><td class='g'><span class='pend'>50?/b0</span></td><td class='n'>25</td><td class='n s'>99</td><td class='n s'>391</td></tr>
+<tr data-q="miller amanda 7k pvd" data-x="48 48 1 24 100 408 43 52 42 46"><td class='n'>48</td><td class='n' data-v='48'>48</td><td class='pn'>Miller Amanda</td><td class='pr' data-v='23'>7K</td><td class='pc'>PVD</td><td class='n'>1</td><td class='g'>43-/b1</td><td class='g'><b>52+/w0</b></td><td class='g'>42-/b1</td><td class='g'><span class='pend'>46?/b1</span></td><td class='n'>24</td><td class='n s'>100</td><td class='n s'>408</td></tr>
+<tr data-q="qi wilson 7k goth" data-x="49 49 1 24 99 399 46 47 52 43"><td class='n'>49</td><td class='n' data-v='49'>49</td><td class='pn'>Qi Wilson</td><td class='pr' data-v='23'>7K</td><td class='pc'>GOTH</td><td class='n'>1</td><td class='g'>46-/w0</td><td class='g'>47-/b0</td><td class='g'><b>52+/b0</b></td><td class='g'><span class='pend'>43?/b2</span></td><td class='n'>24</td><td class='n s'>99</td><td class='n s'>399</td></tr>
+<tr data-q="chaves joseph 8k pvd" data-x="50 50 2 24 95 385 53 46 57 47"><td class='n'>50</td><td class='n' data-v='50'>50</td><td class='pn'>Chaves Joseph</td><td class='pr' data-v='22'>8K</td><td class='pc'>PVD</td><td class='n'>2</td><td class='g'><b>53+/w0</b></td><td class='g'>46-/b1</td><td class='g'><b>57+/b0</b></td><td class='g'><span class='pend'>47?/w0</span></td><td class='n'>24</td><td class='n s'>95</td><td class='n s'>385</td></tr>
+<tr data-q="zhao kai 9k wmgc" data-x="51 51 3 24 93 382 58 57 47 45"><td class='n'>51</td><td class='n' data-v='51'>51</td><td class='pn'>Zhao Kai</td><td class='pr' data-v='21'>9K</td><td class='pc'>WMGC</td><td class='n'>3</td><td class='g'><b>58+/w0</b></td><td class='g'><b>57+/w0</b></td><td class='g'><b>47+/b1</b></td><td class='g'><span class='pend'>45?/b1</span></td><td class='n'>24</td><td class='n s'>93</td><td class='n s'>382</td></tr>
+<tr data-q="luo louis 8k mga" data-x="52 52 1 23 94 382 56 48 49 53"><td class='n'>52</td><td class='n' data-v='52'>52</td><td class='pn'>Luo Louis</td><td class='pr' data-v='22'>8K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'><b>56+/w0</b></td><td class='g'>48-/b0</td><td class='g'>49-/w0</td><td class='g'><span class='pend'>53?/b0</span></td><td class='n'>23</td><td class='n s'>94</td><td class='n s'>382</td></tr>
+<tr data-q="kenoyer aidan 8k nocb" data-x="53 53 1 23 93 371 50 54 55 52"><td class='n'>53</td><td class='n' data-v='53'>53</td><td class='pn'>Kenoyer Aidan</td><td class='pr' data-v='22'>8K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>50-/b0</td><td class='g'>54-/w0</td><td class='g'><b>55+/b0</b></td><td class='g'><span class='pend'>52?/w0</span></td><td class='n'>23</td><td class='n s'>93</td><td class='n s'>371</td></tr>
+<tr data-q="mcilhargey james 9k balt" data-x="54 54 2 23 92 374 59 53 45 56"><td class='n'>54</td><td class='n' data-v='54'>54</td><td class='pn'>McIlhargey James</td><td class='pr' data-v='21'>9K</td><td class='pc'>BALT</td><td class='n'>2</td><td class='g'><b>59+/w0</b></td><td class='g'><b>53+/b0</b></td><td class='g'>45-/b1</td><td class='g'><span class='pend'>56?/b0</span></td><td class='n'>23</td><td class='n s'>92</td><td class='n s'>374</td></tr>
+<tr data-q="ross wyatt 9k mga" data-x="55 55 2 23 90 364 57 56 53 59"><td class='n'>55</td><td class='n' data-v='55'>55</td><td class='pn'>Ross Wyatt</td><td class='pr' data-v='21'>9K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>57+/b0</b></td><td class='g'><b>56+/b0</b></td><td class='g'>53-/w0</td><td class='g'><span class='pend'>59?/w1</span></td><td class='n'>23</td><td class='n s'>90</td><td class='n s'>364</td></tr>
+<tr data-q="sullivan eric 8k nocb" data-x="56 56 1 23 90 358 52 55 60 54"><td class='n'>56</td><td class='n' data-v='56'>56</td><td class='pn'>Sullivan Eric</td><td class='pr' data-v='22'>8K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>52-/b0</td><td class='g'>55-/w0</td><td class='g'><b>60+/b0</b></td><td class='g'><span class='pend'>54?/w0</span></td><td class='n'>23</td><td class='n s'>90</td><td class='n s'>358</td></tr>
+<tr data-q="alford astra 8k nocb" data-x="57 57 0 22 93 365 55 51 50 58"><td class='n'>57</td><td class='n' data-v='57'>57</td><td class='pn'>Alford Astra</td><td class='pr' data-v='22'>8K</td><td class='pc'>NoCb</td><td class='n'>0</td><td class='g'>55-/w0</td><td class='g'>51-/b0</td><td class='g'>50-/w0</td><td class='g'><span class='pend'>58?/b0</span></td><td class='n'>22</td><td class='n s'>93</td><td class='n s'>365</td></tr>
+<tr data-q="fang jeff 10k tgg" data-x="58 58 2 22 87 347 51 61 59 57"><td class='n'>58</td><td class='n' data-v='58'>58</td><td class='pn'>Fang Jeff</td><td class='pr' data-v='20'>10K</td><td class='pc'>TGG</td><td class='n'>2</td><td class='g'>51-/b0</td><td class='g'><b>61+/w2</b></td><td class='g'><b>59+/w0</b></td><td class='g'><span class='pend'>57?/w0</span></td><td class='n'>22</td><td class='n s'>87</td><td class='n s'>347</td></tr>
+<tr data-q="kendrick caleb 9k nocb" data-x="59 59 0 21 88 351 54 60 58 55"><td class='n'>59</td><td class='n' data-v='59'>59</td><td class='pn'>Kendrick Caleb</td><td class='pr' data-v='21'>9K</td><td class='pc'>NoCb</td><td class='n'>0</td><td class='g'>54-/b0</td><td class='g'>60-/w0</td><td class='g'>58-/b0</td><td class='g'><span class='pend'>55?/b1</span></td><td class='n'>21</td><td class='n s'>88</td><td class='n s'>351</td></tr>
+<tr data-q="chen lin 11k goth" data-x="60 60 2 21 82 321 62 59 56 61"><td class='n'>60</td><td class='n' data-v='60'>60</td><td class='pn'>Chen Lin</td><td class='pr' data-v='19'>11K</td><td class='pc'>GOTH</td><td class='n'>2</td><td class='g'><b>62+/w1</b></td><td class='g'><b>59+/b0</b></td><td class='g'>56-/w0</td><td class='g'><span class='pend'>61?/w2</span></td><td class='n'>21</td><td class='n s'>82</td><td class='n s'>321</td></tr>
+<tr data-q="lu binyi 14k nocb" data-x="61 61 2 18 73 302 64 58 63 60"><td class='n'>61</td><td class='n' data-v='61'>61</td><td class='pn'>Lu Binyi</td><td class='pr' data-v='16'>14K</td><td class='pc'>NoCb</td><td class='n'>2</td><td class='g'><b>64+/w0</b></td><td class='g'>58-/b2</td><td class='g'><b>63+/b0</b></td><td class='g'><span class='pend'>60?/b2</span></td><td class='n'>18</td><td class='n s'>73</td><td class='n s'>302</td></tr>
+<tr data-q="kelley evan 13k nocb" data-x="62 62 0 17 70 278 60 63 64 66"><td class='n'>62</td><td class='n' data-v='62'>62</td><td class='pn'>Kelley Evan</td><td class='pr' data-v='17'>13K</td><td class='pc'>NoCb</td><td class='n'>0</td><td class='g'>60-/b1</td><td class='g'>63-/b0</td><td class='g'>64-/w0</td><td class='g'><span class='pend'>66?/b0</span></td><td class='n'>17</td><td class='n s'>70</td><td class='n s'>278</td></tr>
+<tr data-q="ma yihuan 15k mga" data-x="63 63 2 17 67 271 65 62 61 67"><td class='n'>63</td><td class='n' data-v='63'>63</td><td class='pn'>Ma Yihuan</td><td class='pr' data-v='15'>15K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>65+/b0</b></td><td class='g'><b>62+/w0</b></td><td class='g'>61-/w0</td><td class='g'><span class='pend'>67?/b0</span></td><td class='n'>17</td><td class='n s'>67</td><td class='n s'>271</td></tr>
+<tr data-q="foust natalie 15k wmgc" data-x="64 64 2 17 66 272 61 68 62 65"><td class='n'>64</td><td class='n' data-v='64'>64</td><td class='pn'>Foust Natalie</td><td class='pr' data-v='15'>15K</td><td class='pc'>WMGC</td><td class='n'>2</td><td class='g'>61-/b0</td><td class='g'><b>68+/w0</b></td><td class='g'><b>62+/b0</b></td><td class='g'><span class='pend'>65?/w0</span></td><td class='n'>17</td><td class='n s'>66</td><td class='n s'>272</td></tr>
+<tr data-q="gorman cory 15k nocb" data-x="65 65 1 16 66 258 63 66 67 64"><td class='n'>65</td><td class='n' data-v='65'>65</td><td class='pn'>Gorman Cory</td><td class='pr' data-v='15'>15K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'>63-/w0</td><td class='g'><b>66+/b0</b></td><td class='g'>67-/w0</td><td class='g'><span class='pend'>64?/b0</span></td><td class='n'>16</td><td class='n s'>66</td><td class='n s'>258</td></tr>
+<tr data-q="donofrio-ralls ryan 15k mga" data-x="66 66 1 16 63 260 68 65 69 62"><td class='n'>66</td><td class='n' data-v='66'>66</td><td class='pn'>Donofrio-Ralls Ryan</td><td class='pr' data-v='15'>15K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>68-/b0</td><td class='g'>65-/w0</td><td class='g'><b>69+/b0</b></td><td class='g'><span class='pend'>62?/w0</span></td><td class='n'>16</td><td class='n s'>63</td><td class='n s'>260</td></tr>
+<tr data-q="hood jacqueline 16k wmgc" data-x="67 67 2 16 62 246 69 72 65 63"><td class='n'>67</td><td class='n' data-v='67'>67</td><td class='pn'>Hood Jacqueline</td><td class='pr' data-v='14'>16K</td><td class='pc'>WMGC</td><td class='n'>2</td><td class='g'>69-/w0</td><td class='g'><b>72+/w1</b></td><td class='g'><b>65+/b0</b></td><td class='g'><span class='pend'>63?/w0</span></td><td class='n'>16</td><td class='n s'>62</td><td class='n s'>246</td></tr>
+<tr data-q="lee lucas 16k nocb" data-x="68 68 1 15 63 240 66 64 71 70"><td class='n'>68</td><td class='n' data-v='68'>68</td><td class='pn'>Lee Lucas</td><td class='pr' data-v='14'>16K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'><b>66+/w0</b></td><td class='g'>64-/b0</td><td class='g'>71-/w1</td><td class='g'><span class='pend'>70?/b0</span></td><td class='n'>15</td><td class='n s'>63</td><td class='n s'>240</td></tr>
+<tr data-q="muschner robert 17k mego" data-x="69 69 2 15 61 234 67 70 66 72"><td class='n'>69</td><td class='n' data-v='69'>69</td><td class='pn'>Muschner Robert</td><td class='pr' data-v='13'>17K</td><td class='pc'>MEGO</td><td class='n'>2</td><td class='g'><b>67+/b0</b></td><td class='g'><b>70+/b0</b></td><td class='g'>66-/w0</td><td class='g'><span class='pend'>72?/w1</span></td><td class='n'>15</td><td class='n s'>61</td><td class='n s'>234</td></tr>
+<tr data-q="perry andrew 17k wmgc" data-x="70 70 2 15 57 225 71 69 74 68"><td class='n'>70</td><td class='n' data-v='70'>70</td><td class='pn'>Perry Andrew</td><td class='pr' data-v='13'>17K</td><td class='pc'>WMGC</td><td class='n'>2</td><td class='g'><b>71+/b0</b></td><td class='g'>69-/w0</td><td class='g'><b>74+/w1</b></td><td class='g'><span class='pend'>68?/w0</span></td><td class='n'>15</td><td class='n s'>57</td><td class='n s'>225</td></tr>
+<tr data-q="li yinjia 18k mga" data-x="71 71 2 14 54 200 70 73 68 75"><td class='n'>71</td><td class='n' data-v='71'>71</td><td class='pn'>Li Yinjia</td><td class='pr' data-v='12'>18K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'>70-/w0</td><td class='g'><b>73+/b0</b></td><td class='g'><b>68+/b1</b></td><td class='g'><span class='pend'>75?/w5</span></td><td class='n'>14</td><td class='n s'>54</td><td class='n s'>200</td></tr>
+<tr data-q="chan joe 19k mga" data-x="72 72 2 13 52 203 73 67 75 69"><td class='n'>72</td><td class='n' data-v='72'>72</td><td class='pn'>Chan Joe</td><td class='pr' data-v='11'>19K</td><td class='pc'>MGA</td><td class='n'>2</td><td class='g'><b>73+/w0</b></td><td class='g'>67-/b1</td><td class='g'><b>75+/w3</b></td><td class='g'><span class='pend'>69?/b1</span></td><td class='n'>13</td><td class='n s'>52</td><td class='n s'>203</td></tr>
+<tr data-q="oshima mari 19k bkln" data-x="73 73 1 12 49 181 72 71 77 74"><td class='n'>73</td><td class='n' data-v='73'>73</td><td class='pn'>Oshima Mari</td><td class='pr' data-v='11'>19K</td><td class='pc'>BKLN</td><td class='n'>1</td><td class='g'>72-/b0</td><td class='g'>71-/w0</td><td class='g'><b>77+/w5</b></td><td class='g'><span class='pend'>74?/w0</span></td><td class='n'>12</td><td class='n s'>49</td><td class='n s'>181</td></tr>
+<tr data-q="wallace glenn 19k mga" data-x="74 74 1 12 47 163 76 77 70 73"><td class='n'>74</td><td class='n' data-v='74'>74</td><td class='pn'>Wallace Glenn</td><td class='pr' data-v='11'>19K</td><td class='pc'>MGA</td><td class='n'>1</td><td class='g'>76-/w4</td><td class='g'><b>77+/w5</b></td><td class='g'>70-/b1</td><td class='g'><span class='pend'>73?/b0</span></td><td class='n'>12</td><td class='n s'>47</td><td class='n s'>163</td></tr>
+<tr data-q="stratton brendan 24k mego" data-x="75 75 2 8 31 163 77 76 72 71"><td class='n'>75</td><td class='n' data-v='75'>75</td><td class='pn'>Stratton Brendan</td><td class='pr' data-v='6'>24K</td><td class='pc'>MEGO</td><td class='n'>2</td><td class='g'><b>77+/w0</b></td><td class='g'><b>76+/b0</b></td><td class='g'>72-/b3</td><td class='g'><span class='pend'>71?/b5</span></td><td class='n'>8</td><td class='n s'>31</td><td class='n s'>163</td></tr>
+<tr data-q="elliston kendra 24k nocb" data-x="76 76 1 7 29 134 74 75 77"><td class='n'>76</td><td class='n' data-v='76'>76</td><td class='pn'>Elliston Kendra</td><td class='pr' data-v='6'>24K</td><td class='pc'>NoCb</td><td class='n'>1</td><td class='g'><b>74+/b4</b></td><td class='g'>75-/w0</td><td class='g'>&ndash;</td><td class='g'><span class='pend'>77?/w1</span></td><td class='n'>7</td><td class='n s'>29</td><td class='n s'>134</td></tr>
+<tr data-q="deaubl jessa 25k nocb" data-x="77 77 0 5 28 156 75 74 73 76"><td class='n'>77</td><td class='n' data-v='77'>77</td><td class='pn'>Deaubl Jessa</td><td class='pr' data-v='5'>25K</td><td class='pc'>NoCb</td><td class='n'>0</td><td class='g'>75-/b0</td><td class='g'>74-/b5</td><td class='g'>73-/b5</td><td class='g'><span class='pend'>76?/b1</span></td><td class='n'>5</td><td class='n s'>28</td><td class='n s'>156</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">A round cell reads <em>opponent number</em>, <b>+</b> win or <b>-</b> loss,
+then colour and handicap - so <b>12+/w0</b> is "beat number 12, playing White, even game".
+Bold green is a win; grey means the result is not in yet.
+MMS is the McMahon score; SOS and SOSOS are the tiebreakers.</p>
+<script>
+var tb = document.querySelector('#x tbody');
+var keys = [];                    // [{c: column, d: 'asc'|'desc'}]; keys[0] is primary
+
+function val(row, c) {
+  var td = row.cells[c];
+  if (!td) return '';
+  var v = td.getAttribute('data-v');
+  var t = (v !== null ? v : td.textContent).trim();
+  return (t !== '' && /^-?[0-9.]+$/.test(t)) ? parseFloat(t) : t.toLowerCase();
+}
+
+function applySort() {
+  var rows = Array.prototype.slice.call(tb.rows);
+  rows.sort(function (a, b) {
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i], x = val(a, k.c), y = val(b, k.c);
+      if (x !== y) {
+        if (x === '') return 1;          // blanks sit last either way
+        if (y === '') return -1;
+        return (x < y ? -1 : 1) * (k.d === 'asc' ? 1 : -1);
+      }
+    }
+    return val(a, 0) - val(b, 0);        // ties fall back to the placing order
+  });
+  rows.forEach(function (r) { tb.appendChild(r); });
+  document.querySelectorAll('#x th.so').forEach(function (th) {
+    var c = +th.getAttribute('data-c'), at = -1;
+    keys.forEach(function (k, n) { if (k.c === c) at = n; });
+    var badge = th.querySelector('.ord');
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'ord';
+      th.appendChild(badge);
+    }
+    badge.textContent = at < 0 ? '' :
+      (keys[at].d === 'asc' ? ' ↑' : ' ↓') + (keys.length > 1 ? (at + 1) : '');
+    th.setAttribute('aria-sort', at < 0 ? 'none'
+      : (keys[at].d === 'asc' ? 'ascending' : 'descending'));
+  });
+}
+
+document.querySelectorAll('#x th.so').forEach(function (th) {
+  th.setAttribute('tabindex', '0');
+  function hit(e) {
+    var c = +th.getAttribute('data-c'), def = th.getAttribute('data-d'), at = -1;
+    keys.forEach(function (k, n) { if (k.c === c) at = n; });
+    if (e.shiftKey) {                   // add this column as a tiebreak, or flip it
+      if (at < 0) keys.push({c: c, d: def});
+      else keys[at].d = keys[at].d === 'asc' ? 'desc' : 'asc';
+    } else {                            // sort by this column alone
+      var flip = (at === 0 && keys.length === 1);
+      keys = [{c: c, d: flip ? (keys[0].d === 'asc' ? 'desc' : 'asc') : def}];
+    }
+    applySort();
+  }
+  th.addEventListener('click', hit);
+  th.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hit({shiftKey: e.shiftKey}); }
+  });
+});
+
+document.getElementById('reset').addEventListener('click', function () {
+  keys = [];
+  applySort();
+});
+
+document.getElementById('q').addEventListener('input', function () {
+  var s = this.value.trim().toLowerCase();
+  document.querySelectorAll('#x tbody tr').forEach(function (row) {
+    var hit = !s || (row.getAttribute('data-q') || '').indexOf(s) > -1
+              || (row.getAttribute('data-x') || '').split(' ').indexOf(s) > -1;
+    row.style.display = hit ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
