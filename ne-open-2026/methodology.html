@@ -161,9 +161,9 @@ The activity date is right there in column 9; use it.</p>
 
 <h2>6. The script</h2>
 
-<p><a href="aga-rank.txt"><strong>aga-rank.txt</strong></a> - save it as <code>aga-rank.py</code>
-(this server refuses to serve a <code>.py</code> file). Python 3.9+, standard library only, nothing to
-install. It downloads the list and answers the question:</p>
+<p><a href="https://github.com/gotrevor/baduk-tools/blob/main/bin/aga-rank.py"><strong>aga-rank.py</strong></a>
+- Python 3.9+, standard library only, nothing to install. It downloads the list and answers the
+question:</p>
 
 <pre class="out">python3 aga-rank.py tdlist.tsv --fetch      # download today's list
 python3 aga-rank.py tdlist.tsv "Steinberg"  # by name (substring; prints every match)
@@ -171,153 +171,14 @@ python3 aga-rank.py tdlist.tsv 17531        # by AGA id
 python3 aga-rank.py tdlist.tsv 17531 --years 10   # widen the activity window
 python3 aga-rank.py tdlist.tsv 17531 --pool all   # everyone the AGA has ever rated</pre>
 
-<pre>#!/usr/bin/env python3
-&quot;&quot;&quot;Where does a player stand among everyone else at their rank?
-
-Reads the AGA TDList - the rating list every tournament director already
-downloads - and reports a player&#x27;s position inside their own rank band.
-
-    python3 aga-rank.py tdlist.tsv --fetch          # download today&#x27;s list
-    python3 aga-rank.py tdlist.tsv &quot;Steinberg&quot;      # by name (substring)
-    python3 aga-rank.py tdlist.tsv 17531            # by AGA ID
-    python3 aga-rank.py tdlist.tsv 17531 --pool all # compare against every rated player
-
-By default the comparison pool is players who have played a rated game in the
-last 5 years - see --pool and --years.
-
-Public domain / CC0.  Python 3.9+, standard library only.
-&quot;&quot;&quot;
-
-import argparse
-import csv
-import datetime
-import math
-import re
-import sys
-import urllib.request
-
-# The AGA&#x27;s stable handle for the tab-separated &quot;A&quot; variant of the list.  It is
-# NOT an HTTP redirect: usgo.org serves a page carrying a JavaScript redirect to
-# an Azure host whose name changes, so resolve it at runtime rather than pasting
-# the Azure URL anywhere.  That host also rejects a default urllib User-Agent.
-HANDLE = &quot;https://www.usgo.org/TDListA&quot;
-UA = (&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 &quot;
-      &quot;(KHTML, like Gecko) Chrome/126.0 Safari/537.36&quot;)
-
-
-def get(url, timeout=90):
-    req = urllib.request.Request(url, headers={&quot;User-Agent&quot;: UA})
-    return urllib.request.urlopen(req, timeout=timeout).read()
-
-
-def fetch(path):
-    page = get(HANDLE, timeout=30).decode(&quot;utf-8&quot;, &quot;replace&quot;)
-    m = re.search(r&quot;&quot;&quot;https://[^\s&#x27;&quot;]*GenerateTDList[A-Z]?&quot;&quot;&quot;, page)
-    if not m:
-        sys.exit(&quot;no GenerateTDList URL found on &quot; + HANDLE)
-    data = get(m.group(0))
-    if len(data) &lt; 100_000:          # a real list is ~1 MB; smaller means error page
-        sys.exit(&quot;suspiciously small download (%d bytes)&quot; % len(data))
-    open(path, &quot;wb&quot;).write(data)
-    print(&quot;wrote %s (%.1f MB) from %s&quot; % (path, len(data) / 1e6, m.group(0)))
-
-
-def rank_of(rating):
-    &quot;&quot;&quot;AGA rating -&gt; rank string.  Truncates toward zero: 4.99 is a 4d, not a 5d.
-    The scale has no 0: ratings run ... -2 (2k) -1 (1k) | 1 (1d) 2 (2d) ...&quot;&quot;&quot;
-    n = math.trunc(rating)
-    return &quot;%dd&quot; % n if rating &gt; 0 else &quot;%dk&quot; % -n
-
-
-def parse_date(text):
-    &quot;&quot;&quot;m/d/yyyy -&gt; date, or None when the field is blank or malformed.&quot;&quot;&quot;
-    try:
-        month, day, year = (int(x) for x in text.strip().split(&quot;/&quot;))
-        return datetime.date(year, month, day)
-    except ValueError:
-        return None
-
-
-def load(path):
-    &quot;&quot;&quot;Every row of the TDList that carries a rating.
-
-    Columns, tab-separated, no header:
-      0 name &quot;Last, First&quot;   3 rating              6 state
-      1 AGA id               4 membership expires  7 sigma
-      2 membership type      5 chapter code        8 date of last rated game
-
-    A blank rating means the player joined but has never played a rated game -
-    those rows are not players in this sense, so drop them.&quot;&quot;&quot;
-    out = []
-    for row in csv.reader(open(path, encoding=&quot;utf-8&quot;, errors=&quot;replace&quot;), delimiter=&quot;\t&quot;):
-        if len(row) &lt; 9 or not row[3].strip():
-            continue
-        try:
-            rating = float(row[3])
-        except ValueError:
-            continue
-        out.append({&quot;name&quot;: row[0], &quot;id&quot;: row[1], &quot;rating&quot;: rating,
-                    &quot;expires&quot;: parse_date(row[4]), &quot;last_game&quot;: parse_date(row[8])})
-    return out
-
-
-def active(players, pool, years):
-    &quot;&quot;&quot;The comparison pool.  &quot;The country&quot; is 15,000 people the AGA has ever
-    rated, two thirds of whom last played before 2010, so pick who counts:
-    &#x27;active&#x27; is anyone with a rated game inside `years`, &#x27;all&#x27; is everybody.
-    (Membership expiry would be a proxy for the same thing, and a worse one:
-    it admits 1,000-odd people who pay dues but do not play.)&quot;&quot;&quot;
-    if pool == &quot;all&quot;:
-        return players
-    cutoff = datetime.date.today() - datetime.timedelta(days=365 * years)
-    return [p for p in players if p[&quot;last_game&quot;] and p[&quot;last_game&quot;] &gt;= cutoff]
-
-
-def report(players, who, pool=&quot;active&quot;, years=5):
-    peers_pool = active(players, pool, years)
-    hits = [p for p in players
-            if p[&quot;id&quot;] == who or who.lower() in p[&quot;name&quot;].lower()]
-    if not hits:
-        sys.exit(&quot;no player matching %r&quot; % who)
-    label = (&quot;ever rated&quot; if pool == &quot;all&quot;
-             else &quot;played in the last %d years&quot; % years)
-    for p in hits:
-        band = rank_of(p[&quot;rating&quot;])
-        peers = sorted(q[&quot;rating&quot;] for q in peers_pool if rank_of(q[&quot;rating&quot;]) == band)
-        print(&quot;%s (%s)  %.5f  %s   [pool: %s, %d players]&quot;
-              % (p[&quot;name&quot;], p[&quot;id&quot;], p[&quot;rating&quot;], band, label, len(peers_pool)))
-        if p[&quot;rating&quot;] not in peers:
-            print(&quot;   not in the pool himself - last rated game %s, membership expires %s&quot;
-                  % (p[&quot;last_game&quot;], p[&quot;expires&quot;]))
-            continue
-        pos = peers.index(p[&quot;rating&quot;]) + 1               # 1 = weakest in the band
-        weaker = sum(1 for q in peers_pool if q[&quot;rating&quot;] &lt; p[&quot;rating&quot;])
-        print(&quot;   #%d of %d %s players from the bottom (#%d from the top)&quot;
-              % (pos, len(peers), band, len(peers) - pos + 1))
-        print(&quot;   stronger than %d of %d (%.1f%%)&quot;
-              % (weaker, len(peers_pool), 100.0 * weaker / len(peers_pool)))
-
-
-def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument(&quot;tdlist&quot;, help=&quot;path to a TDList .tsv snapshot&quot;)
-    ap.add_argument(&quot;player&quot;, nargs=&quot;?&quot;, help=&quot;AGA id, or part of a name&quot;)
-    ap.add_argument(&quot;--fetch&quot;, action=&quot;store_true&quot;, help=&quot;download a fresh list to TDLIST first&quot;)
-    ap.add_argument(&quot;--pool&quot;, choices=(&quot;active&quot;, &quot;all&quot;), default=&quot;active&quot;,
-                    help=&quot;who counts as a player (default: active)&quot;)
-    ap.add_argument(&quot;--years&quot;, type=int, default=5, metavar=&quot;N&quot;,
-                    help=&quot;how recent the pool has to be (default: 5)&quot;)
-    a = ap.parse_args()
-    if a.fetch:
-        fetch(a.tdlist)
-    if a.player:
-        report(load(a.tdlist), a.player, a.pool, a.years)
-
-
-if __name__ == &quot;__main__&quot;:
-    main()
-</pre>
+<div class="note">
+<p>The script, and the rest of the tournament toolkit it came from, now live in
+<a href="https://github.com/gotrevor/baduk-tools"><strong>gotrevor/baduk-tools</strong></a> -
+publishers that turn a desktop OpenGotha into the live pairings and cross-tab pages this
+tournament ran on, plus the AGA rating-list tools. Apache 2.0; patches from other TDs welcome.</p>
+<pre class="out">git clone https://github.com/gotrevor/baduk-tools
+python3 baduk-tools/bin/aga-rank.py tdlist.tsv --fetch</pre>
+</div>
 
 <footer>
 <p>Written for the Western Mass Go Club, September 2026. Numbers on this page come from the AGA
