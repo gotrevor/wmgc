@@ -33,6 +33,7 @@ None of that happens without the vendors. Listed in order of the value they dona
 - [101weiqi](https://www.101weiqi.com)
 - [Online-Go.com (OGS)](https://online-go.com)
 - [The European Go Journal](https://www.eurogofed.org/journal/)
+- [Tesuji.net](https://tesuji.net)
 - [AYD](https://yunguseng.com)
 - [Fox Go Server](https://www.foxwq.com)
 - [ZBaduk](https://zbaduk.com)
@@ -42,6 +43,7 @@ None of that happens without the vendors. Listed in order of the value they dona
 - [AI Sensei](https://ai-sensei.com)
 - [BadukPop](https://badukpop.com)
 - [BenKyo Baduk](https://benkyobaduk.com)
+- [Eric's Go Shirts](https://ericsgoshirts.com)
 - [BetterBaduk](https://betterbaduk.com)
 - [Kifubara](https://kifubara.app)
 
