@@ -60,26 +60,30 @@ answers itself later. The rating-changes page is exactly that diff, joined on AG
 
 <h2>2. What is in a row</h2>
 
-<p>Nine tab-separated columns:</p>
+<p>Nine tab-separated columns, no header row:</p>
 
 <table>
 <thead><tr><th class="c">#</th><th>Column</th><th>Example</th></tr></thead>
 <tbody>
 <tr><td class="c">1</td><td>name (<code>Last, First</code>)</td><td>Chiu, Jeremy</td></tr>
 <tr><td class="c">2</td><td>AGA id</td><td class="n">17531</td></tr>
-<tr><td class="c">3</td><td>membership type</td><td>Adult Full</td></tr>
+<tr><td class="c">3</td><td>membership type</td><td>Adult Full - Lifetime</td></tr>
 <tr><td class="c">4</td><td><strong>rating</strong></td><td class="n">7.98574</td></tr>
-<tr><td class="c">5</td><td>date last rated</td><td class="n">9/7/2026</td></tr>
-<tr><td class="c">6</td><td>chapter</td><td>MASS</td></tr>
-<tr><td class="c">7</td><td>state</td><td>MA</td></tr>
-<tr><td class="c">8</td><td>sigma (rating uncertainty)</td><td class="n">0.61000</td></tr>
-<tr><td class="c">9</td><td>member since</td><td class="n">7/1/2005</td></tr>
+<tr><td class="c">5</td><td>membership expires</td><td class="n">5/14/2067</td></tr>
+<tr><td class="c">6</td><td>chapter code</td><td>PENG</td></tr>
+<tr><td class="c">7</td><td>state</td><td>CA</td></tr>
+<tr><td class="c">8</td><td>sigma (rating uncertainty)</td><td class="n">0.16805</td></tr>
+<tr><td class="c">9</td><td><strong>date of last rated game</strong></td><td class="n">9/5/2026</td></tr>
 </tbody>
 </table>
 
-<p>The rating is the whole game. <strong>Blank</strong> means never rated - 1,736 of the 17,159 rows
-in the September&nbsp;7 list, mostly new members. Those are not players in this sense; drop them and
-you are left with <strong>15,423 rated players</strong>.</p>
+<p>Columns 4 and 9 are the two that matter here: the rating answers "where", and the last-game date
+answers "compared to whom". Column 9 carries the <em>start date of the last event the player was
+rated for</em> - every NE Open player reads <code>9/5/2026</code>, the date on the results file.</p>
+
+<p>A <strong>blank</strong> rating means the player joined but has never played a rated game -
+1,736 of the 17,159 rows in the September&nbsp;7 list. Those are not players in this sense; drop them
+and you are left with <strong>15,423 rated players</strong>.</p>
 
 <h2>3. Rating to rank</h2>
 
@@ -103,46 +107,60 @@ not matter - sorting inside one band never crosses the gap.</p>
 
 <h2>4. Position inside the band</h2>
 
-<p>Filter the list to one rank, sort by rating, find the player. That is the entire method. Two
-results from the NE Open writeup, both from the September&nbsp;7 list:</p>
+<p>Filter the list to one rank, sort by rating, find the player. That is the entire method - the only
+real decision is who is in the pool (next section). Two results from the NE Open, against everyone
+who has played a rated game in the last five years:</p>
 
 <pre class="out">$ python3 aga-rank.py tdlist.tsv "Steinberg, Micah"
-Steinberg, Micah (30588)  -3.99209  3k
-   #3 of 562 3k players from the bottom (#560 from the top)
-   stronger than 9050 of 15423 rated players (58.7%)
+Steinberg, Micah (30588)  -3.99209  3k   [pool: played in the last 5 years, 3449 players]
+   #2 of 149 3k players from the bottom (#148 from the top)
+   stronger than 1944 of 3449 (56.4%)
 
 $ python3 aga-rank.py tdlist.tsv 17531
-Chiu, Jeremy (17531)  7.98574  7d
-   #258 of 260 7d players from the bottom (#3 from the top)
-   stronger than 15280 of 15423 rated players (99.1%)</pre>
+Chiu, Jeremy (17531)  7.98574  7d   [pool: played in the last 5 years, 3449 players]
+   #52 of 52 7d players from the bottom (#1 from the top)
+   stronger than 3416 of 3449 (99.0%)</pre>
 
-<p>Micah Steinberg was promoted by 0.06 of a point and is now the third-weakest 3k in the country -
-which is what a promotion looks like the day it happens. Jeremy Chiu went the other way through the
-same kind of boundary: fourth-weakest of 96 8d players going in, third-strongest of 260 7d players
-coming out, on a change of -0.046.</p>
+<p>Micah Steinberg was promoted by 0.06 of a point and is the second-weakest active 3k in the
+country - which is what a promotion looks like the day it happens. Jeremy Chiu crossed the same kind
+of boundary going the other way, on a change of -0.046, and came out the <strong>strongest active 7d
+in the country</strong>.</p>
 
-<h2>5. The catch: who counts as a player?</h2>
+<h2>5. Who counts as a player?</h2>
 
 <div class="note">
-<p>Those denominators - 562, 260, 15,423 - count <strong>everyone the AGA has ever rated</strong>.
-Only 3,632 of the 15,423 have been rated since the start of 2024. A national position over the full
-file is a comparison against a mostly-dormant population.</p>
+<p>"The country" sounds like a fixed number and is not. The list holds <strong>15,423 rated
+players</strong> - everyone the AGA has ever rated. <strong>6,967 of them last played before
+2010</strong>, and 2,399 before 2000. Ranking someone against all of them compares them to a mostly
+dormant population, and it inflates every denominator.</p>
 </div>
 
-<p>Restrict the pool to players rated in 2024 or later (<code>--since 2024</code>) and the same two
-players read differently:</p>
+<p>Column 9 settles it without much guesswork: <strong>played a rated game in the last five
+years</strong>. That is <strong>3,449 players</strong>, and it is the default here.</p>
+
+<p>Membership expiry (column 5) works as a proxy if you would rather use it - current, or lapsed
+within five years, is <strong>4,515 players</strong>. Worth knowing how the two relate: the game pool
+is entirely <em>inside</em> the membership pool. Nobody has played a rated game in five years without
+also having been a member in five years, and the extra 1,067 are people who kept paying without
+playing. So the membership filter is the same idea, one notch looser.</p>
 
 <table>
-<thead><tr><th>Player</th><th class="c">Band</th><th class="c">All rated</th><th class="c">Rated since 2024</th></tr></thead>
+<thead><tr><th>Player</th><th class="c">Band</th><th class="c">Played &lt;5 yrs<br>(3,449)</th>
+<th class="c">Member &lt;5 yrs<br>(4,515)</th><th class="c">Ever rated<br>(15,423)</th></tr></thead>
 <tbody>
-<tr><td>Micah Steinberg</td><td class="c">3k</td><td class="c">#3 weakest of 562</td><td class="c">#2 weakest of 155</td></tr>
-<tr><td>Jeremy Chiu</td><td class="c">7d</td><td class="c">#3 strongest of 260</td><td class="c"><strong>strongest of 60</strong></td></tr>
+<tr><td>Micah Steinberg</td><td class="c">3k</td><td class="c">#2 weakest of 149</td>
+<td class="c">#2 weakest of 188</td><td class="c">#3 weakest of 562</td></tr>
+<tr><td>Jeremy Chiu</td><td class="c">7d</td><td class="c"><strong>strongest of 52</strong></td>
+<td class="c">#2 of 82</td><td class="c">#3 of 260</td></tr>
 </tbody>
 </table>
 
-<p>Neither number is wrong; they answer different questions. The published writeup used the whole
-list, because "of every 7d the AGA has on file" needs no judgement call about who is still active,
-and a cutoff year is a judgement call. Say which pool you used - that is the part that matters.</p>
+<p>None of these is wrong; they answer different questions, and the shape of the answer survives all
+three. Say which pool you used - that is the part that matters. The
+<a href="rating-changes.html">rating-changes writeup</a> quoted the whole-file numbers (562 and 260),
+which is the most conservative choice and needs no judgement about who is still playing; the
+five-year pool is the more honest one if you want to know where a player stands among people you
+could actually meet at a tournament.</p>
 
 <h2>6. The script</h2>
 
@@ -153,7 +171,9 @@ install. It downloads the list and answers the question:</p>
 <pre class="out">python3 aga-rank.py tdlist.tsv --fetch      # download today's list
 python3 aga-rank.py tdlist.tsv "Steinberg"  # by name (substring; prints every match)
 python3 aga-rank.py tdlist.tsv 17531        # by AGA id
-python3 aga-rank.py tdlist.tsv 17531 --since 2024</pre>
+python3 aga-rank.py tdlist.tsv 17531 --pool membership   # pool by membership instead
+python3 aga-rank.py tdlist.tsv 17531 --pool all          # everyone ever rated
+python3 aga-rank.py tdlist.tsv 17531 --years 10          # widen the window</pre>
 
 <pre>#!/usr/bin/env python3
 &quot;&quot;&quot;Where does a player stand among everyone else at their rank?
@@ -164,13 +184,17 @@ downloads - and reports a player&#x27;s position inside their own rank band.
     python3 aga-rank.py tdlist.tsv --fetch          # download today&#x27;s list
     python3 aga-rank.py tdlist.tsv &quot;Steinberg&quot;      # by name (substring)
     python3 aga-rank.py tdlist.tsv 17531            # by AGA ID
-    python3 aga-rank.py tdlist.tsv 17531 --since 2024   # only recently-rated players
+    python3 aga-rank.py tdlist.tsv 17531 --pool all # compare against every rated player
+
+By default the comparison pool is players who have played a rated game in the
+last 5 years - see --pool and --years.
 
 Public domain / CC0.  Python 3.9+, standard library only.
 &quot;&quot;&quot;
 
 import argparse
 import csv
+import datetime
 import math
 import re
 import sys
@@ -209,44 +233,77 @@ def rank_of(rating):
     return &quot;%dd&quot; % n if rating &gt; 0 else &quot;%dk&quot; % -n
 
 
+def parse_date(text):
+    &quot;&quot;&quot;m/d/yyyy -&gt; date, or None when the field is blank or malformed.&quot;&quot;&quot;
+    try:
+        month, day, year = (int(x) for x in text.strip().split(&quot;/&quot;))
+        return datetime.date(year, month, day)
+    except ValueError:
+        return None
+
+
 def load(path):
     &quot;&quot;&quot;Every row of the TDList that carries a rating.
 
-    Columns: name, AGA id, membership type, rating, rating date, chapter,
-    state, sigma, member-since.  A blank rating means the player has never
-    been rated - those rows are not players in this sense, so drop them.&quot;&quot;&quot;
+    Columns, tab-separated, no header:
+      0 name &quot;Last, First&quot;   3 rating              6 state
+      1 AGA id               4 membership expires  7 sigma
+      2 membership type      5 chapter code        8 date of last rated game
+
+    A blank rating means the player joined but has never played a rated game -
+    those rows are not players in this sense, so drop them.&quot;&quot;&quot;
     out = []
     for row in csv.reader(open(path, encoding=&quot;utf-8&quot;, errors=&quot;replace&quot;), delimiter=&quot;\t&quot;):
-        if len(row) &lt; 5 or not row[3].strip():
+        if len(row) &lt; 9 or not row[3].strip():
             continue
         try:
             rating = float(row[3])
         except ValueError:
             continue
-        year = int(row[4].split(&quot;/&quot;)[-1]) if &quot;/&quot; in row[4] else 0
-        out.append({&quot;name&quot;: row[0], &quot;id&quot;: row[1], &quot;rating&quot;: rating, &quot;year&quot;: year})
+        out.append({&quot;name&quot;: row[0], &quot;id&quot;: row[1], &quot;rating&quot;: rating,
+                    &quot;expires&quot;: parse_date(row[4]), &quot;last_game&quot;: parse_date(row[8])})
     return out
 
 
-def report(players, who, since=0):
-    pool = [p for p in players if p[&quot;year&quot;] &gt;= since]
+def active(players, pool, years):
+    &quot;&quot;&quot;The comparison pool.  &#x27;The country&#x27; is 15,000 people the AGA has ever
+    rated, most of whom stopped playing decades ago, so pick who counts:
+
+      game        played a rated game within `years`  (the real question)
+      membership  membership current, or expired within `years`  (a proxy)
+      all         everyone ever rated
+    &quot;&quot;&quot;
+    if pool == &quot;all&quot;:
+        return players
+    cutoff = datetime.date.today() - datetime.timedelta(days=365 * years)
+    key = &quot;last_game&quot; if pool == &quot;game&quot; else &quot;expires&quot;
+    return [p for p in players if p[key] and p[key] &gt;= cutoff]
+
+
+def report(players, who, pool=&quot;game&quot;, years=5):
+    peers_pool = active(players, pool, years)
     hits = [p for p in players
             if p[&quot;id&quot;] == who or who.lower() in p[&quot;name&quot;].lower()]
     if not hits:
         sys.exit(&quot;no player matching %r&quot; % who)
+    label = {&quot;game&quot;: &quot;played in the last %d years&quot; % years,
+             &quot;membership&quot;: &quot;member within the last %d years&quot; % years,
+             &quot;all&quot;: &quot;ever rated&quot;}[pool]
     for p in hits:
         band = rank_of(p[&quot;rating&quot;])
-        peers = sorted(q[&quot;rating&quot;] for q in pool if rank_of(q[&quot;rating&quot;]) == band)
-        if p[&quot;rating&quot;] not in peers:      # filtered out by --since
-            print(&quot;%s (%s): %s, excluded by --since %d&quot; % (p[&quot;name&quot;], p[&quot;id&quot;], band, since))
+        peers = sorted(q[&quot;rating&quot;] for q in peers_pool if rank_of(q[&quot;rating&quot;]) == band)
+        print(&quot;%s (%s)  %.5f  %s   [pool: %s, %d players]&quot;
+              % (p[&quot;name&quot;], p[&quot;id&quot;], p[&quot;rating&quot;], band, label, len(peers_pool)))
+        if p[&quot;rating&quot;] not in peers:
+            print(&quot;   not in the pool himself - last rated game %s, membership expires %s&quot;
+                  % (p[&quot;last_game&quot;], p[&quot;expires&quot;]))
             continue
         pos = peers.index(p[&quot;rating&quot;]) + 1               # 1 = weakest in the band
-        weaker = sum(1 for q in pool if q[&quot;rating&quot;] &lt; p[&quot;rating&quot;])
-        print(&quot;%s (%s)  %.5f  %s&quot; % (p[&quot;name&quot;], p[&quot;id&quot;], p[&quot;rating&quot;], band))
+        weaker = sum(1 for q in peers_pool if q[&quot;rating&quot;] &lt; p[&quot;rating&quot;])
         print(&quot;   #%d of %d %s players from the bottom (#%d from the top)&quot;
               % (pos, len(peers), band, len(peers) - pos + 1))
-        print(&quot;   stronger than %d of %d rated players (%.1f%%)&quot;
-              % (weaker, len(pool), 100.0 * weaker / len(pool)))
+        print(&quot;   stronger than %d of %d (%.1f%%)&quot;
+              % (weaker, len(peers_pool), 100.0 * weaker / len(peers_pool)))
 
 
 def main():
@@ -255,13 +312,15 @@ def main():
     ap.add_argument(&quot;tdlist&quot;, help=&quot;path to a TDList .tsv snapshot&quot;)
     ap.add_argument(&quot;player&quot;, nargs=&quot;?&quot;, help=&quot;AGA id, or part of a name&quot;)
     ap.add_argument(&quot;--fetch&quot;, action=&quot;store_true&quot;, help=&quot;download a fresh list to TDLIST first&quot;)
-    ap.add_argument(&quot;--since&quot;, type=int, default=0, metavar=&quot;YEAR&quot;,
-                    help=&quot;only count players rated in YEAR or later&quot;)
+    ap.add_argument(&quot;--pool&quot;, choices=(&quot;game&quot;, &quot;membership&quot;, &quot;all&quot;), default=&quot;game&quot;,
+                    help=&quot;who counts as a player (default: game)&quot;)
+    ap.add_argument(&quot;--years&quot;, type=int, default=5, metavar=&quot;N&quot;,
+                    help=&quot;how recent the pool has to be (default: 5)&quot;)
     a = ap.parse_args()
     if a.fetch:
         fetch(a.tdlist)
     if a.player:
-        report(load(a.tdlist), a.player, a.since)
+        report(load(a.tdlist), a.player, a.pool, a.years)
 
 
 if __name__ == &quot;__main__&quot;:

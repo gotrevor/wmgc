@@ -7,13 +7,17 @@ downloads - and reports a player's position inside their own rank band.
     python3 aga-rank.py tdlist.tsv --fetch          # download today's list
     python3 aga-rank.py tdlist.tsv "Steinberg"      # by name (substring)
     python3 aga-rank.py tdlist.tsv 17531            # by AGA ID
-    python3 aga-rank.py tdlist.tsv 17531 --since 2024   # only recently-rated players
+    python3 aga-rank.py tdlist.tsv 17531 --pool all # compare against every rated player
+
+By default the comparison pool is players who have played a rated game in the
+last 5 years - see --pool and --years.
 
 Public domain / CC0.  Python 3.9+, standard library only.
 """
 
 import argparse
 import csv
+import datetime
 import math
 import re
 import sys
@@ -52,44 +56,77 @@ def rank_of(rating):
     return "%dd" % n if rating > 0 else "%dk" % -n
 
 
+def parse_date(text):
+    """m/d/yyyy -> date, or None when the field is blank or malformed."""
+    try:
+        month, day, year = (int(x) for x in text.strip().split("/"))
+        return datetime.date(year, month, day)
+    except ValueError:
+        return None
+
+
 def load(path):
     """Every row of the TDList that carries a rating.
 
-    Columns: name, AGA id, membership type, rating, rating date, chapter,
-    state, sigma, member-since.  A blank rating means the player has never
-    been rated - those rows are not players in this sense, so drop them."""
+    Columns, tab-separated, no header:
+      0 name "Last, First"   3 rating              6 state
+      1 AGA id               4 membership expires  7 sigma
+      2 membership type      5 chapter code        8 date of last rated game
+
+    A blank rating means the player joined but has never played a rated game -
+    those rows are not players in this sense, so drop them."""
     out = []
     for row in csv.reader(open(path, encoding="utf-8", errors="replace"), delimiter="\t"):
-        if len(row) < 5 or not row[3].strip():
+        if len(row) < 9 or not row[3].strip():
             continue
         try:
             rating = float(row[3])
         except ValueError:
             continue
-        year = int(row[4].split("/")[-1]) if "/" in row[4] else 0
-        out.append({"name": row[0], "id": row[1], "rating": rating, "year": year})
+        out.append({"name": row[0], "id": row[1], "rating": rating,
+                    "expires": parse_date(row[4]), "last_game": parse_date(row[8])})
     return out
 
 
-def report(players, who, since=0):
-    pool = [p for p in players if p["year"] >= since]
+def active(players, pool, years):
+    """The comparison pool.  'The country' is 15,000 people the AGA has ever
+    rated, most of whom stopped playing decades ago, so pick who counts:
+
+      game        played a rated game within `years`  (the real question)
+      membership  membership current, or expired within `years`  (a proxy)
+      all         everyone ever rated
+    """
+    if pool == "all":
+        return players
+    cutoff = datetime.date.today() - datetime.timedelta(days=365 * years)
+    key = "last_game" if pool == "game" else "expires"
+    return [p for p in players if p[key] and p[key] >= cutoff]
+
+
+def report(players, who, pool="game", years=5):
+    peers_pool = active(players, pool, years)
     hits = [p for p in players
             if p["id"] == who or who.lower() in p["name"].lower()]
     if not hits:
         sys.exit("no player matching %r" % who)
+    label = {"game": "played in the last %d years" % years,
+             "membership": "member within the last %d years" % years,
+             "all": "ever rated"}[pool]
     for p in hits:
         band = rank_of(p["rating"])
-        peers = sorted(q["rating"] for q in pool if rank_of(q["rating"]) == band)
-        if p["rating"] not in peers:      # filtered out by --since
-            print("%s (%s): %s, excluded by --since %d" % (p["name"], p["id"], band, since))
+        peers = sorted(q["rating"] for q in peers_pool if rank_of(q["rating"]) == band)
+        print("%s (%s)  %.5f  %s   [pool: %s, %d players]"
+              % (p["name"], p["id"], p["rating"], band, label, len(peers_pool)))
+        if p["rating"] not in peers:
+            print("   not in the pool himself - last rated game %s, membership expires %s"
+                  % (p["last_game"], p["expires"]))
             continue
         pos = peers.index(p["rating"]) + 1               # 1 = weakest in the band
-        weaker = sum(1 for q in pool if q["rating"] < p["rating"])
-        print("%s (%s)  %.5f  %s" % (p["name"], p["id"], p["rating"], band))
+        weaker = sum(1 for q in peers_pool if q["rating"] < p["rating"])
         print("   #%d of %d %s players from the bottom (#%d from the top)"
               % (pos, len(peers), band, len(peers) - pos + 1))
-        print("   stronger than %d of %d rated players (%.1f%%)"
-              % (weaker, len(pool), 100.0 * weaker / len(pool)))
+        print("   stronger than %d of %d (%.1f%%)"
+              % (weaker, len(peers_pool), 100.0 * weaker / len(peers_pool)))
 
 
 def main():
@@ -98,13 +135,15 @@ def main():
     ap.add_argument("tdlist", help="path to a TDList .tsv snapshot")
     ap.add_argument("player", nargs="?", help="AGA id, or part of a name")
     ap.add_argument("--fetch", action="store_true", help="download a fresh list to TDLIST first")
-    ap.add_argument("--since", type=int, default=0, metavar="YEAR",
-                    help="only count players rated in YEAR or later")
+    ap.add_argument("--pool", choices=("game", "membership", "all"), default="game",
+                    help="who counts as a player (default: game)")
+    ap.add_argument("--years", type=int, default=5, metavar="N",
+                    help="how recent the pool has to be (default: 5)")
     a = ap.parse_args()
     if a.fetch:
         fetch(a.tdlist)
     if a.player:
-        report(load(a.tdlist), a.player, a.since)
+        report(load(a.tdlist), a.player, a.pool, a.years)
 
 
 if __name__ == "__main__":
