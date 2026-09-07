@@ -130,14 +130,37 @@ announcing it before play begins - only a handful of italicized clauses
 require a waiver, and the rules go out of their way to name this system
 as a recognized option: <em>"Mathews Accelerated system handicaps are
 defined within the system itself."</em></p>
-<p>The real reason is plumbing. AccelRat no longer interoperates with
-current AGA ratings software, so a director who uses it takes on extra
-work to get games submitted. Meanwhile <a
-href="https://www.opengotha.info/">OpenGotha</a> became the default
-across the West - it speaks the AGA's file formats, and it is what
-almost every North American tournament, including ours, is paired with.
-Being the thing that fits the pipeline beat being the thing with the
-better idea, which is not an unusual ending.</p>
+<p>So why did it stay a curiosity? Partly plumbing, though less than you
+would think. The AGA's own tournament resources page says flatly that
+<em>"Accelerate no longer works with AGA ratings software, and is no
+longer actively supported"</em> - and then, a few paragraphs later in
+its end-of-tournament checklist, tells directors <em>"if you use
+Accelrat or MGA GoTD you can generate a ratings report
+automatically."</em> Both sentences are on the same page.</p>
+<p>The second one is closer to the truth, because the barrier here is
+small by construction. The AGA's ratings submission format is, in its
+own words, <em>"so simple that, for a small number of games, you could
+just type the data as part of your e-mail message."</em> You send a
+<code>TOURNEY</code> line with name, dates and rules, a
+<code>PLAYERS</code> block of AGA ID / name / rank, and a
+<code>GAMES</code> block of white, black, winner, handicap stones, komi.
+That is nearly the shape AccelRat already writes. It is not a
+coincidence: Matthews spent twenty years as the AGA's ratings
+statistician, and the worked example in the AGA's own submission
+documentation uses "Matthews, Paul" as player 489. Whatever has drifted
+apart is a field mapping, not a wall.</p>
+<p>The larger reason is institutional. Swiss-McMahon has published AGA
+<strong>pairing protocol standards</strong> and a documented interface
+for programmers, and the AGA offers to certify programs against them.
+The accelerated system has no such document, so every director who
+wanted to run one was on his own, and every programmer building a
+pairing tool had a spec for one system and not the other. Meanwhile
+there is no shortage of pairing software - the AGA has at various times
+pointed directors at <a
+href="https://www.opengotha.info/">OpenGotha</a>, MGA GoTD, Go Clubs
+Online, WinTD, McMahon 3.3 and Agatha, and notes that it certifies none
+of them as "AGA compliant." Ranks won the tooling, and the tooling is
+what a tired TD reaches for at 9am on a Saturday.</p>
 <h2 id="the-point">The point</h2>
 <p>Discrete ranks are a presentation choice that hardened into an
 architecture. The arithmetic underneath them is already continuous - the
@@ -162,8 +185,14 @@ href="https://ffg.jeudego.org/echelle/aga-rating.txt">mirrored by the
 French Go Federation</a>. The sanctioning categories and the
 Accelerated-system handicap clause are in the <a
 href="https://www.cs.cmu.edu/~wjh/go/rules/tournrules.html">AGA
-Tournament Rules</a> adopted in 1988-89, sections I and VI.A. Usage
-figures were read off the GTR public tourney list on 2026-09-07.</p>
+Tournament Rules</a> adopted in 1988-89, sections I and VI.A. The
+submission format, the pairing-software list and both halves of the
+contradiction quoted above are on the AGA's <a
+href="https://www.usgo.org/tournament-resources">Tournament
+Resources</a> and <a
+href="https://www.usgo.org/qualifications-rated-games">ratings
+qualifications</a> pages. Usage figures were read off the GTR public
+tourney list on 2026-09-07.</p>
 <p><a href="index.html">Western Massachusetts Go Club</a></p>
 </body>
 </html>
