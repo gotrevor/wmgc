@@ -18,7 +18,7 @@ Nobody went 5-0. **Jeremy Chiu (8d)** and **Andrew Huang (5d)** finished 4-1 and
 
 👉 **[Read the tournament report](report.html)** - results, photos, and every prize sponsor who made it possible.
 
-📷 *Tournament photos by **Mari Oshima** - thank you, Mari!*
+📷 **[Photo album from the weekend](https://www.flickr.com/gp/marioshima/5E5CJ8KY70)** - shot and shared by **Mari Oshima**.
 
 ## Details
 
