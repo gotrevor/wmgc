@@ -2,7 +2,7 @@
 
 **September 4-6, 2026 &middot; Hopkinton Center for the Arts, Hopkinton MA.** 78 players, five rounds.
 
-[Full standings and cross-tabs](index.html#registered-players) &middot; [Round 5 cross-tab](crosstab-r5.html)
+[Full standings and cross-tabs](index.html#registered-players) &middot; [Round 5 cross-tab](crosstab-r5.html) &middot; [Rating changes](rating-changes.html)
 
 ---
 
