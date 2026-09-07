@@ -40,6 +40,10 @@ The same rulebook notes the contrast in a TD Tip: *"Remember in FIDE competition
 
 Go inherited the opposite convention.  Byo-yomi has been counted aloud by a timekeeper for as long as it has existed, so an audible clock is idiomatic rather than suspect, and Go clocks ship a low-time warning as a feature.  Same hardware, opposite answers about whether the equipment may tell you what it knows.
 
+**But what has changed is the time control itself.**  Byo-yomi is legacy now.  Many US Go tournaments have moved to **Fischer (bonus) time**, and every tournament I run uses it: the New England Open and the Mass State Championship are 40 minutes plus 15 seconds a move.  That changes the calculus, because the tradition that made an audible Go clock respectable was byo-yomi being counted out loud.  Under Fischer there is nothing to count.  There is no overtime period, no timekeeper, no ritual reading of "nine, ten" over your shoulder.  Main time simply runs down, and when it hits zero the game is over on time, exactly the sudden-death situation chess is regulating.  A warning beep in that setting is not an echo of an old custom; it is a machine telling the player who is behind on the clock that they are about to lose, which is precisely rule 16Y's "assisting players with time management."
+
+So the Go answer can no longer be settled by pointing at the byo-yomi tradition.  We have adopted the chess time control, and the question of what the clock is allowed to say has to be answered on its own merits.
+
 Which leaves a live question for our own events, and it is the reason this page exists: **should the clocks in a Go tournament warn you before your main time runs out?**  There is a real case on each side - the help of a warning against the quiet of a silent hall - and it is on the New England Open player survey.
 
 ---
