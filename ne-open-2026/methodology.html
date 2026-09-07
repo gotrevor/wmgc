@@ -138,29 +138,26 @@ dormant population, and it inflates every denominator.</p>
 <p>Column 9 settles it without much guesswork: <strong>played a rated game in the last five
 years</strong>. That is <strong>3,449 players</strong>, and it is the default here.</p>
 
-<p>Membership expiry (column 5) works as a proxy if you would rather use it - current, or lapsed
-within five years, is <strong>4,515 players</strong>. Worth knowing how the two relate: the game pool
-is entirely <em>inside</em> the membership pool. Nobody has played a rated game in five years without
-also having been a member in five years, and the extra 1,067 are people who kept paying without
-playing. So the membership filter is the same idea, one notch looser.</p>
-
 <table>
 <thead><tr><th>Player</th><th class="c">Band</th><th class="c">Played &lt;5 yrs<br>(3,449)</th>
-<th class="c">Member &lt;5 yrs<br>(4,515)</th><th class="c">Ever rated<br>(15,423)</th></tr></thead>
+<th class="c">Ever rated<br>(15,423)</th></tr></thead>
 <tbody>
 <tr><td>Micah Steinberg</td><td class="c">3k</td><td class="c">#2 weakest of 149</td>
-<td class="c">#2 weakest of 188</td><td class="c">#3 weakest of 562</td></tr>
+<td class="c">#3 weakest of 562</td></tr>
 <tr><td>Jeremy Chiu</td><td class="c">7d</td><td class="c"><strong>strongest of 52</strong></td>
-<td class="c">#2 of 82</td><td class="c">#3 of 260</td></tr>
+<td class="c">#3 of 260</td></tr>
 </tbody>
 </table>
 
-<p>None of these is wrong; they answer different questions, and the shape of the answer survives all
-three. Say which pool you used - that is the part that matters. The
-<a href="rating-changes.html">rating-changes writeup</a> quoted the whole-file numbers (562 and 260),
-which is the most conservative choice and needs no judgement about who is still playing; the
-five-year pool is the more honest one if you want to know where a player stands among people you
-could actually meet at a tournament.</p>
+<p>Both are true; they answer different questions, and the shape of the answer survives either. Say
+which pool you used - that is the part that matters. The five-year pool is the one used in the
+<a href="rating-changes.html">rating-changes writeup</a>, because "where does this player stand"
+means among people you could actually meet at a tournament.</p>
+
+<p>Membership expiry (column 5) would work as a proxy - current or lapsed within five years is 4,515
+players - but there is no reason to reach for it. It is strictly looser: every one of the 3,449 who
+played recently is also a recent member, and the extra 1,067 are people who pay dues without playing.
+The activity date is right there in column 9; use it.</p>
 
 <h2>6. The script</h2>
 
@@ -171,9 +168,8 @@ install. It downloads the list and answers the question:</p>
 <pre class="out">python3 aga-rank.py tdlist.tsv --fetch      # download today's list
 python3 aga-rank.py tdlist.tsv "Steinberg"  # by name (substring; prints every match)
 python3 aga-rank.py tdlist.tsv 17531        # by AGA id
-python3 aga-rank.py tdlist.tsv 17531 --pool membership   # pool by membership instead
-python3 aga-rank.py tdlist.tsv 17531 --pool all          # everyone ever rated
-python3 aga-rank.py tdlist.tsv 17531 --years 10          # widen the window</pre>
+python3 aga-rank.py tdlist.tsv 17531 --years 10   # widen the activity window
+python3 aga-rank.py tdlist.tsv 17531 --pool all   # everyone the AGA has ever rated</pre>
 
 <pre>#!/usr/bin/env python3
 &quot;&quot;&quot;Where does a player stand among everyone else at their rank?
@@ -266,29 +262,25 @@ def load(path):
 
 
 def active(players, pool, years):
-    &quot;&quot;&quot;The comparison pool.  &#x27;The country&#x27; is 15,000 people the AGA has ever
-    rated, most of whom stopped playing decades ago, so pick who counts:
-
-      game        played a rated game within `years`  (the real question)
-      membership  membership current, or expired within `years`  (a proxy)
-      all         everyone ever rated
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;The comparison pool.  &quot;The country&quot; is 15,000 people the AGA has ever
+    rated, two thirds of whom last played before 2010, so pick who counts:
+    &#x27;active&#x27; is anyone with a rated game inside `years`, &#x27;all&#x27; is everybody.
+    (Membership expiry would be a proxy for the same thing, and a worse one:
+    it admits 1,000-odd people who pay dues but do not play.)&quot;&quot;&quot;
     if pool == &quot;all&quot;:
         return players
     cutoff = datetime.date.today() - datetime.timedelta(days=365 * years)
-    key = &quot;last_game&quot; if pool == &quot;game&quot; else &quot;expires&quot;
-    return [p for p in players if p[key] and p[key] &gt;= cutoff]
+    return [p for p in players if p[&quot;last_game&quot;] and p[&quot;last_game&quot;] &gt;= cutoff]
 
 
-def report(players, who, pool=&quot;game&quot;, years=5):
+def report(players, who, pool=&quot;active&quot;, years=5):
     peers_pool = active(players, pool, years)
     hits = [p for p in players
             if p[&quot;id&quot;] == who or who.lower() in p[&quot;name&quot;].lower()]
     if not hits:
         sys.exit(&quot;no player matching %r&quot; % who)
-    label = {&quot;game&quot;: &quot;played in the last %d years&quot; % years,
-             &quot;membership&quot;: &quot;member within the last %d years&quot; % years,
-             &quot;all&quot;: &quot;ever rated&quot;}[pool]
+    label = (&quot;ever rated&quot; if pool == &quot;all&quot;
+             else &quot;played in the last %d years&quot; % years)
     for p in hits:
         band = rank_of(p[&quot;rating&quot;])
         peers = sorted(q[&quot;rating&quot;] for q in peers_pool if rank_of(q[&quot;rating&quot;]) == band)
@@ -312,8 +304,8 @@ def main():
     ap.add_argument(&quot;tdlist&quot;, help=&quot;path to a TDList .tsv snapshot&quot;)
     ap.add_argument(&quot;player&quot;, nargs=&quot;?&quot;, help=&quot;AGA id, or part of a name&quot;)
     ap.add_argument(&quot;--fetch&quot;, action=&quot;store_true&quot;, help=&quot;download a fresh list to TDLIST first&quot;)
-    ap.add_argument(&quot;--pool&quot;, choices=(&quot;game&quot;, &quot;membership&quot;, &quot;all&quot;), default=&quot;game&quot;,
-                    help=&quot;who counts as a player (default: game)&quot;)
+    ap.add_argument(&quot;--pool&quot;, choices=(&quot;active&quot;, &quot;all&quot;), default=&quot;active&quot;,
+                    help=&quot;who counts as a player (default: active)&quot;)
     ap.add_argument(&quot;--years&quot;, type=int, default=5, metavar=&quot;N&quot;,
                     help=&quot;how recent the pool has to be (default: 5)&quot;)
     a = ap.parse_args()

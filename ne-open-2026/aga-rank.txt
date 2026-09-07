@@ -89,29 +89,25 @@ def load(path):
 
 
 def active(players, pool, years):
-    """The comparison pool.  'The country' is 15,000 people the AGA has ever
-    rated, most of whom stopped playing decades ago, so pick who counts:
-
-      game        played a rated game within `years`  (the real question)
-      membership  membership current, or expired within `years`  (a proxy)
-      all         everyone ever rated
-    """
+    """The comparison pool.  "The country" is 15,000 people the AGA has ever
+    rated, two thirds of whom last played before 2010, so pick who counts:
+    'active' is anyone with a rated game inside `years`, 'all' is everybody.
+    (Membership expiry would be a proxy for the same thing, and a worse one:
+    it admits 1,000-odd people who pay dues but do not play.)"""
     if pool == "all":
         return players
     cutoff = datetime.date.today() - datetime.timedelta(days=365 * years)
-    key = "last_game" if pool == "game" else "expires"
-    return [p for p in players if p[key] and p[key] >= cutoff]
+    return [p for p in players if p["last_game"] and p["last_game"] >= cutoff]
 
 
-def report(players, who, pool="game", years=5):
+def report(players, who, pool="active", years=5):
     peers_pool = active(players, pool, years)
     hits = [p for p in players
             if p["id"] == who or who.lower() in p["name"].lower()]
     if not hits:
         sys.exit("no player matching %r" % who)
-    label = {"game": "played in the last %d years" % years,
-             "membership": "member within the last %d years" % years,
-             "all": "ever rated"}[pool]
+    label = ("ever rated" if pool == "all"
+             else "played in the last %d years" % years)
     for p in hits:
         band = rank_of(p["rating"])
         peers = sorted(q["rating"] for q in peers_pool if rank_of(q["rating"]) == band)
@@ -135,8 +131,8 @@ def main():
     ap.add_argument("tdlist", help="path to a TDList .tsv snapshot")
     ap.add_argument("player", nargs="?", help="AGA id, or part of a name")
     ap.add_argument("--fetch", action="store_true", help="download a fresh list to TDLIST first")
-    ap.add_argument("--pool", choices=("game", "membership", "all"), default="game",
-                    help="who counts as a player (default: game)")
+    ap.add_argument("--pool", choices=("active", "all"), default="active",
+                    help="who counts as a player (default: active)")
     ap.add_argument("--years", type=int, default=5, metavar="N",
                     help="how recent the pool has to be (default: 5)")
     a = ap.parse_args()
