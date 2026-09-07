@@ -20,6 +20,8 @@ Fourteen players won four games. Setting aside the top two, each of the rest col
 
 *The four-game winners, left to right: Ryan Horner 5k; Wyatt Ross 9k; Harvey Yu 3k; Robert Muschner 17k; Aris Tian 7k; Binyi Lu 14k; Trevor Morris (TD); Andrew Perry 17k; Micah Steinberg 4k; Mateo Velikonja 1k; Yihuan Ma 15k; Yinjia Li 18k.  ([the same photo without the names](4game-winners.jpg))*
 
+*Missing from the photo: **Jason Qi 3k**, who also won four games but was already on the road home.*
+
 Beyond the cash, **every single player went home with two prizes** - one from the Tier 1 table (retail value over $50) and one from Tier 2 (under $50). Tier 1 was anchored by Go boards and stones donated by **Bill Saltman** and **Read Predmore**; Tier 2 ran to books, T-shirts and the like. Players picked in finishing order, and the table stayed open until the last player had chosen.
 
 ## Our prize sponsors

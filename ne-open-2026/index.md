@@ -175,7 +175,7 @@ Registration for the 2026 event is closed. The 6th New England Go Open is planne
 <tr><td>Joe Chan</td><td class="num">32752</td><td>MGA</td><td>19k</td><td class="entry">19k</td><td></td><td class="muted">unrated</td><td class="num">907 (17.3k)</td><td class="num">8/8/2027</td></tr>
 <tr><td>Mari Oshima</td><td class="num">24882</td><td>BKLN</td><td>19k</td><td class="entry">19k</td><td></td><td class="num">-19.62 (19k)</td><td class="num">855 (18.7k)</td><td class="num">10/17/2027</td></tr>
 <tr><td>Brendan L Stratton</td><td class="num">31960</td><td>MEGO</td><td>24k</td><td class="entry">24k</td><td></td><td class="num">-24.48 (24k)</td><td class="num">647 (25.0k)</td><td class="num">8/1/2027</td></tr>
-<tr><td>Kendra Elliston</td><td class="num">30347</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>24k</td><td class="entry">24k</td><td></td><td class="num">-24.72 (24k)</td><td></td><td class="num flag-expired" title="Membership lapses on or before the last day of the tournament">8/30/2026</td></tr>
+<tr><td>Kendra Elliston</td><td class="num">30347</td><td>PVD</td><td>24k</td><td class="entry">24k</td><td></td><td class="num">-24.72 (24k)</td><td></td><td class="num">9/4/2027</td></tr>
 <tr><td>Jessa Deaubl</td><td class="num">32763</td><td class="flag-club" title="No AGA chapter on file - pick one, it costs nothing and it supports your local club">none</td><td>25k</td><td class="entry">25k</td><td></td><td class="muted">unrated</td><td class="num">406 (25.0k)&nbsp;&dagger;</td><td class="num">8/12/2027</td></tr>
 </tbody>
 </table>
