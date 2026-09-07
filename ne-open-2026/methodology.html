@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where does a player stand nationally? - method and code</title>
+<style>
+  body { max-width: 800px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, sans-serif; line-height: 1.6; color: #333; }
+  table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+  td, th { padding: 8px 12px; text-align: left; border: 1px solid #ddd; }
+  th { background: #f4f4f4; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2em 0; }
+  a { color: #0066cc; }
+  h2 { margin-top: 1.8em; }
+  td.c, th.c { text-align: center; white-space: nowrap; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums;
+               font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+  .note { background: #f7f9fa; border-left: 3px solid #14706e; padding: 10px 16px; margin: 1.2em 0; }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: 0.92em; }
+  pre { background: #f7f7f7; border: 1px solid #e2e2e2; border-radius: 4px;
+        padding: 12px 14px; overflow-x: auto; font-size: 0.82em; line-height: 1.45; }
+  pre.out { background: #fbfbfb; color: #444; }
+  footer { margin-top: 3em; padding-top: 14px; border-top: 1px solid #ddd;
+           font-size: 0.88em; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>Where does a player stand nationally?</h1>
+
+<p>Someone asked, after the <a href="rating-changes.html">NE Open rating-changes writeup</a>: <em>how
+did you check where players were with respect to other players in the country?</em> Short answer:
+the AGA publishes the whole national rating list, so it is a sort. This page is the long answer,
+with the code.</p>
+
+<h2>1. Get the list</h2>
+
+<p>The <strong>TDList</strong> is the AGA's list of every rated player - the same file OpenGotha
+downloads with its "Update AGA rating list" button. About 17,000 rows, ~1&nbsp;MB, free and public.
+Three variants: <code>A</code> (tab-separated, chapter short code), <code>B</code> (chapter full
+name), <code>N</code> (fixed width). Everything here uses A.</p>
+
+<p>The AGA's stable handle is <a href="https://www.usgo.org/TDListA">https://www.usgo.org/TDListA</a>.
+Two things will trip up a script:</p>
+
+<ul>
+<li><strong>It is not an HTTP redirect.</strong> <code>curl -L</code> follows nothing and hands back a
+21&nbsp;KB HTML page. The real endpoint is in a JavaScript redirect inside that page
+(<code>window.location.href='https://aga-membership-functions-&hellip;/api/GenerateTDListA'</code>).
+Resolve it at run time - that Azure hostname carries a random suffix and has already rotated once,
+which silently froze a lot of downstream copies for six months in 2026.</li>
+<li><strong>The default <code>urllib</code>/<code>curl</code> User-Agent gets a 403.</strong> Send a
+browser one.</li>
+</ul>
+
+<p>The list is a <em>snapshot</em>: it changes whenever the AGA runs ratings. So take one the night
+before your tournament and another after it is rated, keep both, and every "what changed" question
+answers itself later. The rating-changes page is exactly that diff, joined on AGA ID.</p>
+
+<h2>2. What is in a row</h2>
+
+<p>Nine tab-separated columns:</p>
+
+<table>
+<thead><tr><th class="c">#</th><th>Column</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td class="c">1</td><td>name (<code>Last, First</code>)</td><td>Chiu, Jeremy</td></tr>
+<tr><td class="c">2</td><td>AGA id</td><td class="n">17531</td></tr>
+<tr><td class="c">3</td><td>membership type</td><td>Adult Full</td></tr>
+<tr><td class="c">4</td><td><strong>rating</strong></td><td class="n">7.98574</td></tr>
+<tr><td class="c">5</td><td>date last rated</td><td class="n">9/7/2026</td></tr>
+<tr><td class="c">6</td><td>chapter</td><td>MASS</td></tr>
+<tr><td class="c">7</td><td>state</td><td>MA</td></tr>
+<tr><td class="c">8</td><td>sigma (rating uncertainty)</td><td class="n">0.61000</td></tr>
+<tr><td class="c">9</td><td>member since</td><td class="n">7/1/2005</td></tr>
+</tbody>
+</table>
+
+<p>The rating is the whole game. <strong>Blank</strong> means never rated - 1,736 of the 17,159 rows
+in the September&nbsp;7 list, mostly new members. Those are not players in this sense; drop them and
+you are left with <strong>15,423 rated players</strong>.</p>
+
+<h2>3. Rating to rank</h2>
+
+<p>The AGA scale is continuous, and it <strong>skips the open interval (-1, 1)</strong> - there is no
+zero. Positive is dan, negative is kyu, and the rank <strong>truncates toward zero</strong>:</p>
+
+<table>
+<thead><tr><th class="n">Rating</th><th class="c">Rank</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="n">7.98574</td><td class="c">7d</td><td>not 8d - truncation is the rule</td></tr>
+<tr><td class="n">4.98811</td><td class="c">4d</td><td>4.99 is emphatically a 4d</td></tr>
+<tr><td class="n">-3.99209</td><td class="c">3k</td><td>a 3k by eight thousandths</td></tr>
+</tbody>
+</table>
+
+<p>One consequence worth knowing if you subtract two ratings: a 1k&nbsp;&rarr;&nbsp;1d promotion is a
+raw change of about +2 for what is really a bit of movement across one boundary. To compare
+<em>differences</em>, shift dan ratings down by 2 so ranks index continuously (2k&nbsp;=&nbsp;-2,
+1k&nbsp;=&nbsp;-1, 1d&nbsp;=&nbsp;0, 2d&nbsp;=&nbsp;1). For the position question on this page it does
+not matter - sorting inside one band never crosses the gap.</p>
+
+<h2>4. Position inside the band</h2>
+
+<p>Filter the list to one rank, sort by rating, find the player. That is the entire method. Two
+results from the NE Open writeup, both from the September&nbsp;7 list:</p>
+
+<pre class="out">$ python3 aga-rank.py tdlist.tsv "Steinberg, Micah"
+Steinberg, Micah (30588)  -3.99209  3k
+   #3 of 562 3k players from the bottom (#560 from the top)
+   stronger than 9050 of 15423 rated players (58.7%)
+
+$ python3 aga-rank.py tdlist.tsv 17531
+Chiu, Jeremy (17531)  7.98574  7d
+   #258 of 260 7d players from the bottom (#3 from the top)
+   stronger than 15280 of 15423 rated players (99.1%)</pre>
+
+<p>Micah Steinberg was promoted by 0.06 of a point and is now the third-weakest 3k in the country -
+which is what a promotion looks like the day it happens. Jeremy Chiu went the other way through the
+same kind of boundary: fourth-weakest of 96 8d players going in, third-strongest of 260 7d players
+coming out, on a change of -0.046.</p>
+
+<h2>5. The catch: who counts as a player?</h2>
+
+<div class="note">
+<p>Those denominators - 562, 260, 15,423 - count <strong>everyone the AGA has ever rated</strong>.
+Only 3,632 of the 15,423 have been rated since the start of 2024. A national position over the full
+file is a comparison against a mostly-dormant population.</p>
+</div>
+
+<p>Restrict the pool to players rated in 2024 or later (<code>--since 2024</code>) and the same two
+players read differently:</p>
+
+<table>
+<thead><tr><th>Player</th><th class="c">Band</th><th class="c">All rated</th><th class="c">Rated since 2024</th></tr></thead>
+<tbody>
+<tr><td>Micah Steinberg</td><td class="c">3k</td><td class="c">#3 weakest of 562</td><td class="c">#2 weakest of 155</td></tr>
+<tr><td>Jeremy Chiu</td><td class="c">7d</td><td class="c">#3 strongest of 260</td><td class="c"><strong>strongest of 60</strong></td></tr>
+</tbody>
+</table>
+
+<p>Neither number is wrong; they answer different questions. The published writeup used the whole
+list, because "of every 7d the AGA has on file" needs no judgement call about who is still active,
+and a cutoff year is a judgement call. Say which pool you used - that is the part that matters.</p>
+
+<h2>6. The script</h2>
+
+<p><a href="aga-rank.py"><strong>aga-rank.py</strong></a> - Python 3.9+, standard library only, no
+install. It downloads the list and answers the question:</p>
+
+<pre class="out">python3 aga-rank.py tdlist.tsv --fetch      # download today's list
+python3 aga-rank.py tdlist.tsv "Steinberg"  # by name (substring; prints every match)
+python3 aga-rank.py tdlist.tsv 17531        # by AGA id
+python3 aga-rank.py tdlist.tsv 17531 --since 2024</pre>
+
+<pre>#!/usr/bin/env python3
+&quot;&quot;&quot;Where does a player stand among everyone else at their rank?
+
+Reads the AGA TDList - the rating list every tournament director already
+downloads - and reports a player&#x27;s position inside their own rank band.
+
+    python3 aga-rank.py tdlist.tsv --fetch          # download today&#x27;s list
+    python3 aga-rank.py tdlist.tsv &quot;Steinberg&quot;      # by name (substring)
+    python3 aga-rank.py tdlist.tsv 17531            # by AGA ID
+    python3 aga-rank.py tdlist.tsv 17531 --since 2024   # only recently-rated players
+
+Public domain / CC0.  Python 3.9+, standard library only.
+&quot;&quot;&quot;
+
+import argparse
+import csv
+import math
+import re
+import sys
+import urllib.request
+
+# The AGA&#x27;s stable handle for the tab-separated &quot;A&quot; variant of the list.  It is
+# NOT an HTTP redirect: usgo.org serves a page carrying a JavaScript redirect to
+# an Azure host whose name changes, so resolve it at runtime rather than pasting
+# the Azure URL anywhere.  That host also rejects a default urllib User-Agent.
+HANDLE = &quot;https://www.usgo.org/TDListA&quot;
+UA = (&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 &quot;
+      &quot;(KHTML, like Gecko) Chrome/126.0 Safari/537.36&quot;)
+
+
+def get(url, timeout=90):
+    req = urllib.request.Request(url, headers={&quot;User-Agent&quot;: UA})
+    return urllib.request.urlopen(req, timeout=timeout).read()
+
+
+def fetch(path):
+    page = get(HANDLE, timeout=30).decode(&quot;utf-8&quot;, &quot;replace&quot;)
+    m = re.search(r&quot;&quot;&quot;https://[^\s&#x27;&quot;]*GenerateTDList[A-Z]?&quot;&quot;&quot;, page)
+    if not m:
+        sys.exit(&quot;no GenerateTDList URL found on &quot; + HANDLE)
+    data = get(m.group(0))
+    if len(data) &lt; 100_000:          # a real list is ~1 MB; smaller means error page
+        sys.exit(&quot;suspiciously small download (%d bytes)&quot; % len(data))
+    open(path, &quot;wb&quot;).write(data)
+    print(&quot;wrote %s (%.1f MB) from %s&quot; % (path, len(data) / 1e6, m.group(0)))
+
+
+def rank_of(rating):
+    &quot;&quot;&quot;AGA rating -&gt; rank string.  Truncates toward zero: 4.99 is a 4d, not a 5d.
+    The scale has no 0: ratings run ... -2 (2k) -1 (1k) | 1 (1d) 2 (2d) ...&quot;&quot;&quot;
+    n = math.trunc(rating)
+    return &quot;%dd&quot; % n if rating &gt; 0 else &quot;%dk&quot; % -n
+
+
+def load(path):
+    &quot;&quot;&quot;Every row of the TDList that carries a rating.
+
+    Columns: name, AGA id, membership type, rating, rating date, chapter,
+    state, sigma, member-since.  A blank rating means the player has never
+    been rated - those rows are not players in this sense, so drop them.&quot;&quot;&quot;
+    out = []
+    for row in csv.reader(open(path, encoding=&quot;utf-8&quot;, errors=&quot;replace&quot;), delimiter=&quot;\t&quot;):
+        if len(row) &lt; 5 or not row[3].strip():
+            continue
+        try:
+            rating = float(row[3])
+        except ValueError:
+            continue
+        year = int(row[4].split(&quot;/&quot;)[-1]) if &quot;/&quot; in row[4] else 0
+        out.append({&quot;name&quot;: row[0], &quot;id&quot;: row[1], &quot;rating&quot;: rating, &quot;year&quot;: year})
+    return out
+
+
+def report(players, who, since=0):
+    pool = [p for p in players if p[&quot;year&quot;] &gt;= since]
+    hits = [p for p in players
+            if p[&quot;id&quot;] == who or who.lower() in p[&quot;name&quot;].lower()]
+    if not hits:
+        sys.exit(&quot;no player matching %r&quot; % who)
+    for p in hits:
+        band = rank_of(p[&quot;rating&quot;])
+        peers = sorted(q[&quot;rating&quot;] for q in pool if rank_of(q[&quot;rating&quot;]) == band)
+        if p[&quot;rating&quot;] not in peers:      # filtered out by --since
+            print(&quot;%s (%s): %s, excluded by --since %d&quot; % (p[&quot;name&quot;], p[&quot;id&quot;], band, since))
+            continue
+        pos = peers.index(p[&quot;rating&quot;]) + 1               # 1 = weakest in the band
+        weaker = sum(1 for q in pool if q[&quot;rating&quot;] &lt; p[&quot;rating&quot;])
+        print(&quot;%s (%s)  %.5f  %s&quot; % (p[&quot;name&quot;], p[&quot;id&quot;], p[&quot;rating&quot;], band))
+        print(&quot;   #%d of %d %s players from the bottom (#%d from the top)&quot;
+              % (pos, len(peers), band, len(peers) - pos + 1))
+        print(&quot;   stronger than %d of %d rated players (%.1f%%)&quot;
+              % (weaker, len(pool), 100.0 * weaker / len(pool)))
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument(&quot;tdlist&quot;, help=&quot;path to a TDList .tsv snapshot&quot;)
+    ap.add_argument(&quot;player&quot;, nargs=&quot;?&quot;, help=&quot;AGA id, or part of a name&quot;)
+    ap.add_argument(&quot;--fetch&quot;, action=&quot;store_true&quot;, help=&quot;download a fresh list to TDLIST first&quot;)
+    ap.add_argument(&quot;--since&quot;, type=int, default=0, metavar=&quot;YEAR&quot;,
+                    help=&quot;only count players rated in YEAR or later&quot;)
+    a = ap.parse_args()
+    if a.fetch:
+        fetch(a.tdlist)
+    if a.player:
+        report(load(a.tdlist), a.player, a.since)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</pre>
+
+<footer>
+<p>Written for the Western Mass Go Club, September 2026. Numbers on this page come from the AGA
+TDList pulled 2026-09-07 14:33 EDT, after the NE Open rating update. Do what you like with the code.
+&middot; <a href="rating-changes.html">Rating changes</a> &middot;
+<a href="report.html">Tournament report</a> &middot;
+<a href="index.html">NE Open 2026</a></p>
+</footer>
+
+</body>
+</html>
