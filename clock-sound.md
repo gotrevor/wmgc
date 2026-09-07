@@ -44,6 +44,12 @@ Go inherited the opposite convention.  Byo-yomi has been counted aloud by a time
 
 So the Go answer can no longer be settled by pointing at the byo-yomi tradition.  We have adopted the chess time control, and the question of what the clock is allowed to say has to be answered on its own merits.
 
+## The director's argument: a silent room has no ambiguity
+
+Here is the part I have lived through.  Two years ago I lost a game on time because I had not turned the sound on correctly, and at this year's New England Open the same thing happened to two more players.  A clock that is *expected* to beep is a clock whose silence gets read as working equipment, right up until someone's flag falls unannounced.
+
+That is the practical case for the chess convention, and it is a director's case.  When nobody expects sound, a misconfigured clock can never be blamed for failing to make any, and the TD's job gets much easier.  It is always heart-breaking to have to tell a player: *"I'm sorry that your clock did not make sound, but it's your responsibility to ensure that your clock is functioning properly.  Therefore, you lose on time."*  A rule of silence removes the whole conversation.
+
 Which leaves a live question for our own events, and it is the reason this page exists: **should the clocks in a Go tournament warn you before your main time runs out?**  There is a real case on each side - the help of a warning against the quiet of a silent hall - and it is on the New England Open player survey.
 
 ---
