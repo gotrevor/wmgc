@@ -8,15 +8,15 @@
 <p style="border:2px solid #1a4d80;border-radius:6px;padding:10px 14px;font-size:1.05em"><strong>Standings (cross-tab):</strong> <a href="crosstab-r1.html">Round 1</a> &middot; <a href="crosstab-r2.html">Round 2</a> &middot; <a href="crosstab-r3.html">Round 3</a> &middot; <a href="crosstab-r4.html">Round 4</a> &middot; <a href="crosstab-r5.html">Round 5</a></p>
 <!-- CROSSTAB:END -->
 
-## Save the Date: September 4-6, 2026
+## That's a wrap - 78 players, and thanks to all of you
 
 ---
 
-The 5th New England Go Open returns to the **Hopkinton Center for the Arts** in Hopkinton, MA over Labor Day weekend, Friday September 4 through Sunday September 6, 2026.
+The 5th New England Go Open ran September 4-6, 2026 at the **Hopkinton Center for the Arts** in Hopkinton, MA - **78 players**, five rounds, and the first NE Open to run all three days of Labor Day weekend.
 
-This is New England's premier annual Go tournament - a 5-round AGA-rated event open to all skill levels. Last year drew 77 players from across the country, making it the largest NE Open to date.
+Nobody went 5-0. **Jeremy Chiu (8d)** and **Andrew Huang (5d)** finished 4-1 and split the top two prizes; **Alisa Wu (7d)** took third on tiebreak out of a four-way logjam.
 
-👉 **[Register now](https://forms.gle/fM5yhhs6V3oEz6LQ9)** - standard rates through August 21, 2026; a 20% late fee applies after that.
+👉 **[Read the tournament report](report.html)** - results, photos, and every prize sponsor who made it possible.
 
 ## Details
 
@@ -30,15 +30,10 @@ This is New England's premier annual Go tournament - a 5-round AGA-rated event o
 
 ## Schedule
 
-**Registration deadlines**
-
-- **August 21** - last day for standard registration; a 20% late fee applies after this
-- **September 2** - registration closes
-
 **Friday, September 4**
 
 - 5:00pm - Site opens
-- Evening - Special event (last year: Michael Chen lecture)
+- Evening - Open play
 - 11:00pm - Wrap-up and reset for tomorrow
 - 11:59pm - Site closes
 
@@ -62,16 +57,7 @@ This is New England's premier annual Go tournament - a 5-round AGA-rated event o
 
 ## Registration
 
-Pre-registration is required.
-
-**[Register online here](https://forms.gle/fM5yhhs6V3oEz6LQ9)** (registration and payment info)
-
-**Deadlines**
-
-- **August 21** - last day for standard registration; a 20% late fee applies after this
-- **September 2** - registration closes
-
-Entry fees and payment details are on the registration form.
+Registration for the 2026 event is closed. The 6th New England Go Open is planned for Labor Day weekend 2027 - watch this page.
 
 ## Registered Players
 
