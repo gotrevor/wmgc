@@ -38,13 +38,11 @@ Most of that volume is Feng Yun 9p's Saturday class in New Jersey, which Matthew
 
 That is a real answer to the "it would never work in practice" objection.  It has worked in practice, at real weekend tournaments with prizes, for a long time.
 
-## Why it isn't how the AGA runs
+## Why isn't this how tournaments are run?
 
-Two reasons, neither of them "the idea is broken."
+Not because it isn't allowed.  A tournament director can pair a tournament however he likes and still have every game AGA-rated: the AGA's [qualifications for rated games](https://www.usgo.org/qualifications-rated-games) are about players knowing in advance that the game counts, playing without assistance, reasonable time controls, and a setting where an observer could verify the game really happened.  Pairing method is not on the list.  An **AGA-rated** tournament is one where the players are members and the results get submitted; agreeing to abide by the AGA's tournament rules is what makes an event **AGA-sanctioned**, a separate and stricter category.  And even under those rules a TD may override nearly any provision by announcing it before play begins - only a handful of italicized clauses require a waiver, and the rules go out of their way to name this system as a recognized option: *"Mathews Accelerated system handicaps are defined within the system itself."*
 
-The first is rules.  The AGA's tournament rules do not permit ratings-based pairing outright; the commentary to the rules says it in so many words - *"We can give waivers to permit something like Paul Mathews's Accelerated pairing system, which uses ratings instead of ranks.  It is probably premature to switch to ratings for all tournament pairings."*  So it runs by exception, one waiver at a time.
-
-The second is plumbing.  AccelRat no longer interoperates with the current AGA ratings software, so a director who uses it has extra work to get games submitted for rating.  Meanwhile [OpenGotha](https://www.opengotha.info/) became the default across the West - it speaks the AGA's file formats, and it is what almost every North American tournament, including ours, is paired with.  Being the thing that fits the pipeline beat being the thing with the better idea, which is not an unusual ending.
+The real reason is plumbing.  AccelRat no longer interoperates with current AGA ratings software, so a director who uses it takes on extra work to get games submitted.  Meanwhile [OpenGotha](https://www.opengotha.info/) became the default across the West - it speaks the AGA's file formats, and it is what almost every North American tournament, including ours, is paired with.  Being the thing that fits the pipeline beat being the thing with the better idea, which is not an unusual ending.
 
 ## The point
 
@@ -54,6 +52,6 @@ The wall a player crosses at 8.00 is not a fact about Go.  It is a fact about a 
 
 ---
 
-**Sources.**  Documentation and the live application: [accelrat.com](http://www.accelrat.com/) - see its *Background*, *Ratings*, *Pairings* and *Standings* pages; the pre-2005 algorithm pages (`PairAlg.htm`, `Prior.htm`) survive only in the [Internet Archive](https://web.archive.org/web/20101009034817/http://www.accelrat.com/PairAlg.htm).  Matthews' own summary of the rating system he built for the AGA, *Inside the AGA Rating System*, is [mirrored by the French Go Federation](https://ffg.jeudego.org/echelle/aga-rating.txt).  The waiver language is in the [AGA Tournament Rules](https://www.cs.cmu.edu/~wjh/go/rules/tournrules.html), section VI and its commentary.  Usage figures were read off the GTR public tourney list on 2026-09-07.
+**Sources.**  Documentation and the live application: [accelrat.com](http://www.accelrat.com/) - see its *Background*, *Ratings*, *Pairings* and *Standings* pages; the pre-2005 algorithm pages (`PairAlg.htm`, `Prior.htm`) survive only in the [Internet Archive](https://web.archive.org/web/20101009034817/http://www.accelrat.com/PairAlg.htm).  Matthews' own summary of the rating system he built for the AGA, *Inside the AGA Rating System*, is [mirrored by the French Go Federation](https://ffg.jeudego.org/echelle/aga-rating.txt).  The sanctioning categories and the Accelerated-system handicap clause are in the [AGA Tournament Rules](https://www.cs.cmu.edu/~wjh/go/rules/tournrules.html) adopted in 1988-89, sections I and VI.A.  Usage figures were read off the GTR public tourney list on 2026-09-07.
 
 [Western Massachusetts Go Club](index.html)
