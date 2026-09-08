@@ -29,6 +29,7 @@ import getpass
 import os
 import shutil
 import subprocess
+import urllib.parse
 import sys
 import tempfile
 
@@ -191,6 +192,15 @@ def run_lftp(host, user, password, commands):
     if stderr:
         print(stderr, end="", file=sys.stderr)
 
+    # lftp exits 0 even when individual commands fail ("Access failed: 550 ...").
+    # Treat any per-command failure as failure, so callers cannot report a false
+    # success for a delete that never happened.
+    combined = stdout + stderr
+    failed = [ln for ln in combined.splitlines()
+              if "Access failed" in ln or ln.startswith("rm: ")]
+    if failed:
+        return False
+
     return result.returncode == 0
 
 
@@ -252,6 +262,10 @@ def clean_orphans(args):
             path = rest
             if path.startswith(remote):
                 path = path[len(remote):].lstrip("/")
+        # lftp prints FTP URLs, so the path is percent-encoded; a filename with a
+        # space arrives as "foo%20bar" and the delete would look for that literal
+        # name and fail with 550.
+        path = urllib.parse.unquote(path)
         orphans.append({"path": path, "is_dir": is_dir})
 
     # Filter by scope
